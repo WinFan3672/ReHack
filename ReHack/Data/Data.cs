@@ -34,11 +34,11 @@ namespace ReHack.Data
 
         public static Port GetPort(string PortID)
         {
-            foreach (Port P in Ports)
+            foreach (Port Service in Ports)
             {
-                if (P.ServiceID == PortID)
+                if (Service.ServiceID == PortID)
                 {
-                    return P;
+                    return Service;
                 }
             }
             throw new Exception("Invalid port");
@@ -61,5 +61,7 @@ namespace ReHack.Data
             }
             PrintUtils.Divider();
         }
+
+        public static List<string> BannedUsernames = new List<string> { "admin", "root" };
     }
 }

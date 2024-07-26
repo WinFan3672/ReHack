@@ -77,6 +77,11 @@ namespace ReHack.BaseMethods
             this.Subject = Subject;
             this.Content = Content;
         }
+
+        public bool Send()
+        {
+            return false;
+        }
     }
 
     public class Port {

@@ -11,7 +11,7 @@ namespace ReHack.Node.MailServer
         
         private int EmailIndex = 0;
 
-        public MailAccount(string Username, string Address, string Password) {
+        public MailAccount(string Username, string Address, string? Password) {
             this.Username = Username; 
             this.Address = Address;
             this.Password = Password;
@@ -34,26 +34,29 @@ namespace ReHack.Node.MailServer
     }
 
     public class MailServer : BaseNode {
-        private int AccountIndex = 0;
-
-        public MailAccount[] Accounts {get; }
-        public MailServer(string Name, string UID, string Address) : base(Name, UID, Address, new User[] { new User("root", null, true) }) {
-            this.Accounts = new MailAccount[1024];
+        public List<MailAccount> Accounts {get; } = new List<MailAccount>();
+        public MailServer(string Name, string UID, string Address, string? AdminPassword=null) : base(Name, UID, Address, new User[] { new User("root", null, true) }) {
             this.Ports.Add(GameData.GetPort("smtp"));
+            CreateMailAccount("admin", AdminPassword);
         }
 
-        public MailAccount CreateMailAccount(string Username, string Password)
+        public MailAccount CreateMailAccount(string Username, string? Password)
         {
             MailAccount Account = new MailAccount(Username, this.Address, Password);
-            if (this.AccountIndex < this.Accounts.Length)
+            this.Accounts.Add(Account);
+            return Account;
+        }
+
+        public void DebugAccounts()
+        {
+            PrintUtils.Divider();
+            Console.WriteLine($"Mail Accounts for {this.Name}");
+            PrintUtils.Divider();
+            foreach (MailAccount Account in this.Accounts)
             {
-                Accounts[this.AccountIndex] = Account;
-                this.AccountIndex++;
-                return Account;
+                Console.WriteLine($"{Account.Username}:{Account.Password}");
             }
-            else {
-                throw new Exception("Too many accounts");
-            }
+            PrintUtils.Divider();
         }
     }
 }
