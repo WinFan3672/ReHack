@@ -7,6 +7,7 @@ namespace ReHack.Node {
         public string Address {get; set; }
         public User[] Users{get; set; }
         public List<Port> Ports {get; }
+        public Dictionary<string, bool> Programs {get; }
 
         public BaseNode(string Name, string UID, string Address, User[] Users)
         {
@@ -15,10 +16,14 @@ namespace ReHack.Node {
             this.Address = Address;
             this.Users = Users;
             this.Ports = new List<Port>();
+            this.Programs = new Dictionary<string, bool>();
         }
 
         public Port GetPort(string PortID)
         {
+            /// <summary>
+            /// Returns a port in the port list
+            /// </summary>
             foreach (Port Service in this.Ports)
             {
                 if (Service.ServiceID == PortID)

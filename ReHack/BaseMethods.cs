@@ -1,3 +1,4 @@
+using System.Text;
 using ReHack.Data;
 using ReHack.Node;
 
@@ -33,6 +34,19 @@ namespace ReHack.BaseMethods
             }
             throw new Exception("Invalid node");
         }
+
+        public static bool CheckPort(BaseNode Client, string ServiceID)
+        {
+            Port CheckService = GameData.GetPort(ServiceID);
+            foreach(Port Service in Client.Ports)
+            {
+                if (Service.ServiceID == CheckService.ServiceID)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
     }
 
     public class User {
@@ -58,6 +72,54 @@ namespace ReHack.BaseMethods
             /// Returns a random password that the game *can* brute-force.
             /// </summary>
             return "root"; // Just a stub
+        }
+        
+        public static bool IsUsernameBanned(string Username)
+        {
+            foreach (string Banned in GameData.BannedUsernames)
+            {
+                if (Username.ToLower() == Banned.ToLower())
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public static (string, string) GetCredentials(bool BanCheck=true)
+        {
+            /// <summary>
+            /// Asks the user to enter a name and password. The BanCheck value dictates whether to check GameData.BannedUsernames
+            /// </summary>
+            bool Banned;
+            string Username;
+            string Password = "";
+            while (true)
+            {
+                Banned = false;
+                Console.Write("Enter A Username $");
+                Username = Console.ReadLine().ToLower();
+                if (BanCheck)
+                {
+                    if (IsUsernameBanned(Username))
+                    {
+                        Banned = true;
+                        Console.WriteLine("ERROR: You can't have that username.");
+                    }
+                }
+                if (!Banned)
+                {
+                    break;
+                }
+
+            }
+
+            while (Password == "")
+            {
+                Console.Write("Enter A Password $");
+                Password = PrintUtils.ReadPassword();
+            }
+            return (Username, Password);
         }
     }
 
@@ -107,6 +169,35 @@ namespace ReHack.BaseMethods
         public static void Divider()
         {
             Console.WriteLine("--------------------");
+        }
+
+        public static string ReadPassword()
+        {
+            /// <summary>
+            /// Basic password entry function. Reads passwords from stdin, showing asterisks 
+            /// </summary>
+            StringBuilder password = new StringBuilder();
+            while (true)
+            {
+                var key = Console.ReadKey(intercept: true);
+
+                if (key.Key == ConsoleKey.Enter)
+                {
+                    break;
+                }
+                else if (key.Key == ConsoleKey.Backspace && password.Length > 0)
+                {
+                    password.Length--;
+                    Console.Write("\b \b"); // Erase the last * from the console
+                }
+                else if (!char.IsControl(key.KeyChar))
+                {
+                    password.Append(key.KeyChar);
+                    Console.Write('\u2022');
+                }
+            }
+            Console.WriteLine();
+            return password.ToString();
         }
     }
 }
