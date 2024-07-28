@@ -45,5 +45,17 @@ namespace ReHack.Node {
                 PrintUtils.Divider();
             }
         }
+
+		public User GetUser(string Username)
+		{
+			foreach (User Person in this.Users)
+			{
+				if (Username == Person.Username)
+				{
+					return Person;
+				}
+			}
+			throw new Exception("Invalid username");
+		}
     }
 }

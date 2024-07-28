@@ -20,9 +20,6 @@ class Program
 
         PlayerNode Player = new PlayerNode(Details.Item1, Details.Item2);
         GameData.AddNode(Player);
-        Player.Ports.Add(GameData.GetPort("rehack"));
-        Player.Ports.Add(GameData.GetPort("ssh"));
-
-        SSHClient.Program(Player);
+        SSHClient.Program(Player, Player.GetUser(Details.Item1), true, false);
     }
 }

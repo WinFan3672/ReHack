@@ -63,6 +63,7 @@ namespace ReHack.BaseMethods
             this.Password = Password;
             this.Privileged = Privileged;
         }
+
     }
 
     public static class UserUtils
@@ -193,11 +194,51 @@ namespace ReHack.BaseMethods
                 else if (!char.IsControl(key.KeyChar))
                 {
                     password.Append(key.KeyChar);
-                    Console.Write('\u2022');
+                    /*Console.Write('\u2022');*/
+					Console.Write("*");
                 }
             }
             Console.WriteLine();
             return password.ToString();
         }
+
+		private static string GetAgreeString(bool DefaultAgree)
+		{
+			if (DefaultAgree)
+			{
+				return "[Y/n]";
+			}
+			else
+			{
+				return "[y/N]";
+			}
+			
+		}
+			
+		public static bool Confirm(string Message, bool DefaultAgree=true)
+		{
+			string Confirmation;
+			while (true)
+			{
+				Console.Write($"{Message} {GetAgreeString(DefaultAgree)} $");
+				Confirmation = Console.ReadLine().ToLower();
+				if (Confirmation == "y")
+				{
+					return true;
+				}
+				else if (Confirmation == "n")
+				{
+					return false;
+				}
+				else if (Confirmation == "")
+				{
+					return DefaultAgree;
+				}
+				else {
+					Console.WriteLine("ERROR: Invalid choice.");
+					return Confirm(Message, DefaultAgree);
+				}
+			}
+		}
     }
 }

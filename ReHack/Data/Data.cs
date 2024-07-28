@@ -8,7 +8,7 @@ namespace ReHack.Data
         public static List<BaseNode> Nodes { get; } = new List<BaseNode>();
 
         public static List<Port> Ports {get; } = new List<Port> { 
-            new Port("Local Area Network Router", "lan", 1),
+            /*new Port("Local Area Network Router", "lan", 1),*/
             new Port("FTP", "ftp", 21),
             new Port("SSH", "ssh", 22),
             new Port("Mail Server (SMTP)", "smtp", 25),
