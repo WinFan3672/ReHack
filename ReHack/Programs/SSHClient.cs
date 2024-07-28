@@ -1,4 +1,5 @@
 using ReHack.Data;
+using ReHack.Data.Programs;
 using ReHack.BaseMethods;
 using ReHack.Node;
 
@@ -6,6 +7,27 @@ namespace ReHack.Programs.SSHClient
 {
     public static class SSHClient
     {
+		public static void RunCommand(BaseNode Client, string Command)
+		{
+			string[] CommandPlusArgs = Command.Split(" ");
+
+			if (CommandPlusArgs.Length == 0)
+			{
+				return;
+			}
+
+			string CommandName = CommandPlusArgs[0];
+			string[] Args = CommandPlusArgs.Skip(1).ToArray();
+
+			if (Client.ListPrograms().Contains(CommandName))
+			{
+				var Program = ProgramData.GetProgram(CommandName);
+				Program.Method(Args, Client);
+			}
+			else {
+				Console.WriteLine("ERROR: Bad command or file name.");
+			}
+		}
 		private static bool Authenticate(BaseNode Client, string Username)
 		{
 			User Person = Client.GetUser(Username);
@@ -13,13 +35,13 @@ namespace ReHack.Programs.SSHClient
 			string Password = PrintUtils.ReadPassword();
 			return Password == Person.Password;
 		}
-        private static void ServiceRunner(BaseNode Client, User Person, bool ConfirmExit=false, bool DoAuthenticate = true)
+        public static void ServiceRunner(BaseNode Client, User Person, bool ConfirmExit=false, bool DoAuthenticate = true)
         {
 			if (DoAuthenticate)
 			{
 				if (!Authenticate(Client, Person.Username))
 				{
-					Console.WriteLine("Permission denied (password).");
+					Console.WriteLine("Permission denied (password)");
 					return;
 				}
 			}
@@ -36,17 +58,77 @@ namespace ReHack.Programs.SSHClient
 					}
                 }
                 else {
+					RunCommand(Client, Input);
                 }
             }
         }
-        public static bool Program(BaseNode Client, User Person, bool ConfirmExit=false, bool DoAuthenticate=true)
-        {
-            if (NodeUtils.CheckPort(Client, "ssh"))
-            {
-                ServiceRunner(Client, Person, ConfirmExit, DoAuthenticate);
-                return true;
-            }
-            return false;
-        }
+		private static bool Check(BaseNode Client, string Username)
+		{
+			return NodeUtils.CheckPort(Client, "ssh") && Authenticate(Client, Username);
+		}
+		private static void ShowUsage()
+		{
+				Console.WriteLine("usage: ssh [user]@[hostname]");
+		}
+		public static bool Program(string[] Args, BaseNode Player)
+		{
+			if (Args.Length == 1)
+			{
+				if (!Args[0].Contains("@"))
+				{
+					ShowUsage();
+					return false;
+				}
+				
+				string[] UserAndHost = Args[0].Split("@");
+
+				if (UserAndHost.Length != 2)
+				{
+					ShowUsage();
+					return false;
+				}
+
+				string Username = UserAndHost[0];
+				string Hostname = UserAndHost[1];
+					
+				BaseNode Host;
+
+				try
+				{
+					Host = NodeUtils.GetNode(Hostname);
+				}
+				catch
+				{
+					Console.WriteLine("error: Invalid hostname");
+					return false;
+				}
+
+				if (!NodeUtils.CheckPort(Host, "ssh"))
+				{
+					Console.WriteLine("error: Connection refused");
+					return false;
+				}
+					
+				User HostUser;
+
+				try
+				{
+					HostUser = Host.GetUser(Username);
+				}
+				catch
+				{
+					Console.WriteLine("error: Server reported invalid user");
+					return false;
+				}
+
+				ServiceRunner(Host, HostUser);
+				return true;
+			}
+			else
+			{
+				ShowUsage();
+				return false;
+			}
+		}
     }
 }

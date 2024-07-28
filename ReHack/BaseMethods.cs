@@ -50,6 +50,16 @@ namespace ReHack.BaseMethods
             }
             return false;
         }
+
+	public static List<string> GetAddressList()
+	{
+		List<string> Addresses = new List<string>();
+		foreach(BaseNode Node in GameData.Nodes)
+		{
+			Addresses.Add(Node.Address);
+		}
+		return Addresses;
+	}
     }
 
     public class User {
@@ -252,11 +262,35 @@ namespace ReHack.BaseMethods
 			var assembly = Assembly.GetExecutingAssembly();
 			string Name = $"ReHack.Embedded.{Filename}";
 
-			using (var stream = assembly.GetManifestResourceStream(Name))
-			using (var reader = new StreamReader(stream))
+			using (var Stream = assembly.GetManifestResourceStream(Name))
 			{
-				return reader.ReadToEnd();
+				return new StreamReader(Stream).ReadToEnd();
 			}
 		}
 	}
+	
+	public delegate bool ProgramDelegate(string[] Args, BaseNode Player);
+
+	public class ProgramDefinition
+	{
+		public string Name {get; set; }
+		public string Description {get; set; }
+		public ProgramDelegate Method {get; set; }
+
+		public ProgramDefinition(string Name, string Description, ProgramDelegate Method)
+		{
+			this.Name = Name;
+			this.Description = Description;
+			this.Method = Method;
+		}
+	}
+
+	public static class DebugUtils
+	{
+		public static bool IsDebug()
+		{
+			return System.Environment.GetEnvironmentVariables().Contains("REHACK_DEBUG");
+		}
+	}
+
 }

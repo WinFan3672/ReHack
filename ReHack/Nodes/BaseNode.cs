@@ -1,4 +1,6 @@
 using ReHack.BaseMethods;
+using ReHack.Data;
+using ReHack.Data.Programs;
 
 namespace ReHack.Node {
     public class BaseNode {
@@ -7,7 +9,8 @@ namespace ReHack.Node {
         public string Address {get; set; }
         public User[] Users{get; set; }
         public List<Port> Ports {get; }
-        public Dictionary<string, bool> Programs {get; }
+	public List<ProgramDefinition> Programs {get; } = new List<ProgramDefinition>();
+	public List<string> Manpages {get; } = new List<string>();
 
         public BaseNode(string Name, string UID, string Address, User[] Users)
         {
@@ -16,8 +19,25 @@ namespace ReHack.Node {
             this.Address = Address;
             this.Users = Users;
             this.Ports = new List<Port>();
-            this.Programs = new Dictionary<string, bool>();
+
+	    this.Init();
         }
+	
+	public void Init()
+	{
+		/// <summary>
+		/// Initialisation function.
+		/// </summary>
+		foreach(string Program in GameData.DefaultPrograms)
+		{
+			this.AddProgram(Program);
+		}
+
+		foreach(string Manpage in GameData.DefaultManpages)
+		{
+			this.Manpages.Add(Manpage);
+		}
+	}
 
         public Port GetPort(string PortID)
         {
@@ -46,16 +66,42 @@ namespace ReHack.Node {
             }
         }
 
-		public User GetUser(string Username)
+	public User GetUser(string Username)
+	{
+		foreach (User Person in this.Users)
 		{
-			foreach (User Person in this.Users)
+			if (Username == Person.Username)
 			{
-				if (Username == Person.Username)
-				{
-					return Person;
-				}
+				return Person;
 			}
-			throw new Exception("Invalid username");
 		}
+		throw new Exception("Invalid username");
+	}
+
+	public void AddProgram(string ProgramName)
+	{
+		ProgramDefinition Program = ProgramData.GetProgram(ProgramName);
+		this.Programs.Add(Program);
+	}
+
+	public List<string> ListPrograms()
+	{
+		List<string> Programs = new List<string>();
+		foreach (var Program in this.Programs)
+		{
+			Programs.Add(Program.Name);
+		}
+		return Programs;
+	}
+
+	public List<string> ListManpages()
+	{
+		List<string> Manpages = new List<string>();
+		foreach (string Manpage in this.Manpages)
+		{
+			Manpages.Add(Manpage);
+		}
+		return Manpages;
+	}
     }
 }

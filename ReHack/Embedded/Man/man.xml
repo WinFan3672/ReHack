@@ -1,0 +1,6 @@
+<Manpage>
+	<Title>man</Title>
+	<Description>Manual viewer</Description>
+		<Section title="Summary">Man is a manpage viewer. It allows you to view documentation for various commands.</Section>
+		<Section title="Usage">To view a manpage, run `man [manpage]`. For a list of available manpages, run `lsman`.</Summary>
+</Manpage>

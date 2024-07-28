@@ -14,10 +14,27 @@ namespace ReHack.Welcome {
 			/// <summary>
 			/// Starts the game by creating a player node and SSH'ing into it without authenticating.
 			/// </summary>
-			var Details = UserUtils.GetCredentials();
+			
+			if (Console.IsOutputRedirected)
+			{
+				Console.WriteLine("ERROR: ReHack must be running in a terminal.");
+				return;
+			}
+			
+			(string, string) Details;
+
+			if (DebugUtils.IsDebug())
+			{
+				Details = ("gordinator", "root");
+			}
+			else
+			{
+				Details = UserUtils.GetCredentials();
+			}
 			PlayerNode Player = new PlayerNode(Details.Item1, Details.Item2);
+			GameData.AddNode(Player);
 			User PlayerUser = Player.GetUser(Details.Item1);
-			SSHClient.Program(Player, PlayerUser, true, false);
+			SSHClient.ServiceRunner(Player, PlayerUser, !DebugUtils.IsDebug(), false);
 		}
 	}
 }
