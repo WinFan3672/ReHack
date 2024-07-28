@@ -51,13 +51,33 @@ namespace ReHack.Programs.Apt
 				Console.WriteLine("Successfully removed program.");
 				return true;
 			}
+			else if (Args.Contains("list") && Args.Contains("installed") && Args.Length == 2)
+			{
+				List<string> Packages = GetRepo().ListPackages();
+				foreach(string Program in Client.InstalledPrograms)
+				{
+					if (Packages.Contains(Program))
+					{
+						Console.WriteLine(Program);
+					}
+				}
+				return true;
+			}
+			else if (Args.Contains("list") && Args.Contains("remote") && Args.Length == 2)
+			{
+				foreach(string Program in GetRepo().ListPackages())
+				{
+					Console.WriteLine(Program);
+				}
+				return true;
+			}
 			else
 			{
 				Console.WriteLine("usage: apt [subcommand] [options[...]]");
 				Console.WriteLine("Subcommands:");
 				Console.WriteLine("\tinstall [package] - Installs a package");
 				Console.WriteLine("\tremove [package] - Removes a package");
-				Console.WriteLine("\tlist [--remote/--installed] - Lists packages that are installed/available remotely");
+				Console.WriteLine("\tlist [remote/installed] - Lists packages that are installed/available remotely");
 				return false;
 			}
 		}
