@@ -11,6 +11,7 @@ namespace ReHack.Node {
         public List<Port> Ports {get; }
 	public List<ProgramDefinition> Programs {get; } = new List<ProgramDefinition>();
 	public List<string> Manpages {get; } = new List<string>();
+	public List<string> InstalledPrograms {get;} = new List<string>();
 
         public BaseNode(string Name, string UID, string Address, User[] Users)
         {

@@ -58,7 +58,7 @@ namespace ReHack.Data
 			PrintUtils.Divider();
 			foreach (var Node in Nodes)
 			{
-				Console.WriteLine($"{Node.UID} = {Node.Name} = {Node.Address}");
+				Console.WriteLine($"{Node.UID} = {Node.Address}");
 			}
 			PrintUtils.Divider();
 		}

@@ -7,7 +7,7 @@ namespace ReHack.Programs.SSHClient
 {
     public static class SSHClient
     {
-		public static void RunCommand(BaseNode Client, string Command)
+		public static void RunCommand(BaseNode Client, string Command, User RunningUser)
 		{
 			string[] CommandPlusArgs = Command.Split(" ");
 
@@ -22,7 +22,7 @@ namespace ReHack.Programs.SSHClient
 			if (Client.ListPrograms().Contains(CommandName))
 			{
 				var Program = ProgramData.GetProgram(CommandName);
-				Program.Method(Args, Client);
+				Program.Method(Args, Client, RunningUser);
 			}
 			else {
 				Console.WriteLine("ERROR: Bad command or file name.");
@@ -58,7 +58,7 @@ namespace ReHack.Programs.SSHClient
 					}
                 }
                 else {
-					RunCommand(Client, Input);
+					RunCommand(Client, Input, Person);
                 }
             }
         }
@@ -70,7 +70,7 @@ namespace ReHack.Programs.SSHClient
 		{
 				Console.WriteLine("usage: ssh [user]@[hostname]");
 		}
-		public static bool Program(string[] Args, BaseNode Player)
+		public static bool Program(string[] Args, BaseNode Player, User RunningUser)
 		{
 			if (Args.Length == 1)
 			{
@@ -95,11 +95,11 @@ namespace ReHack.Programs.SSHClient
 
 				try
 				{
-					Host = NodeUtils.GetNode(Hostname);
+					Host = NodeUtils.GetNodeByAddress(Hostname);
 				}
 				catch
 				{
-					Console.WriteLine("error: Invalid hostname");
+					Console.WriteLine($"error: Invalid hostname ({Hostname})");
 					return false;
 				}
 

@@ -4,6 +4,7 @@ using ReHack.Node.Player;
 using ReHack.BaseMethods;
 using ReHack.Data;
 using ReHack.Programs.SSHClient;
+using ReHack.Data.Nodes;
 
 namespace ReHack.Welcome {
 	public static class WelcomeSequence
@@ -34,6 +35,7 @@ namespace ReHack.Welcome {
 			PlayerNode Player = new PlayerNode(Details.Item1, Details.Item2);
 			GameData.AddNode(Player);
 			User PlayerUser = Player.GetUser(Details.Item1);
+			NodeData.Init();
 			SSHClient.ServiceRunner(Player, PlayerUser, !DebugUtils.IsDebug(), false);
 		}
 	}

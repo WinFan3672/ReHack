@@ -38,6 +38,18 @@ namespace ReHack.BaseMethods
             throw new Exception("Invalid node");
         }
 
+	public static BaseNode GetNodeByAddress(string Address)
+	{
+		foreach(BaseNode Node in GameData.Nodes)
+		{
+			if (Node.Address == Address)
+			{
+				return Node;
+			}
+		}
+		throw new Exception("Invalid node");
+	}
+
         public static bool CheckPort(BaseNode Client, string ServiceID)
         {
             Port CheckService = GameData.GetPort(ServiceID);
@@ -269,7 +281,7 @@ namespace ReHack.BaseMethods
 		}
 	}
 	
-	public delegate bool ProgramDelegate(string[] Args, BaseNode Player);
+	public delegate bool ProgramDelegate(string[] Args, BaseNode Player, User RunningUser);
 
 	public class ProgramDefinition
 	{

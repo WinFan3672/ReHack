@@ -5,7 +5,7 @@ using ReHack.Data.Programs;
 namespace ReHack.Programs.Help {
 	public static class HelpClient
 	{
-		public static bool Program(string[] Args, BaseNode Client)
+		public static bool Program(string[] Args, BaseNode Client, User RunningUser)
 		{
 			PrintUtils.Divider();
 			Console.WriteLine("Program List");

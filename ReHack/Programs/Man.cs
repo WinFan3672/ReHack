@@ -13,7 +13,7 @@ namespace ReHack.Programs.Man
 			XmlDocument Doc = new XmlDocument();
 			string Raw = FileUtils.GetFileContents($"Man/{Manpage}.xml");
 		}
-		public static bool ListProgram(string[] Args, BaseNode Client)
+		public static bool ListProgram(string[] Args, BaseNode Client, User RunningUser)
 		{
 			foreach (string Manpage in Client.ListManpages())
 			{
@@ -21,7 +21,7 @@ namespace ReHack.Programs.Man
 			}
 			return true;
 		}
-		public static bool Program(string[] Args, BaseNode Client)
+		public static bool Program(string[] Args, BaseNode Client, User RunningUser)
 		{
 			if (Args.Length == 1)
 			{

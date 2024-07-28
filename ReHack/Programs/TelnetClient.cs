@@ -9,7 +9,6 @@ namespace ReHack.Programs.TelnetClient
     {
 		private static void ServiceRunner(BaseNode Client, User Person)
 		{
-			/*SSHClient.Program(Client, Person, false, false);*/
 		}
         public static bool Program(BaseNode Client)
         {
