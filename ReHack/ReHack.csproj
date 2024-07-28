@@ -7,6 +7,6 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
     <ItemGroup>
-		<EmbeddedResource Include="Embedded/*" />
-    </ItemGroup>
+		<EmbeddedResource Include="Embedded/**/*.*" />
+	</ItemGroup>
 </Project>

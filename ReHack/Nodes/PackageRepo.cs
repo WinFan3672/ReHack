@@ -15,6 +15,28 @@ namespace ReHack.Node.PackageRepo
 			this.Ports.Add(GameData.GetPort("ssh"));
 			this.Ports.Add(GameData.GetPort("ftp"));
 		}
+
+		public List<string> ListPackages()
+		{
+			List<string> Packages = new List<string>();
+			foreach(Package Item in this.Packages)
+			{
+				Packages.Add(Item.Name);
+			}
+			return Packages;
+		}
+
+		public Package GetPackage(string Name)
+		{
+			foreach (Package Item in this.Packages)
+			{
+				if (Name == Item.Name)
+				{
+					return Item;
+				}
+			}
+			throw new Exception("Invalid package");
+		}
 	}
 
 	public class Package

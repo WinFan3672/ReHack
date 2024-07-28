@@ -83,6 +83,14 @@ namespace ReHack.Node {
 	{
 		ProgramDefinition Program = ProgramData.GetProgram(ProgramName);
 		this.Programs.Add(Program);
+		this.InstalledPrograms.Add(Program.Name);
+	}
+
+	public void RemoveProgram(string ProgramName)
+	{
+		ProgramDefinition Program = ProgramData.GetProgram(ProgramName);
+		this.Programs.Remove(Program);
+		this.InstalledPrograms.Remove(Program.Name);
 	}
 
 	public List<string> ListPrograms()

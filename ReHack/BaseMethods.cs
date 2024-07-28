@@ -7,225 +7,225 @@ using ReHack.Node;
 
 namespace ReHack.BaseMethods
 {
-    public static class NodeUtils
-    {
-        private static readonly Random Rand = new Random();
-
-        public static string GenerateIPAddress() {
-            /// <summary>
-            /// Generates a random IP address
-            /// </summary>
-            string Address =  $"{Rand.Next(0, 256)}.{Rand.Next(0, 256)}.{Rand.Next(0, 256)}.{Rand.Next(0, 256)}";
-            foreach (var Node in GameData.Nodes)
-            {
-                if (Node.Address == Address)
-                {
-                    return GenerateIPAddress();
-                }
-            }
-            return Address;
-        }
-
-        public static BaseNode GetNode(string UID)
-        {
-            foreach(var Node in GameData.Nodes)
-            {
-                if (Node.UID == UID)
-                {
-                    return Node;
-                }
-            }
-            throw new Exception("Invalid node");
-        }
-
-	public static BaseNode GetNodeByAddress(string Address)
+	public static class NodeUtils
 	{
-		foreach(BaseNode Node in GameData.Nodes)
-		{
-			if (Node.Address == Address)
+		private static readonly Random Rand = new Random();
+
+		public static string GenerateIPAddress() {
+			/// <summary>
+			/// Generates a random IP address
+			/// </summary>
+			string Address =  $"{Rand.Next(0, 256)}.{Rand.Next(0, 256)}.{Rand.Next(0, 256)}.{Rand.Next(0, 256)}";
+			foreach (var Node in GameData.Nodes)
 			{
-				return Node;
+				if (Node.Address == Address)
+				{
+					return GenerateIPAddress();
+				}
 			}
+			return Address;
 		}
-		throw new Exception("Invalid node");
-	}
 
-        public static bool CheckPort(BaseNode Client, string ServiceID)
-        {
-            Port CheckService = GameData.GetPort(ServiceID);
-            foreach(Port Service in Client.Ports)
-            {
-                if (Service.ServiceID == CheckService.ServiceID)
-                {
-                    return true;
-                }
-            }
-            return false;
-        }
-
-	public static List<string> GetAddressList()
-	{
-		List<string> Addresses = new List<string>();
-		foreach(BaseNode Node in GameData.Nodes)
+		public static BaseNode GetNode(string UID)
 		{
-			Addresses.Add(Node.Address);
+			foreach(var Node in GameData.Nodes)
+			{
+				if (Node.UID == UID)
+				{
+					return Node;
+				}
+			}
+			throw new Exception("Invalid node");
 		}
-		return Addresses;
+
+		public static BaseNode GetNodeByAddress(string Address)
+		{
+			foreach(BaseNode Node in GameData.Nodes)
+			{
+				if (Node.Address == Address)
+				{
+					return Node;
+				}
+			}
+			throw new Exception("Invalid node");
+		}
+
+		public static bool CheckPort(BaseNode Client, string ServiceID)
+		{
+			Port CheckService = GameData.GetPort(ServiceID);
+			foreach(Port Service in Client.Ports)
+			{
+				if (Service.ServiceID == CheckService.ServiceID)
+				{
+					return true;
+				}
+			}
+			return false;
+		}
+
+		public static List<string> GetAddressList()
+		{
+			List<string> Addresses = new List<string>();
+			foreach(BaseNode Node in GameData.Nodes)
+			{
+				Addresses.Add(Node.Address);
+			}
+			return Addresses;
+		}
 	}
-    }
 
-    public class User {
-        /// <summary>
-        /// User class - each Node has an array of User objects which can be logged into.
-        /// </summary>
-        public string Username {get; set; }
-        public string? Password {get; set; }
-        public bool Privileged {get; set; } // If this is enabled, the user can perform privileged operations
+	public class User {
+		/// <summary>
+		/// User class - each Node has an array of User objects which can be logged into.
+		/// </summary>
+		public string Username {get; set; }
+		public string? Password {get; set; }
+		public bool Privileged {get; set; } // If this is enabled, the user can perform privileged operations
 
-        public User(string Username, string Password, bool Privileged)
-        {
-            this.Username = Username;
-            this.Password = Password;
-            this.Privileged = Privileged;
-        }
+		public User(string Username, string Password, bool Privileged)
+		{
+			this.Username = Username;
+			this.Password = Password;
+			this.Privileged = Privileged;
+		}
 
-    }
+	}
 
-    public static class UserUtils
-    {
-        public static string PickPassword() {
-            /// <summary>
-            /// Returns a random password that the game *can* brute-force.
-            /// </summary>
-            return "root"; // Just a stub
-        }
-        
-        public static bool IsUsernameBanned(string Username)
-        {
-            foreach (string Banned in GameData.BannedUsernames)
-            {
-                if (Username.ToLower() == Banned.ToLower())
-                {
-                    return true;
-                }
-            }
-            return false;
-        }
+	public static class UserUtils
+	{
+		public static string PickPassword() {
+			/// <summary>
+			/// Returns a random password that the game *can* brute-force.
+			/// </summary>
+			return "root"; // Just a stub
+		}
 
-        public static (string, string) GetCredentials(bool BanCheck=true)
-        {
-            /// <summary>
-            /// Asks the user to enter a name and password. The BanCheck value dictates whether to check GameData.BannedUsernames
-            /// </summary>
-            bool Banned;
-            string Username;
-            string Password = "";
-            while (true)
-            {
-                Banned = false;
-                Console.Write("Enter A Username $");
-                Username = Console.ReadLine().ToLower();
-                if (BanCheck)
-                {
-                    if (IsUsernameBanned(Username))
-                    {
-                        Banned = true;
-                        Console.WriteLine("ERROR: You can't have that username.");
-                    }
-                }
-                if (!Banned)
-                {
-                    break;
-                }
+		public static bool IsUsernameBanned(string Username)
+		{
+			foreach (string Banned in GameData.BannedUsernames)
+			{
+				if (Username.ToLower() == Banned.ToLower())
+				{
+					return true;
+				}
+			}
+			return false;
+		}
 
-            }
+		public static (string, string) GetCredentials(bool BanCheck=true)
+		{
+			/// <summary>
+			/// Asks the user to enter a name and password. The BanCheck value dictates whether to check GameData.BannedUsernames
+			/// </summary>
+			bool Banned;
+			string Username;
+			string Password = "";
+			while (true)
+			{
+				Banned = false;
+				Console.Write("Enter A Username $");
+				Username = Console.ReadLine().ToLower();
+				if (BanCheck)
+				{
+					if (IsUsernameBanned(Username))
+					{
+						Banned = true;
+						Console.WriteLine("ERROR: You can't have that username.");
+					}
+				}
+				if (!Banned)
+				{
+					break;
+				}
 
-            while (Password == "")
-            {
-                Console.Write("Enter A Password $");
-                Password = PrintUtils.ReadPassword();
-            }
-            return (Username, Password);
-        }
-    }
+			}
 
-    public class Email {
-        /// <summary>
-        /// Email class - defines a recipient, sender, subject, and content
-        /// </summary>
-        public string Recipient {get; set; }
-        public string Sender {get; set; }
-        public string Subject {get; set; }
-        public string Content {get; set; }
-        // public Link[] Links {get; set; }
+			while (Password == "")
+			{
+				Console.Write("Enter A Password $");
+				Password = PrintUtils.ReadPassword();
+			}
+			return (Username, Password);
+		}
+	}
 
-        public Email(string Recipient, string Sender, string Subject, string Content) {
-            this.Recipient = Recipient;
-            this.Sender = Sender;
-            this.Subject = Subject;
-            this.Content = Content;
-        }
+	public class Email {
+		/// <summary>
+		/// Email class - defines a recipient, sender, subject, and content
+		/// </summary>
+		public string Recipient {get; set; }
+		public string Sender {get; set; }
+		public string Subject {get; set; }
+		public string Content {get; set; }
+		// public Link[] Links {get; set; }
 
-        public bool Send()
-        {
-            return false;
-        }
-    }
+		public Email(string Recipient, string Sender, string Subject, string Content) {
+			this.Recipient = Recipient;
+			this.Sender = Sender;
+			this.Subject = Subject;
+			this.Content = Content;
+		}
 
-    public class Port {
-        /// <summary>
-        /// Port - Has a service name and ID, port number, and can be open/closed.
-        /// </summary>
-        public string ServiceName {get; set; }
-        public string ServiceID {get; set; }
-        public int PortNumber {get; set; }
-        public bool Open {get; set;}
+		public bool Send()
+		{
+			return false;
+		}
+	}
 
-        public Port(string ServiceName, string ServiceID, int PortNumber, bool Open=false)
-        {
-            this.ServiceName = ServiceName;
-            this.ServiceID = ServiceID;
-            this.PortNumber = PortNumber;
-            this.Open = Open;
-        }
-    }
+	public class Port {
+		/// <summary>
+		/// Port - Has a service name and ID, port number, and can be open/closed.
+		/// </summary>
+		public string ServiceName {get; set; }
+		public string ServiceID {get; set; }
+		public int PortNumber {get; set; }
+		public bool Open {get; set;}
 
-    public static class PrintUtils
-    {
-        public static void Divider()
-        {
-            Console.WriteLine("--------------------");
-        }
+		public Port(string ServiceName, string ServiceID, int PortNumber, bool Open=false)
+		{
+			this.ServiceName = ServiceName;
+			this.ServiceID = ServiceID;
+			this.PortNumber = PortNumber;
+			this.Open = Open;
+		}
+	}
 
-        public static string ReadPassword()
-        {
-            /// <summary>
-            /// Basic password entry function. Reads passwords from stdin, showing asterisks 
-            /// </summary>
-            StringBuilder password = new StringBuilder();
-            while (true)
-            {
-                var key = Console.ReadKey(intercept: true);
+	public static class PrintUtils
+	{
+		public static void Divider()
+		{
+			Console.WriteLine("--------------------");
+		}
 
-                if (key.Key == ConsoleKey.Enter)
-                {
-                    break;
-                }
-                else if (key.Key == ConsoleKey.Backspace && password.Length > 0)
-                {
-                    password.Length--;
-                    Console.Write("\b \b"); // Erase the last * from the console
-                }
-                else if (!char.IsControl(key.KeyChar))
-                {
-                    password.Append(key.KeyChar);
-                    /*Console.Write('\u2022');*/
+		public static string ReadPassword()
+		{
+			/// <summary>
+			/// Basic password entry function. Reads passwords from stdin, showing asterisks 
+			/// </summary>
+			StringBuilder password = new StringBuilder();
+			while (true)
+			{
+				var key = Console.ReadKey(intercept: true);
+
+				if (key.Key == ConsoleKey.Enter)
+				{
+					break;
+				}
+				else if (key.Key == ConsoleKey.Backspace && password.Length > 0)
+				{
+					password.Length--;
+					Console.Write("\b \b"); // Erase the last * from the console
+				}
+				else if (!char.IsControl(key.KeyChar))
+				{
+					password.Append(key.KeyChar);
+					/*Console.Write('\u2022');*/
 					Console.Write("*");
-                }
-            }
-            Console.WriteLine();
-            return password.ToString();
-        }
+				}
+			}
+			Console.WriteLine();
+			return password.ToString();
+		}
 
 		private static string GetAgreeString(bool DefaultAgree)
 		{
@@ -237,9 +237,9 @@ namespace ReHack.BaseMethods
 			{
 				return "[y/N]";
 			}
-			
+
 		}
-			
+
 		public static bool Confirm(string Message, bool DefaultAgree=true)
 		{
 			string Confirmation;
@@ -265,7 +265,28 @@ namespace ReHack.BaseMethods
 				}
 			}
 		}
-    }
+
+		public static void PrintCentered(string text, int width, char FillChar=' ')
+		{
+			if (width < text.Length - 2)
+			{
+				throw new ArgumentException("Text too wide");
+			}
+
+			if (FillChar != ' ')
+			{
+				width = width - 2;
+			}
+
+			int spaces = width - text.Length;
+			int leftPadding = spaces / 2;
+			leftPadding = leftPadding - 2;
+			int rightPadding = spaces - leftPadding;
+
+			string formattedText = new string(FillChar, leftPadding) +  ' ' + text + ' ' + new string(FillChar, rightPadding);
+			Console.WriteLine(formattedText);
+		}
+	}
 
 	public static class FileUtils
 	{
@@ -274,13 +295,18 @@ namespace ReHack.BaseMethods
 			var assembly = Assembly.GetExecutingAssembly();
 			string Name = $"ReHack.Embedded.{Filename}";
 
+			if (!assembly.GetManifestResourceNames().Contains(Name))
+			{
+				throw new Exception("Invalid file");
+			}
+
 			using (var Stream = assembly.GetManifestResourceStream(Name))
 			{
 				return new StreamReader(Stream).ReadToEnd();
 			}
 		}
 	}
-	
+
 	public delegate bool ProgramDelegate(string[] Args, BaseNode Player, User RunningUser);
 
 	public class ProgramDefinition

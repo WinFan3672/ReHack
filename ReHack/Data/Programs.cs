@@ -3,6 +3,8 @@ using ReHack.Programs.SSHClient;
 using ReHack.Programs.Help;
 using ReHack.Programs.Man;
 using ReHack.Programs.Ping;
+using ReHack.Programs.Apt;
+using ReHack.Programs.Debug;
 
 namespace ReHack.Data.Programs
 {
@@ -14,6 +16,8 @@ namespace ReHack.Data.Programs
 			new ProgramDefinition("man", "Manual viewer", new ProgramDelegate(ManClient.Program)),
 			new ProgramDefinition("lsman", "List available manuals", new ProgramDelegate(ManClient.ListProgram)),
 			new ProgramDefinition("ping", "Checks if hosts are up", new ProgramDelegate(PingClient.Program)),
+			new ProgramDefinition("apt", "Package Manager", new ProgramDelegate(Apt.Program)),
+			new ProgramDefinition("debug", "Debugging tools", new ProgramDelegate(DebugClient.Program)),
 		};
 
 		public static ProgramDefinition GetProgram(string Name)

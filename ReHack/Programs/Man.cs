@@ -10,8 +10,29 @@ namespace ReHack.Programs.Man
 	{
 		public static void ReadManpage(string Manpage)
 		{
+			Console.Clear();
 			XmlDocument Doc = new XmlDocument();
-			string Raw = FileUtils.GetFileContents($"Man/{Manpage}.xml");
+			string Raw = FileUtils.GetFileContents($"Man.{Manpage}.xml");
+
+			Doc.LoadXml(Raw);
+			XmlElement Root = Doc.DocumentElement;
+
+			string Title = Doc.SelectSingleNode("//Title").InnerText;
+			PrintUtils.PrintCentered(Title, Console.WindowWidth, '*');
+
+			XmlNodeList Sections = Doc.SelectNodes("//Section");
+
+			foreach (XmlNode Section in Sections)
+			{
+				Console.WriteLine(Section.Attributes["title"]?.Value.ToUpper() ?? "NONE");
+				foreach(var Line in Section.InnerText.Split("\n"))
+				{
+					Console.WriteLine($"\t{Line}");
+				}
+			}
+
+			string Epilog = Doc.SelectSingleNode("//Epilog").InnerText;
+			PrintUtils.PrintCentered(Epilog, Console.WindowWidth, '*');
 		}
 		public static bool ListProgram(string[] Args, BaseNode Client, User RunningUser)
 		{

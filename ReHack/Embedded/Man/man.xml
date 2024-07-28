@@ -1,6 +1,8 @@
 <Manpage>
 	<Title>man</Title>
 	<Description>Manual viewer</Description>
-		<Section title="Summary">Man is a manpage viewer. It allows you to view documentation for various commands.</Section>
-		<Section title="Usage">To view a manpage, run `man [manpage]`. For a list of available manpages, run `lsman`.</Summary>
+	<Section title="Name">man - Manpage viewer</Section>
+	<Section title="Summary">Man is a manpage viewer. It allows you to view documentation for various commands.</Section>
+	<Section title="Usage">To view a manpage, run `man [manpage]`. For a list of available manpages, run `lsman`.</Section>
+	<Epilog>(c) 2024 Debian</Epilog>
 </Manpage>
