@@ -266,24 +266,25 @@ namespace ReHack.BaseMethods
 			}
 		}
 
-		public static void PrintCentered(string text, int width, char FillChar=' ')
+		public static void PrintCentered(string text, int width, char FillChar=' ', char EndChar=' ')
 		{
 			if (width < text.Length - 2)
 			{
 				throw new ArgumentException("Text too wide");
 			}
-
-			if (FillChar != ' ')
+			
+			if (FillChar != ' ' || EndChar != ' ')
 			{
-				width = width - 2;
+				width = width - 4;
 			}
+
 
 			int spaces = width - text.Length;
 			int leftPadding = spaces / 2;
 			leftPadding = leftPadding - 2;
 			int rightPadding = spaces - leftPadding;
 
-			string formattedText = new string(FillChar, leftPadding) +  ' ' + text + ' ' + new string(FillChar, rightPadding);
+			string formattedText = new string(FillChar, leftPadding) + EndChar +  ' ' + text + ' ' + EndChar + new string(FillChar, rightPadding);
 			Console.WriteLine(formattedText);
 		}
 	}
@@ -314,12 +315,14 @@ namespace ReHack.BaseMethods
 		public string Name {get; set; }
 		public string Description {get; set; }
 		public ProgramDelegate Method {get; set; }
+		public string[] Manpages {get; set; }
 
-		public ProgramDefinition(string Name, string Description, ProgramDelegate Method)
+		public ProgramDefinition(string Name, string Description, ProgramDelegate Method, string[] Manpages)
 		{
 			this.Name = Name;
 			this.Description = Description;
 			this.Method = Method;
+			this.Manpages = Manpages;
 		}
 	}
 

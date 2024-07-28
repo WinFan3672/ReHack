@@ -1,0 +1,7 @@
+<Manpage>
+	<Title>ssh</Title>
+	<Section title="Name">ssh - SSH Client</Section>
+	<Section title="Synopsis">ssh [username]@[hostname]</Section>
+	<Section title="Description">ssh is an SSH (Secure SHell) client. It allows you to connect to a terminal over the Internet. It is designed with security in mind, and can be used to execute commands remotely.</Section>
+	<Section title="Connecting">Connecting to a remote machine is as easy as running 'ssh [username]@[hostname]'. You will be prompted for a password if necessary.</Section>
+</Manpage>

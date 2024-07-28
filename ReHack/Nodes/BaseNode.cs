@@ -84,6 +84,10 @@ namespace ReHack.Node {
 		ProgramDefinition Program = ProgramData.GetProgram(ProgramName);
 		this.Programs.Add(Program);
 		this.InstalledPrograms.Add(Program.Name);
+		foreach (string Manpage in Program.Manpages)
+		{
+			this.Manpages.Add(Manpage);
+		}
 	}
 
 	public void RemoveProgram(string ProgramName)
@@ -91,6 +95,10 @@ namespace ReHack.Node {
 		ProgramDefinition Program = ProgramData.GetProgram(ProgramName);
 		this.Programs.Remove(Program);
 		this.InstalledPrograms.Remove(Program.Name);
+		foreach (string Manpage in Program.Manpages)
+		{
+			this.Manpages.Remove(Manpage);
+		}
 	}
 
 	public List<string> ListPrograms()

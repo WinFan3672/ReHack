@@ -1,0 +1,7 @@
+<Manpage>
+	<Title>ping</Title>
+	<Section title="Name">ping - Check remote host health</Section>
+	<Section title="Summary">ping [hostname]</Section>
+	<Section title="Description">The ping utility is used to check that a particular host is up.</Section>
+	<Section title="Usage">Running 'ping [hostname]' performs an ICMP ping request four times and displays the results.</Section>
+</Manpage>

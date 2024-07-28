@@ -18,21 +18,36 @@ namespace ReHack.Programs.Man
 			XmlElement Root = Doc.DocumentElement;
 
 			string Title = Doc.SelectSingleNode("//Title").InnerText;
-			PrintUtils.PrintCentered(Title, Console.WindowWidth, '*');
+			PrintUtils.PrintCentered(Title, Console.WindowWidth, '─', '│');
 
 			XmlNodeList Sections = Doc.SelectNodes("//Section");
-
+			
+			int Lines = 2;
 			foreach (XmlNode Section in Sections)
 			{
 				Console.WriteLine(Section.Attributes["title"]?.Value.ToUpper() ?? "NONE");
+				Lines++;
 				foreach(var Line in Section.InnerText.Split("\n"))
 				{
 					Console.WriteLine($"\t{Line}");
+					Lines++;
 				}
 			}
-
-			string Epilog = Doc.SelectSingleNode("//Epilog").InnerText;
-			PrintUtils.PrintCentered(Epilog, Console.WindowWidth, '*');
+			for (int i = 0; i < Console.WindowHeight - Lines - 1; i++)
+			{
+				Console.WriteLine();
+			}
+			
+			string Epilog;
+			try
+			{
+				Epilog = Doc.SelectSingleNode("//Epilog").InnerText;
+			}
+			catch (NullReferenceException ex)
+			{
+				Epilog = "(c) 2010 Debian, ReHack";
+			}
+			PrintUtils.PrintCentered(Epilog, Console.WindowWidth, '─', '│');
 		}
 		public static bool ListProgram(string[] Args, BaseNode Client, User RunningUser)
 		{

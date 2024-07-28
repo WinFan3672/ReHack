@@ -76,7 +76,6 @@ namespace ReHack.Data
 		};
 		
 		public static List<string> DefaultManpages = new List<string> {
-			"man",
 		};
 	}
 }
