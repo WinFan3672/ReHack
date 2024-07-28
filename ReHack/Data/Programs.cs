@@ -2,6 +2,7 @@ using ReHack.BaseMethods;
 using ReHack.Programs.SSHClient;
 using ReHack.Programs.Help;
 using ReHack.Programs.Man;
+using ReHack.Programs.Ping;
 
 namespace ReHack.Data.Programs
 {
@@ -12,6 +13,7 @@ namespace ReHack.Data.Programs
 			new ProgramDefinition("help", "Lists available programs", new ProgramDelegate(HelpClient.Program)),
 			new ProgramDefinition("man", "Manual viewer", new ProgramDelegate(ManClient.Program)),
 			new ProgramDefinition("lsman", "List available manuals", new ProgramDelegate(ManClient.ListProgram)),
+			new ProgramDefinition("ping", "Checks if hosts are up", new ProgramDelegate(PingClient.Program)),
 		};
 
 		public static ProgramDefinition GetProgram(string Name)
