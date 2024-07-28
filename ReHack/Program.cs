@@ -1,25 +1,11 @@
 ﻿namespace ReHack;
 
-using ReHack.Node;
-using ReHack.Node.MailServer;
-using ReHack.Node.Player;
-using ReHack.BaseMethods;
-using ReHack.Data;
-using ReHack.Programs.SSHClient;
+using ReHack.Welcome;
 
 class Program
 {
     static void Main(string[] args)
     {
-        var Test = GameData.AddNode(new BaseNode("Test Node", "test", NodeUtils.GenerateIPAddress(), new[] {new User("root", "toor", true)}));
-        Test.Ports.Add(GameData.GetPort("telnet"));
-
-        var JMail = GameData.AddNode(new MailServer("JMail", "jmail", "jmail.com"));
-        
-        var Details = UserUtils.GetCredentials();
-
-        PlayerNode Player = new PlayerNode(Details.Item1, Details.Item2);
-        GameData.AddNode(Player);
-        SSHClient.Program(Player, Player.GetUser(Details.Item1), true, false);
+		WelcomeSequence.Init();
     }
 }

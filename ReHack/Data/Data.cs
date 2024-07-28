@@ -62,6 +62,6 @@ namespace ReHack.Data
             PrintUtils.Divider();
         }
 
-        public static List<string> BannedUsernames = new List<string> { "admin", "root" };
+        public static List<string> BannedUsernames = new List<string> { "admin", "root", "" };
     }
 }
