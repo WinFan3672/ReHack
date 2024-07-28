@@ -15,6 +15,7 @@ namespace ReHack.Data
             new Port("Telnet", "telnet", 23),
             new Port("Domain Name Service", "dns", 53),
             new Port("HTTP Server", "http", 80),
+			new Port("Mail Server (POP3)", "pop3", 110),
             new Port("Usenet (NNTP) Server", "nntp", 119),
             new Port("NTP Time Server", "ntp", 123),
             new Port("OpenVPN Server", "vpn", 1194),
@@ -63,5 +64,7 @@ namespace ReHack.Data
         }
 
         public static List<string> BannedUsernames = new List<string> { "admin", "root", "" };
+
+		public static string[] Passwords = FileUtils.GetFileContents("Passwords.txt").Split(new[] {"\r\n", "\n"}, StringSplitOptions.None);
     }
 }

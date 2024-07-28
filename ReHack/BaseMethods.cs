@@ -1,4 +1,7 @@
 using System.Text;
+using System.IO;
+using System.Reflection;
+
 using ReHack.Data;
 using ReHack.Node;
 
@@ -241,4 +244,19 @@ namespace ReHack.BaseMethods
 			}
 		}
     }
+
+	public static class FileUtils
+	{
+		public static string GetFileContents(string Filename)
+		{
+			var assembly = Assembly.GetExecutingAssembly();
+			string Name = $"ReHack.Embedded.{Filename}";
+
+			using (var stream = assembly.GetManifestResourceStream(Name))
+			using (var reader = new StreamReader(stream))
+			{
+				return reader.ReadToEnd();
+			}
+		}
+	}
 }

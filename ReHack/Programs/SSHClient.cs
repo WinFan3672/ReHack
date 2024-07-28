@@ -36,7 +36,6 @@ namespace ReHack.Programs.SSHClient
 					}
                 }
                 else {
-					// Program logic goes here
                 }
             }
         }
