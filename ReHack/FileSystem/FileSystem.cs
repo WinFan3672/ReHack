@@ -12,58 +12,58 @@ namespace ReHack.Filesystem
 
 		public VirtualFile(string name, string content = "")
 		{
-			Name = name;
-			Content = content;
+			this.Name = name;
+			this.Content = content;
 		}
 	}
 
-	public class Directory
+	public class VirtualDirectory
 	{
 		public string Name { get; set; }
 		public List<VirtualFile> Files { get; set; }
-		public List<Directory> SubDirectories { get; set; }
+		public List<VirtualDirectory> SubDirectories { get; set; }
 
-		public Directory(string name)
+		public VirtualDirectory(string name)
 		{
-			Name = name;
-			Files = new List<VirtualFile>();
-			SubDirectories = new List<Directory>();
+			this.Name = name;
+			this.Files = new List<VirtualFile>();
+			this.SubDirectories = new List<VirtualDirectory>();
 		}
 
 		public void AddFile(VirtualFile file)
 		{
-			Files.Add(file);
+			this.Files.Add(file);
 		}
 
-		public void AddDirectory(Directory directory)
+		public void AddDirectory(VirtualDirectory directory)
 		{
-			SubDirectories.Add(directory);
+			this.SubDirectories.Add(directory);
 		}
 
 		public VirtualFile FindFile(string name)
 		{
-			return Files.FirstOrDefault(f => f.Name == name);
+			return this.Files.FirstOrDefault(f => f.Name == name);
 		}
 
-		public Directory FindDirectory(string name)
+		public VirtualDirectory FindDirectory(string name)
 		{
-			return SubDirectories.FirstOrDefault(d => d.Name == name);
+			return this.SubDirectories.FirstOrDefault(d => d.Name == name);
 		}
 	}
 
 	public class FileSystem
 	{
-		public Directory Root { get; private set; }
+		public VirtualDirectory Root { get; private set; }
 
 		public FileSystem()
 		{
-			Root = new Directory("Root");
+			this.Root = new VirtualDirectory("Root");
 		}
 
-		public Directory GetDirectory(string path)
+		public VirtualDirectory GetDirectory(string path)
 		{
 			string[] parts = path.Split('/');
-			Directory current = Root;
+			VirtualDirectory current = this.Root;
 
 			foreach (string part in parts)
 			{
@@ -79,17 +79,17 @@ namespace ReHack.Filesystem
 		public void AddFile(string path, VirtualFile file)
 		{
 			string[] parts = path.Split('/');
-			Directory current = Root;
+			VirtualDirectory current = this.Root;
 
 			for (int i = 0; i < parts.Length - 1; i++)
 			{
 				string part = parts[i];
 				if (part == "") continue;
 
-				Directory nextDir = current.FindDirectory(part);
+				VirtualDirectory nextDir = current.FindDirectory(part);
 				if (nextDir == null)
 				{
-					nextDir = new Directory(part);
+					nextDir = new VirtualDirectory(part);
 					current.AddDirectory(nextDir);
 				}
 				current = nextDir;
@@ -101,7 +101,7 @@ namespace ReHack.Filesystem
 		public VirtualFile FindFile(string path)
 		{
 			string[] parts = path.Split('/');
-			Directory current = Root;
+			VirtualDirectory current = this.Root;
 
 			for (int i = 0; i < parts.Length - 1; i++)
 			{

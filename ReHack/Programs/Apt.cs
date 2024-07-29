@@ -30,7 +30,7 @@ namespace ReHack.Programs.Apt
 
 				Package PackageToInstall = GetRepo().GetPackage(Program);
 				PackageToInstall.Install(Client);
-				Console.WriteLine("Package successfully installed.");
+				Console.WriteLine($"Package '{PackageToInstall.Name}' successfully installed.");
 
 				return true;
 			}
