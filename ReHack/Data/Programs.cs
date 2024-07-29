@@ -7,6 +7,7 @@ using ReHack.Programs.Apt;
 using ReHack.Programs.Debug;
 using ReHack.Programs.Curl;
 using ReHack.Programs.Nmap;
+using ReHack.Programs.LS;
 
 namespace ReHack.Data.Programs
 {
@@ -22,6 +23,7 @@ namespace ReHack.Data.Programs
 			new ProgramDefinition("debug", "Debugging tools", new ProgramDelegate(DebugClient.Program), new string[] {} ),
 			new ProgramDefinition("curl", "Perform W3 requests", new ProgramDelegate(Curl.Program), new string[] {} ),
 			new ProgramDefinition("nmap", "Enumerate ports on a device", new ProgramDelegate(Nmap.Program), new string[] {}),
+			new ProgramDefinition("ls", "Lists contents of directories", new ProgramDelegate(LS.Program), new string[] {}),
 		};
 
 		public static ProgramDefinition GetProgram(string Name)

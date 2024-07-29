@@ -74,6 +74,7 @@ namespace ReHack.Data
 			"man",
 			"lsman",
 			"apt",
+			"ls",
 		};
 		
 		public static List<string> DefaultManpages = new List<string> {
