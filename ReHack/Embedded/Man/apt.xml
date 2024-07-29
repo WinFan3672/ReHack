@@ -1,0 +1,9 @@
+<Manpage>
+	<Title>apt</Title>
+	<Section title="Name">apt - Package manager</Section>
+	<Section title="Synopsis">apt [subcommand] [options...]</Section>
+	<Section title="Description">apt is a basic package manager for Debian-based systems. It can be used to install and manage packages from remote package repos, such as the official Debian repo.</Section>
+	<Section title="Installing Packages">Packages can be installed with 'apt install [package]'.</Section>
+	<Section title="Listing Packages">To get a list of installed packages, you run 'apt list installed'. Likewise, to get a list of packages you can install, run 'apt list remote'.</Section>
+	<Section title="Removing Packages">Packages can be Removed with 'apt remove [package]'.</Section>
+</Manpage>

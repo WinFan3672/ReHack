@@ -1,4 +1,5 @@
 using ReHack.Node;
+using ReHack.Node.WebServer;
 using ReHack.Node.PackageRepo;
 using ReHack.BaseMethods;
 
@@ -13,9 +14,12 @@ namespace ReHack.Data.Nodes
 
 			Package[] AptRepoPackages = {
 				new Package("ping", new string[] {}),
+				new Package("curl", new string[] {}),
 			};
 
 			var AptRepo = GameData.AddNode(new PackageRepo("Debian Official Packages", "debian-pkg", "pkg.debian.org", AptRepoPackages, null));
+
+			var TestWeb = GameData.AddNode(new WebServer("Test Page", "test-web", "www.test.com", "Test"));
 		}
 	}
 }

@@ -5,6 +5,7 @@ using ReHack.Programs.Man;
 using ReHack.Programs.Ping;
 using ReHack.Programs.Apt;
 using ReHack.Programs.Debug;
+using ReHack.Programs.Curl;
 
 namespace ReHack.Data.Programs
 {
@@ -16,8 +17,9 @@ namespace ReHack.Data.Programs
 			new ProgramDefinition("man", "Manual viewer", new ProgramDelegate(ManClient.Program), new string[] { "man" } ),
 			new ProgramDefinition("lsman", "List available manuals", new ProgramDelegate(ManClient.ListProgram), new string[] {} ),
 			new ProgramDefinition("ping", "Checks if hosts are up", new ProgramDelegate(PingClient.Program), new string[] { "ping" } ),
-			new ProgramDefinition("apt", "Package Manager", new ProgramDelegate(Apt.Program), new string[] {} ),
+			new ProgramDefinition("apt", "Package Manager", new ProgramDelegate(Apt.Program), new string[] { "apt" } ),
 			new ProgramDefinition("debug", "Debugging tools", new ProgramDelegate(DebugClient.Program), new string[] {} ),
+			new ProgramDefinition("curl", "Perform W3 requests", new ProgramDelegate(Curl.Program), new string[] {} ),
 		};
 
 		public static ProgramDefinition GetProgram(string Name)

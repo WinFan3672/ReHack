@@ -26,6 +26,31 @@ namespace ReHack.BaseMethods
 			return Address;
 		}
 
+		public static bool CheckNode(string UID)
+		{
+			foreach(var Node in GameData.Nodes)
+			{
+				if (Node.UID == UID)
+				{
+					return true;
+				}
+			}
+			return false;
+		}
+
+		public static bool CheckNodeByAddress(string Address)
+		{
+			foreach (var Node in GameData.Nodes)
+			{
+				if (Node.Address == Address)
+				{
+					return true;
+				}
+
+			}
+			return false;
+		}
+
 		public static BaseNode GetNode(string UID)
 		{
 			foreach(var Node in GameData.Nodes)
