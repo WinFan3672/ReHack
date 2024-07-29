@@ -17,6 +17,11 @@ namespace ReHack.Programs.Debug
 				}
 				return true;
 			}
+			else if (Args.Length == 1 && Args.Contains("passwd"))
+			{
+				Console.WriteLine(UserUtils.PickPassword());
+				return true;
+			}
 			else
 			{
 				Console.WriteLine("debug [subcommand] [args...]");

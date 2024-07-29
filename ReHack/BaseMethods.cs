@@ -122,7 +122,8 @@ namespace ReHack.BaseMethods
 			/// <summary>
 			/// Returns a random password that the game *can* brute-force.
 			/// </summary>
-			return "root"; // Just a stub
+			Random Rand = new Random();
+			return GameData.Passwords[Rand.Next(GameData.Passwords.Length)];
 		}
 
 		public static bool IsUsernameBanned(string Username)
