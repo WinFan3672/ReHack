@@ -75,16 +75,17 @@ namespace ReHack.Data
 			"lsman",
 			"apt",
 			"ls",
+			"sudo",
 		};
-		
+
 		public static List<string> DefaultManpages = new List<string> {
 		};
 
 		public static List<VirtualDirectory> DefaultDirs = new List<VirtualDirectory> {
 			new VirtualDirectory("home"),
-			new VirtualDirectory("etc"),
-			new VirtualDirectory("bin"),
-			new VirtualDirectory("var"),
+				new VirtualDirectory("etc"),
+				new VirtualDirectory("bin"),
+				new VirtualDirectory("var"),
 		};
 	}
 }

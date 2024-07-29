@@ -8,6 +8,7 @@ using ReHack.Programs.Debug;
 using ReHack.Programs.Curl;
 using ReHack.Programs.Nmap;
 using ReHack.Programs.LS;
+using ReHack.Programs.Sudo;
 
 namespace ReHack.Data.Programs
 {
@@ -24,6 +25,7 @@ namespace ReHack.Data.Programs
 			new ProgramDefinition("curl", "Perform W3 requests", new ProgramDelegate(Curl.Program), new string[] {} ),
 			new ProgramDefinition("nmap", "Enumerate ports on a device", new ProgramDelegate(Nmap.Program), new string[] {}),
 			new ProgramDefinition("ls", "Lists contents of directories", new ProgramDelegate(LS.Program), new string[] {}),
+			new ProgramDefinition("sudo", "Run commands as root", new ProgramDelegate(Sudo.Program), new string[] {}),
 		};
 
 		public static ProgramDefinition GetProgram(string Name)

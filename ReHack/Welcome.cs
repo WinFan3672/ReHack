@@ -16,13 +16,13 @@ namespace ReHack.Welcome {
 			/// <summary>
 			/// Starts the game by creating a player node and SSH'ing into it without authenticating.
 			/// </summary>
-			
+
 			if (Console.IsOutputRedirected)
 			{
 				Console.WriteLine("ERROR: ReHack must be running in a terminal.");
 				return;
 			}
-			
+
 			(string, string) Details;
 
 			if (DebugUtils.IsDebug())
