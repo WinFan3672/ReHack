@@ -21,7 +21,7 @@ namespace ReHack.Programs.Curl
 					return false;
 				}
 				WebServer Server = NodeUtils.GetNodeByAddress(Args[0]) as WebServer;
-				Console.WriteLine(Server.Render());
+				Console.WriteLine(Server.Render(Client));
 				return true;
 			}
 			else
