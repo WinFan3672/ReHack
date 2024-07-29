@@ -13,23 +13,38 @@ namespace ReHack.Node.WebServer
 
 		public WebServer(string Name, string UID, string Address, string IndexFile, string? AdminPassword=null) : base (Name, UID, Address, new User[] {
 				new User("root", AdminPassword, true), new User("w3", null, false),
-			})
+				})
 		{
 			this.IndexFile = IndexFile;
 			this.Ports.Add(GameData.GetPort("ssh"));
 			this.Ports.Add(GameData.GetPort("http"));
 		}
 
-		public string Render(BaseNode Client)
+		public bool CheckAccessControl(BaseNode Client)
 		{
-			if (this.UseWhitelist && !this.Whitelist.Contains(Client.UID))
-			{
-				return "<Webpage><Head><Title>Error 403</Title></Head><Body><Text>This host is not on the whitelist.</Text></Body></Webpage>";
-			}
-			
+			/// <summary>
+			/// Checks if a node is allowed based on the whitelist and blacklist.
+			/// </summary
+
 			if (this.Blacklist.Contains(Client.UID))
 			{
-				return "<Webpage><Head><Title>Error 403</Title></Head><Body><Text>This host has been blacklisted by the webmaster.</Text></Body></Webpage>";
+				// Client is blacklisted
+				return false;
+			}
+			if (this.UseWhitelist)
+			{
+				// Check if whitelisted
+				return this.Whitelist.Contains(Client.UID);
+			}
+			// All checks passed
+			return true;
+		}
+
+		public string Render(BaseNode Client)
+		{
+			if (!this.CheckAccessControl(Client))
+			{
+				return "<Webpage><Head><Title>Error 403</Head><Body><Text>Access to this website is denied.</Text></Body></Webpage>";
 			}
 
 			string Path = $"Web.{this.IndexFile}.xml";

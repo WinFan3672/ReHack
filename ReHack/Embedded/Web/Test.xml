@@ -3,9 +3,6 @@
 		<Title>Test Website</Title>
 	</Head>
 	<Body>
-		<Menu>
-			<Link ref="w3://www.test.com">Homepage</Link>
-		</Menu>
 		<Title />
 		<Text>This is a test website.</Text>
 </Website>
