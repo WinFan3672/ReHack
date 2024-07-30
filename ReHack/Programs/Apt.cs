@@ -85,10 +85,10 @@ namespace ReHack.Programs.Apt
 			}
 			else if (Args.Contains("list") && Args.Contains("installed") && Args.Length == 2)
 			{
-				List<string> Packages = ListPackages(GetPackages(Client));
+				List<string> Packages = Client.InstalledPrograms;
 				foreach(string Program in Packages)
 				{
-					if (Packages.Contains(Program))
+					if (Packages.Contains(Program) && ListPackages(GetPackages(Client)).Contains(Program))
 					{
 						Console.WriteLine(Program);
 					}
