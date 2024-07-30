@@ -70,22 +70,23 @@ namespace ReHack.Data
 
 		public static List<string> DefaultPrograms = new List<string> { 
 			"help", 
-			"ssh",
-			"man",
-			"lsman",
-			"apt",
-			"ls",
-			"sudo",
+				"ssh",
+				"man",
+				"lsman",
+				"apt",
+				"ls",
+				"sudo",
 		};
 
 		public static List<string> DefaultManpages = new List<string> {
 		};
 
 		public static List<VirtualDirectory> DefaultDirs = new List<VirtualDirectory> {
-			new VirtualDirectory("home"),
-				new VirtualDirectory("etc"),
-				new VirtualDirectory("bin"),
-				new VirtualDirectory("var"),
+			new VirtualDirectory("home", new VirtualFile[]{}, new VirtualDirectory[] {}),
+				new VirtualDirectory("etc", new VirtualFile[] {}, new VirtualDirectory[] {
+						new VirtualDirectory("apt", new VirtualFile[] {new VirtualFile("sources.list", "pkg.debian.org")}, new VirtualDirectory[] {}),
+					}),
+				new VirtualDirectory("var", new VirtualFile[]{}, new VirtualDirectory[]{}),
 		};
 	}
 }

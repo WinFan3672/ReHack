@@ -23,11 +23,19 @@ namespace ReHack.Filesystem
 		public List<VirtualFile> Files { get; set; }
 		public List<VirtualDirectory> SubDirectories { get; set; }
 
-		public VirtualDirectory(string name)
+		public VirtualDirectory(string name, VirtualFile[] Files, VirtualDirectory[] Dirs)
 		{
 			this.Name = name;
 			this.Files = new List<VirtualFile>();
 			this.SubDirectories = new List<VirtualDirectory>();
+			foreach (VirtualFile File in Files)
+			{
+				this.Files.Add(File);
+			}
+			foreach (VirtualDirectory Dir in Dirs)
+			{
+				this.SubDirectories.Add(Dir);
+			}
 		}
 
 		public void AddFile(VirtualFile file)
@@ -57,7 +65,7 @@ namespace ReHack.Filesystem
 
 		public FileSystem()
 		{
-			this.Root = new VirtualDirectory("Root");
+			this.Root = new VirtualDirectory("Root", new VirtualFile[] {}, new VirtualDirectory[] {});
 		}
 
 		public VirtualDirectory GetDirectory(string path)
@@ -88,7 +96,7 @@ namespace ReHack.Filesystem
 				VirtualDirectory nextDir = current.FindDirectory(part);
 				if (nextDir == null)
 				{
-					nextDir = new VirtualDirectory(part);
+					nextDir = new VirtualDirectory(part, new VirtualFile[]{}, new VirtualDirectory[]{});
 					current.AddDirectory(nextDir);
 				}
 				current = nextDir;
