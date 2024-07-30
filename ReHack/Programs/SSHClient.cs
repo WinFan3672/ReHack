@@ -2,6 +2,7 @@ using ReHack.Data;
 using ReHack.Data.Programs;
 using ReHack.BaseMethods;
 using ReHack.Node;
+using Spectre.Console;
 
 namespace ReHack.Programs.SSHClient
 {
@@ -64,8 +65,7 @@ namespace ReHack.Programs.SSHClient
 					}
 					catch (Exception ex)
 					{
-						Console.WriteLine($"{ex.GetType()}: {ex.Message}");
-						Console.WriteLine(ex.StackTrace);
+						AnsiConsole.WriteException(ex);
 					}
                 }
             }
