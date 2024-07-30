@@ -57,7 +57,7 @@ namespace ReHack.Node {
 					return Service;
 				}
 			}
-			throw new Exception("Invalid port");
+			throw new ArgumentException("Invalid port");
 		}
 
 		public void DebugPorts()
@@ -81,7 +81,7 @@ namespace ReHack.Node {
 					return Person;
 				}
 			}
-			throw new Exception("Invalid username");
+			throw new ArgumentException("Invalid username");
 		}
 
 		public void AddProgram(string ProgramName)

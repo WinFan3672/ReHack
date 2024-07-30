@@ -9,7 +9,7 @@ namespace ReHack.Data.Nodes
 	{
 		public static void Init()
 		{
-			BaseNode TestNode = GameData.AddNode(new BaseNode("Test", "test", "test.com", new User[] { new User("root", "root", true) }));
+			BaseNode TestNode = GameData.AddNode(new BaseNode("Test", "test", "test.com", new User[] { new User("root", UserUtils.PickPassword(), true) }));
 			TestNode.Ports.Add(GameData.GetPort("ssh"));
 
 			Package[] AptRepoPackages = {
@@ -19,6 +19,7 @@ namespace ReHack.Data.Nodes
 
 			Package[] ReHackPackages = {
 				new Package("nmap", new string[] {}),
+				new Package("hydra", new string[] {}),
 			};
 
 			var AptRepo = GameData.AddNode(new PackageRepo("Debian Official Packages", "debian-pkg", "pkg.debian.org", AptRepoPackages, null));

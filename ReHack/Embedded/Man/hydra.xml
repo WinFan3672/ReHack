@@ -1,0 +1,7 @@
+<Manpage>
+	<Title>hydra</Title>
+	<Section title="Name">hydra - SSH brute-force</Section>
+	<Section title="Synopsis">hydra [user]@[hostname]</Section>
+	<Section title="Description">hydra is a tool for brute-forcing SSH using a built-in wordlist.</Section>
+	<Section title="Usage">To brute-force the user john on example.com, run 'hydra john@example.com'. Note that this isn't an email address.</Section>
+</Manpage>

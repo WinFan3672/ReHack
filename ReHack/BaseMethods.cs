@@ -1,9 +1,9 @@
 using System.Text;
 using System.IO;
 using System.Reflection;
-
 using ReHack.Data;
 using ReHack.Node;
+using Spectre.Console;
 
 namespace ReHack.BaseMethods
 {
@@ -74,7 +74,8 @@ namespace ReHack.BaseMethods
 					return Node;
 				}
 			}
-			throw new Exception("Invalid node");
+			throw new ArgumentException("Invalid node");
+
 		}
 
 		public static BaseNode GetNodeByAddress(string Address)
@@ -86,7 +87,7 @@ namespace ReHack.BaseMethods
 					return Node;
 				}
 			}
-			throw new Exception("Invalid node");
+			throw new ArgumentException("Invalid node");
 		}
 
 		public static bool CheckPort(BaseNode Client, string ServiceID)
@@ -345,6 +346,7 @@ namespace ReHack.BaseMethods
 	{
 		public static string? GetFileContents(string Filename)
 		{
+			AnsiConsole.WriteLine($"[bold yellow]Debug[/]: Opening file: [bold blue]{Filename}[/]");
 			var assembly = Assembly.GetExecutingAssembly();
 			string Name = $"ReHack.Embedded.{Filename}";
 
