@@ -317,7 +317,7 @@ namespace ReHack.BaseMethods
 
 	public static class FileUtils
 	{
-		public static string GetFileContents(string Filename)
+		public static string? GetFileContents(string Filename)
 		{
 			var assembly = Assembly.GetExecutingAssembly();
 			string Name = $"ReHack.Embedded.{Filename}";
@@ -327,9 +327,9 @@ namespace ReHack.BaseMethods
 				throw new Exception("Invalid file");
 			}
 
-			using (var Stream = assembly.GetManifestResourceStream(Name))
+			using (System.IO.Stream? Stream = assembly.GetManifestResourceStream(Name))
 			{
-				return new StreamReader(Stream).ReadToEnd();
+				return new StreamReader(Stream).ReadToEnd() ?? null;
 			}
 		}
 	}

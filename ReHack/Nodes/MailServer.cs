@@ -6,7 +6,7 @@ namespace ReHack.Node.MailServer
     public class MailAccount {
         public string Username {get; set; }
         public string Address {get; set; }
-        public string Password {get; set; }
+        public string? Password {get; set; }
         public Email[] Inbox {get; }
         
         private int EmailIndex = 0;

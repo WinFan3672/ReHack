@@ -49,7 +49,7 @@ namespace ReHack.Programs.SSHClient
             while (true)
             {
                 Console.Write($"{Person.Username}@{Client.Address} $");
-                Input = Console.ReadLine();
+                Input = Console.ReadLine() ?? "";
                 if (Input == "exit" || Input == "quit")
                 {
 					if (!ConfirmExit || PrintUtils.Confirm("Are you sure you want to exit?", false))

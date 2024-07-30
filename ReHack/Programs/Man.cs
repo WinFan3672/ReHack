@@ -43,7 +43,7 @@ namespace ReHack.Programs.Man
 			{
 				Epilog = Doc.SelectSingleNode("//Epilog").InnerText;
 			}
-			catch (NullReferenceException ex)
+			catch (NullReferenceException)
 			{
 				Epilog = "(c) 2010 Debian, ReHack";
 			}

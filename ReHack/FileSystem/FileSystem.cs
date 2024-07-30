@@ -63,14 +63,13 @@ namespace ReHack.Filesystem
 		public VirtualDirectory GetDirectory(string path)
 		{
 			string[] parts = path.Split('/');
-			VirtualDirectory current = this.Root;
+			VirtualDirectory? current = this.Root;
 
 			foreach (string part in parts)
 			{
 				if (part == "") continue;
 
 				current = current.FindDirectory(part);
-				if (current == null) return null;
 			}
 
 			return current;
@@ -98,10 +97,10 @@ namespace ReHack.Filesystem
 			current.AddFile(file);
 		}
 
-		public VirtualFile FindFile(string path)
+		public VirtualFile? FindFile(string path)
 		{
 			string[] parts = path.Split('/');
-			VirtualDirectory current = this.Root;
+			VirtualDirectory? current = this.Root;
 
 			for (int i = 0; i < parts.Length - 1; i++)
 			{
