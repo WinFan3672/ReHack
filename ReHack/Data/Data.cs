@@ -69,23 +69,24 @@ namespace ReHack.Data
 		public static string[] Passwords = FileUtils.GetFileContents("Passwords.txt").Split(new[] {"\r\n", "\n"}, StringSplitOptions.None);
 
 		public static List<string> DefaultPrograms = new List<string> { 
-			"help", 
+				"help", 
 				"ssh",
 				"man",
 				"lsman",
 				"apt",
 				"ls",
 				"sudo",
+				"cat",
 		};
 
 		public static List<string> DefaultManpages = new List<string> {
 		};
 
-		public static List<VirtualDirectory> DefaultDirs = new List<VirtualDirectory> {
-			new VirtualDirectory("home", new VirtualFile[]{}, new VirtualDirectory[] {}),
+		public static VirtualDirectory[] DefaultDirs = new VirtualDirectory[] {
+				new VirtualDirectory("home", new VirtualFile[]{}, new VirtualDirectory[] {}),
 				new VirtualDirectory("etc", new VirtualFile[] {}, new VirtualDirectory[] {
 						new VirtualDirectory("apt", new VirtualFile[] {new VirtualFile("sources.list", "pkg.debian.org")}, new VirtualDirectory[] {}),
-					}),
+						}),
 				new VirtualDirectory("var", new VirtualFile[]{}, new VirtualDirectory[]{}),
 		};
 	}

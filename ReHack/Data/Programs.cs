@@ -9,6 +9,7 @@ using ReHack.Programs.Curl;
 using ReHack.Programs.Nmap;
 using ReHack.Programs.LS;
 using ReHack.Programs.Sudo;
+using ReHack.Programs.Cat;
 
 namespace ReHack.Data.Programs
 {
@@ -26,6 +27,7 @@ namespace ReHack.Data.Programs
 			new ProgramDefinition("nmap", "Enumerate ports on a device", new ProgramDelegate(Nmap.Program), new string[] {}),
 			new ProgramDefinition("ls", "Lists contents of directories", new ProgramDelegate(LS.Program), new string[] {}),
 			new ProgramDefinition("sudo", "Run commands as root", new ProgramDelegate(Sudo.Program), new string[] {}),
+			new ProgramDefinition("cat", "View contents of files", new ProgramDelegate(Cat.Program), new string[] {"cat" }),
 		};
 
 		public static ProgramDefinition GetProgram(string Name)

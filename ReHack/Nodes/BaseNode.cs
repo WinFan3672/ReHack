@@ -13,7 +13,7 @@ namespace ReHack.Node {
 		public List<ProgramDefinition> Programs {get; } = new List<ProgramDefinition>();
 		public List<string> Manpages {get; } = new List<string>();
 		public List<string> InstalledPrograms {get;} = new List<string>();
-		public FileSystem Root {get; } = new FileSystem();
+		public FileSystem Root {get; } = new FileSystem(new VirtualFile[]{}, GameData.DefaultDirs);
 
 		public BaseNode(string Name, string UID, string Address, User[] Users)
 		{
@@ -39,11 +39,6 @@ namespace ReHack.Node {
 			foreach(string Manpage in GameData.DefaultManpages)
 			{
 				this.Manpages.Add(Manpage);
-			}
-
-			foreach(VirtualDirectory Dir in GameData.DefaultDirs)
-			{
-				this.Root.Root.AddDirectory(Dir);
 			}
 
 		}

@@ -6,13 +6,43 @@ namespace ReHack.Programs.Apt
 {
 	public static class Apt
 	{
-		public static PackageRepo GetRepo()
+		public static Package[] GetRepoPackages(string Address)
 		{
-			BaseNode Node = NodeUtils.GetNode("debian-pkg");
-			return Node as PackageRepo;
+			PackageRepo Repo = NodeUtils.GetNodeByAddress(Address) as PackageRepo;
+			return Repo.Packages;
 		}
-		/*public static List<Package> GetPackages(BaseNode Client)*/
-		/*{}*/
+		public static List<Package> GetPackages(BaseNode Client)
+		{
+			List<Package> Packages = new List<Package>();
+			foreach(string Repo in Client.Root.GetFile("/etc/apt/sources.list").Content.Split("\n"))
+			{
+				foreach(Package Item in GetRepoPackages(Repo))
+				{
+					Packages.Add(Item);
+				}
+			}
+			return Packages;
+		}
+		public static Package? GetPackage(List<Package> Packages, string Name)
+		{
+			foreach(Package Item in Packages)
+			{
+				if (Item.Name == Name)
+				{
+					return Item;
+				}
+			}
+			return null;
+		}
+		public static List<string> ListPackages(List<Package> Packages)
+		{
+			List<string> Names = new List<string>();
+			foreach(Package Item in Packages)
+			{
+				Names.Add(Item.Name);
+			}
+			return Names;
+		}
 		public static bool Program(string[] Args, BaseNode Client, User RunningUser)
 		{
 			if (Args.Contains("install") && Args.Length == 2)
@@ -24,13 +54,14 @@ namespace ReHack.Programs.Apt
 					return false;
 				}
 
-				if (!GetRepo().ListPackages().Contains(Program))
+
+				Package? PackageToInstall = GetPackage(GetPackages(Client), Program);
+				if (PackageToInstall == null)
 				{
-					Console.WriteLine("error: Package not found");
+					Console.WriteLine("error: Invalid Package");
 					return false;
 				}
 
-				Package PackageToInstall = GetRepo().GetPackage(Program);
 				PackageToInstall.Install(Client);
 				Console.WriteLine($"Package '{PackageToInstall.Name}' successfully installed.");
 
@@ -39,8 +70,7 @@ namespace ReHack.Programs.Apt
 			else if (Args.Contains("remove") && Args.Length == 2)
 			{
 				string Program = Args.FirstOrDefault(Item => Item != "remove");
-				PackageRepo Repo = GetRepo();
-				if (!Repo.ListPackages().Contains(Program))
+				if (GetPackage(GetPackages(Client), Program) == null)
 				{
 					Console.WriteLine("error: Invalid package");
 					return false;
@@ -55,8 +85,8 @@ namespace ReHack.Programs.Apt
 			}
 			else if (Args.Contains("list") && Args.Contains("installed") && Args.Length == 2)
 			{
-				List<string> Packages = GetRepo().ListPackages();
-				foreach(string Program in Client.InstalledPrograms)
+				List<string> Packages = ListPackages(GetPackages(Client));
+				foreach(string Program in Packages)
 				{
 					if (Packages.Contains(Program))
 					{
@@ -67,7 +97,8 @@ namespace ReHack.Programs.Apt
 			}
 			else if (Args.Contains("list") && Args.Contains("remote") && Args.Length == 2)
 			{
-				foreach(string Program in GetRepo().ListPackages())
+				List<string> Programs = ListPackages(GetPackages(Client));
+				foreach(string Program in Programs)
 				{
 					Console.WriteLine(Program);
 				}

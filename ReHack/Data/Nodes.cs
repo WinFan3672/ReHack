@@ -15,10 +15,14 @@ namespace ReHack.Data.Nodes
 			Package[] AptRepoPackages = {
 				new Package("ping", new string[] {}),
 				new Package("curl", new string[] {}),
+			};
+
+			Package[] ReHackPackages = {
 				new Package("nmap", new string[] {}),
 			};
 
 			var AptRepo = GameData.AddNode(new PackageRepo("Debian Official Packages", "debian-pkg", "pkg.debian.org", AptRepoPackages, null));
+			var ReHackRepo = GameData.AddNode(new PackageRepo("ReHack Official Packages", "rehack-pkg", "pkg.rehack.org", ReHackPackages, null));
 
 			WebServer TestWeb = GameData.AddNode(new WebServer("Test Page", "test-web", "www.test.com", "Test")) as WebServer ?? throw new ArgumentNullException();
 			TestWeb.Blacklist.Add("localhost");
