@@ -8,9 +8,9 @@ namespace ReHack.Menus
 		/// <summary>
 		/// Class for displaying menus. Calls functions upon user selection. Functions must return bools, where returning true tells the menu to continue the menu loop.
 		/// </summary>
-		private string Title {get; set; }
-		private List<string> Options {get; } = new List<string>();
-		private List<Func<bool>> Actions {get; } = new List<Func<bool>>();
+		public string Title {get; set; }
+		public List<string> Options {get; } = new List<string>();
+		public List<Func<bool>> Actions {get; } = new List<Func<bool>>();
 
 		public Menu(string Title)
 		{
@@ -30,7 +30,7 @@ namespace ReHack.Menus
 			this.AddOption(Message, () => { return false; } );
 		}
 
-		public void Run()
+		public virtual void Run()
 		{
 			bool Continue = true;
 			while (Continue)
@@ -52,4 +52,54 @@ namespace ReHack.Menus
 			}
 		}
 	}
+
+	public class ArrowKeyMenu : Menu
+	{
+		public ArrowKeyMenu(string Title) : base(Title) {}
+		public override void Run()
+		{
+			bool continueMenu = true;
+			int selectedOption = 0;
+
+			while (continueMenu)
+			{
+				Console.Clear();
+				PrintUtils.Divider();
+				Console.WriteLine(Title);
+				PrintUtils.Divider();
+
+				for (int i = 0; i < Options.Count; i++)
+				{
+					if (i == selectedOption)
+					{
+						Console.ForegroundColor = ConsoleColor.Green;
+						Console.WriteLine($"> {Options[i]}");
+						Console.ResetColor();
+					}
+					else
+					{
+						Console.WriteLine($"  {Options[i]}");
+					}
+				}
+
+				PrintUtils.Divider();
+
+				var key = Console.ReadKey(intercept: true).Key;
+
+				switch (key)
+				{
+					case ConsoleKey.UpArrow:
+						selectedOption = (selectedOption > 0) ? selectedOption - 1 : Options.Count - 1;
+						break;
+					case ConsoleKey.DownArrow:
+						selectedOption = (selectedOption < Options.Count - 1) ? selectedOption + 1 : 0;
+						break;
+					case ConsoleKey.Enter:
+						continueMenu = Actions[selectedOption]();
+						break;
+				}
+			}
+		}
+	}
+
 }

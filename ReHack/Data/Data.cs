@@ -77,6 +77,7 @@ namespace ReHack.Data
 				"ls",
 				"sudo",
 				"cat",
+				"w3",
 		};
 
 		public static List<string> DefaultManpages = new List<string> {

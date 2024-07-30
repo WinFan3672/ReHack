@@ -11,11 +11,25 @@ namespace ReHack.BaseMethods
 	{
 		private static readonly Random Rand = new Random();
 
-		public static string GenerateIPAddress() {
+		public static string GenerateIPAddress(bool Local=false) {
 			/// <summary>
 			/// Generates a random IP address
 			/// </summary>
-			string Address =  $"{Rand.Next(0, 256)}.{Rand.Next(0, 256)}.{Rand.Next(0, 256)}.{Rand.Next(0, 256)}";
+			Random Rand = new Random();
+			int A;
+			if (Local)
+			{
+				A = 10;
+			}
+			else
+			{
+				A = Rand.Next(0, 256);
+			}
+			while (!Local && A == 10)
+			{
+				A = Rand.Next(0, 256);
+			}
+			string Address =  $"{A}.{Rand.Next(0, 256)}.{Rand.Next(0, 256)}.{Rand.Next(0, 256)}";
 			foreach (var Node in GameData.Nodes)
 			{
 				if (Node.Address == Address)
@@ -292,7 +306,7 @@ namespace ReHack.BaseMethods
 			}
 		}
 
-		public static void PrintCentered(string text, int width, char FillChar=' ', char EndChar=' ')
+		public static string FormatCentered(string text, int width, char FillChar=' ', char EndChar=' ')
 		{
 			if (width < text.Length - 2)
 			{
@@ -301,7 +315,7 @@ namespace ReHack.BaseMethods
 			
 			if (FillChar != ' ' || EndChar != ' ')
 			{
-				width = width - 4;
+				width = width - 6;
 			}
 
 
@@ -310,8 +324,20 @@ namespace ReHack.BaseMethods
 			leftPadding = leftPadding - 2;
 			int rightPadding = spaces - leftPadding;
 
-			string formattedText = new string(FillChar, leftPadding) + EndChar +  ' ' + text + ' ' + EndChar + new string(FillChar, rightPadding);
-			Console.WriteLine(formattedText);
+			return EndChar + new string(FillChar, leftPadding) + EndChar +  ' ' + text + ' ' + EndChar + new string(FillChar, rightPadding) + EndChar;
+		}
+		public static void PrintCentered(string text, int width, char FillChar=' ', char EndChar=' ')
+		{
+			Console.WriteLine(FormatCentered(text, width, FillChar, EndChar));
+		}
+
+		public static string FormatUnderlined(string text)
+		{
+			// ANSI escape codes for underlined text
+			const string underlineOn = "\x1b[4m";
+			const string underlineOff = "\x1b[0m";
+			
+			return $"{underlineOn}{text}{underlineOff}";
 		}
 	}
 
@@ -324,7 +350,7 @@ namespace ReHack.BaseMethods
 
 			if (!assembly.GetManifestResourceNames().Contains(Name))
 			{
-				throw new Exception("Invalid file");
+				throw new ArgumentException("Invalid file");
 			}
 
 			using (System.IO.Stream? Stream = assembly.GetManifestResourceStream(Name))

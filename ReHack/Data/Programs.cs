@@ -10,6 +10,7 @@ using ReHack.Programs.Nmap;
 using ReHack.Programs.LS;
 using ReHack.Programs.Sudo;
 using ReHack.Programs.Cat;
+using ReHack.Programs.W3;
 
 namespace ReHack.Data.Programs
 {
@@ -28,6 +29,7 @@ namespace ReHack.Data.Programs
 			new ProgramDefinition("ls", "Lists contents of directories", new ProgramDelegate(LS.Program), new string[] {}),
 			new ProgramDefinition("sudo", "Run commands as root", new ProgramDelegate(Sudo.Program), new string[] {}),
 			new ProgramDefinition("cat", "View contents of files", new ProgramDelegate(Cat.Program), new string[] {"cat" }),
+			new ProgramDefinition("w3", "Web browser", new ProgramDelegate(W3.Program), new string[] { "w3" }),
 		};
 
 		public static ProgramDefinition GetProgram(string Name)

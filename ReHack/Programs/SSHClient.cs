@@ -58,7 +58,15 @@ namespace ReHack.Programs.SSHClient
 					}
                 }
                 else {
-					RunCommand(Client, Input, Person);
+					try
+					{
+						RunCommand(Client, Input, Person);
+					}
+					catch (Exception ex)
+					{
+						Console.WriteLine($"{ex.GetType()}: {ex.Message}");
+						Console.WriteLine(ex.StackTrace);
+					}
                 }
             }
         }

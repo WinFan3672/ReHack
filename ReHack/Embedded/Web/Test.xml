@@ -5,4 +5,16 @@
 	<Body>
 		<Title />
 		<Text>This is a test website.</Text>
+		<Break style="Divider"/>
+		<Text>Here is a bulleted list:</Text>
+		<List kind="Bulleted">
+			<Item>Foo</Item>
+			<Item>Bar</Item>
+		</List>
+		<Box>
+			<Text>This is some text in a box.</Text>
+			<Text>You can even have more than one line of text in a box. Isn't that cool?</Text>
+		</Box>
+		<Footer>(c) 2010 ReHack, all rights reserved.</Footer>
+	</Body>
 </Website>

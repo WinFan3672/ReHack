@@ -3,12 +3,13 @@
 using ReHack.Welcome;
 using ReHack.Menus;
 using ReHack.BaseMethods;
+using Spectre.Console;
 
 class Program
 {
     static void Main(string[] args)
     {
-		Menu MainMenu = new Menu("ReHack");
+		ArrowKeyMenu MainMenu = new ArrowKeyMenu("ReHack");
 		MainMenu.AddOption("New Game", WelcomeSequence.Init);
 		MainMenu.AddExitOption();
 		if (DebugUtils.IsDebug())

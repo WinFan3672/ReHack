@@ -40,11 +40,16 @@ namespace ReHack.Node.WebServer
 			return true;
 		}
 
-		public string Render(BaseNode Client)
+		public string Render(BaseNode Client, string Resource)
 		{
 			if (!this.CheckAccessControl(Client))
 			{
 				return "<Webpage><Head><Title>Error 403</Head><Body><Text>Access to this website is denied.</Text></Body></Webpage>";
+			}
+			
+			if (Resource != "/")
+			{
+				throw new NotImplementedException();
 			}
 
 			string Path = $"Web.{this.IndexFile}.xml";

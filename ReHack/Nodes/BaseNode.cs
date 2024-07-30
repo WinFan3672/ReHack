@@ -2,6 +2,7 @@ using ReHack.BaseMethods;
 using ReHack.Data;
 using ReHack.Data.Programs;
 using ReHack.Filesystem;
+using ReHack.Networks;
 
 namespace ReHack.Node {
 	public class BaseNode {
@@ -14,6 +15,7 @@ namespace ReHack.Node {
 		public List<string> Manpages {get; } = new List<string>();
 		public List<string> InstalledPrograms {get;} = new List<string>();
 		public FileSystem Root {get; } = new FileSystem(new VirtualFile[]{}, GameData.DefaultDirs);
+		public AreaNetwork? Network {get; set; }
 
 		public BaseNode(string Name, string UID, string Address, User[] Users)
 		{

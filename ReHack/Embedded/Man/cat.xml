@@ -1,0 +1,7 @@
+<Manpage>
+	<Title>cat</Title>
+	<Section title="Name" >cat - View contents of files</Section>
+	<Section title="Synopsis">cat [filename]</Section>
+	<Section title="Description">cat is a utility that can be used to view local files.</Section>
+	<Section title="Usage">To view a file, run 'cat [filename]'.</Section>
+</Manpage>
