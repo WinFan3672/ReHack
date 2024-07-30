@@ -10,7 +10,7 @@ using ReHack.Filesystem;
 namespace ReHack.Welcome {
 	public static class WelcomeSequence
 	{
-		public static void Init()
+		public static bool Init()
 		{
 			///
 			/// <summary>
@@ -20,7 +20,7 @@ namespace ReHack.Welcome {
 			if (Console.IsOutputRedirected)
 			{
 				Console.WriteLine("ERROR: ReHack must be running in a terminal.");
-				return;
+				return false;
 			}
 
 			(string, string) Details;
@@ -38,6 +38,8 @@ namespace ReHack.Welcome {
 			NodeData.Init();
 			User PlayerUser = Player.GetUser(Details.Item1);
 			SSHClient.ServiceRunner(Player, PlayerUser, !DebugUtils.IsDebug(), false);
+
+			return false;
 		}
 	}
 }
