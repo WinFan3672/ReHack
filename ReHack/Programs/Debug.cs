@@ -27,6 +27,7 @@ namespace ReHack.Programs.Debug
 				Console.WriteLine("debug [subcommand] [args...]");
 				Console.WriteLine("Subcommands:");
 				Console.WriteLine("\tfiles - Lists embedded files");
+				Console.WriteLine("\tpasswd - Generates random, brute-forceable password");
 				return false;
 			}
 		}

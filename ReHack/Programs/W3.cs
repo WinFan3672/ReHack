@@ -31,11 +31,15 @@ namespace ReHack.Programs.W3
 				XmlAttribute? Style = Node.Attributes["style"];
 				if (Style == null)
 				{
-					Console.WriteLine(Node.InnerText);
+					AnsiConsole.MarkupLine(Node.InnerText);
 				}
 				else if (Style.Value == "Centered")
 				{
-					PrintUtils.PrintCentered(Node.InnerText, Console.WindowWidth);
+					AnsiConsole.MarkupLine(PrintUtils.FormatCentered(Node.InnerText, Console.WindowWidth));
+				}
+				else
+				{
+					AnsiConsole.MarkupLine($"[bold red]error[/]: Text style [yellow]{Style.Value}[/] invalid"); 
 				}
 			}
 			else if (Node.Name == "Footer")
@@ -79,6 +83,26 @@ namespace ReHack.Programs.W3
 					}
 				}
 				Console.WriteLine("└" + new string('─', Console.WindowWidth - 2) + "┘");
+			}
+			else if (Node.Name == "Heading")
+			{
+				AnsiConsole.MarkupLine($"[bold]{Node.InnerText}[/]");
+			}
+			else if (Node.Name == "Command")
+			{
+				XmlAttribute? Command = Node.Attributes["cmd"];
+				if (Command == null)
+				{
+					AnsiConsole.MarkupLine("[bold red]error[/]: [yellow]Command[/] tag requires a [blue]cmd[/] attribute");
+				}
+				else if (Command.Value == "Clear")
+				{
+					Console.Clear();
+				}
+				else
+				{
+					AnsiConsole.MarkupLine("[bold red]error[/]: [yellow]Command[/] tag has invalid [blue]cmd[/] attribute");
+				}
 			}
 			else
 			{

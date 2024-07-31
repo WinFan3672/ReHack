@@ -6,16 +6,16 @@ namespace ReHack.Node.WebServer
 {
 	public class WebServer : BaseNode
 	{
-		public string IndexFile {get; set; }
+		public string IndexFolder {get; set; }
 		public bool UseWhitelist {get; } = false;
 		public List<string> Whitelist {get; } = new List<string>();
 		public List<string> Blacklist {get; } = new List<string>();
 
-		public WebServer(string Name, string UID, string Address, string IndexFile, string? AdminPassword=null) : base (Name, UID, Address, new User[] {
+		public WebServer(string Name, string UID, string Address, string IndexFolder, string? AdminPassword=null) : base (Name, UID, Address, new User[] {
 				new User("root", AdminPassword, true), new User("w3", null, false),
 				})
 		{
-			this.IndexFile = IndexFile;
+			this.IndexFolder = IndexFolder;
 			this.Ports.Add(GameData.GetPort("ssh"));
 			this.Ports.Add(GameData.GetPort("http"));
 		}
@@ -47,12 +47,17 @@ namespace ReHack.Node.WebServer
 				return "<Webpage><Head><Title>Error 403</Head><Body><Text>Access to this website is denied.</Text></Body></Webpage>";
 			}
 			
-			if (Resource != "/")
+			string Path;
+
+			if (Resource == "/")
 			{
-				throw new NotImplementedException();
+				Path = $"Web.{this.IndexFolder}.index.xml";
+			}
+			else
+			{
+				Path = $"Web.{this.IndexFolder}.{Resource.TrimStart('/')}.xml";
 			}
 
-			string Path = $"Web.{this.IndexFile}.xml";
 			return FileUtils.GetFileContents(Path);
 		}
 	}

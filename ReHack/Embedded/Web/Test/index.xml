@@ -3,8 +3,9 @@
 		<Title>Test Website</Title>
 	</Head>
 	<Body>
+		<Command cmd="Clear" />
 		<Title />
-		<Text>This is a test website.</Text>
+		<Text>This is a [red]test[/] website.</Text>
 		<Break style="Divider"/>
 		<Text>Here is a bulleted list:</Text>
 		<List kind="Bulleted">

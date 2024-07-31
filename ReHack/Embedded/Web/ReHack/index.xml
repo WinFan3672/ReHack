@@ -1,0 +1,34 @@
+<Website>
+	<Head>
+		<Title>ReHack</Title>
+	</Head>
+	<Body>
+		<Title />
+		<Text>reHack is a professional organisation specialising in penetration testing. We employ 'agents', or individual contractors, and facilitate payment between agents and organisations looking to find and fix security vulnerabilities before threat actors find and exploit them, potentially leading to millions or billions of dollars of damage. Whether you're a small business or a billion dollar corporation, we can help you.</Text>
+		<Heading>Testimonials</Heading>
+		<Box>
+			<Text>"We were receiving regular DDOS attacks and breaches, but when we hired an agent at reHack, it all stopped. Our security has never been stronger!"</Text>
+			<Text>- Emerging tech startup</Text>
+		</Box>
+		<Box>
+			<Text>"I asked my boss if we should hire them to analyse our security, and he was skeptical at first. </Text>
+			<Text>When we hired an agent, he found several critical vulnerabilities in our servers and helped us patch them. Stellar work."</Text>
+			<Text>- Popular beverage company</Text>
+		</Box>
+		<Heading>Become An Agent</Heading>
+		<Text>Do you think you have what it takes to become an agent? Do you demonstrate a willingness to learn and adapt? Do you want to make quick money? If you answered 'yes' to most or all of those questions, reHack may be for you. To get started, download our desktop software (see below) and get connected. If you pass the test, you'll become an agent.</Text>
+		<Heading>Hire Our Services</Heading>
+		<Text>Whether you're a company looking to stress-test their network or a company looking to evaluate their employees' training, we can be of massive help:</Text>
+		<List>
+			<Item>We have over 10,000 agents working both full- and part-time to ensure that a skilled agent can and will complete your task. Expect multiple people to attempt the task, but only one to succeed.</Item>
+			<Item>We offer free quotes for services. As such, if you don't know what you're in for, you can find out in a risk-free manner.</Item>
+			<Item>We charge a 15% fee on top of the quote we give. The quote is what the agent pays upon completion, and the fee is to keep our services operational without cutting into agents' profits.</Item>
+		</List>
+		<Text>If you are interested in our services, use our contact form below:</Text>
+		<Box>
+			<Text>ERROR: Failed to load contact form. Contact the webmaster to resolve this.</Text>
+		</Box>
+
+		<Footer>(c) 2010 ReHack, all rights reserved.</Footer>
+	</Body>
+</Website>

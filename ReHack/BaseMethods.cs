@@ -3,7 +3,6 @@ using System.IO;
 using System.Reflection;
 using ReHack.Data;
 using ReHack.Node;
-using Spectre.Console;
 
 namespace ReHack.BaseMethods
 {
@@ -346,7 +345,6 @@ namespace ReHack.BaseMethods
 	{
 		public static string? GetFileContents(string Filename)
 		{
-			AnsiConsole.WriteLine($"[bold yellow]Debug[/]: Opening file: [bold blue]{Filename}[/]");
 			var assembly = Assembly.GetExecutingAssembly();
 			string Name = $"ReHack.Embedded.{Filename}";
 
@@ -384,7 +382,11 @@ namespace ReHack.BaseMethods
 	{
 		public static bool IsDebug()
 		{
-			return System.Environment.GetEnvironmentVariables().Contains("REHACK_DEBUG");
+			#if !DEBUG
+				return false;
+			#else
+				return System.Environment.GetEnvironmentVariables().Contains("REHACK_DEBUG");
+			#endif
 		}
 	}
 

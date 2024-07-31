@@ -9,17 +9,6 @@ class Program
 {
 	static void Main(string[] args)
 	{
-		/*ArrowKeyMenu MainMenu = new ArrowKeyMenu("ReHack");*/
-		/*MainMenu.AddOption("New Game", WelcomeSequence.Init);*/
-		/*MainMenu.AddExitOption();*/
-		/*if (DebugUtils.IsDebug())*/
-		/*{*/
-		/*	WelcomeSequence.Init();*/
-		/*}*/
-		/*else*/
-		/*{*/
-		/*	MainMenu.Run();*/
-		/*}*/
 		if (DebugUtils.IsDebug())
 		{
 			WelcomeSequence.Init();

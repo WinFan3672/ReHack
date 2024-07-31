@@ -26,7 +26,7 @@ namespace ReHack.Data.Nodes
 			var ReHackRepo = GameData.AddNode(new PackageRepo("ReHack Official Packages", "rehack-pkg", "pkg.rehack.org", ReHackPackages, null));
 
 			WebServer TestWeb = GameData.AddNode(new WebServer("Test Page", "test-web", "www.test.com", "Test")) as WebServer ?? throw new ArgumentNullException();
-			/*TestWeb.Blacklist.Add("localhost");*/
+			WebServer ReHackWeb = GameData.AddNode(new WebServer("ReHack", "rehack-web", "rehack.org", "ReHack")) as WebServer ?? throw new ArgumentNullException();
 		}
 	}
 }

@@ -2,6 +2,7 @@ using ReHack.BaseMethods;
 using ReHack.Node;
 using ReHack.Node.MailServer;
 using ReHack.Filesystem;
+using Spectre.Console;
 
 namespace ReHack.Data
 {
@@ -9,7 +10,6 @@ namespace ReHack.Data
 		public static List<BaseNode> Nodes { get; } = new List<BaseNode>();
 
 		public static List<Port> Ports {get; } = new List<Port> { 
-			/*new Port("Local Area Network Router", "lan", 1),*/
 			new Port("FTP", "ftp", 21),
 				new Port("SSH", "ssh", 22),
 				new Port("Mail Server (SMTP)", "smtp", 25),
@@ -69,7 +69,7 @@ namespace ReHack.Data
 		public static string[] Passwords = FileUtils.GetFileContents("Passwords.txt").Split(new[] {"\r\n", "\n"}, StringSplitOptions.None);
 
 		public static List<string> DefaultPrograms = new List<string> { 
-				"help", 
+			"help", 
 				"ssh",
 				"man",
 				"lsman",
@@ -84,11 +84,12 @@ namespace ReHack.Data
 		};
 
 		public static VirtualDirectory[] DefaultDirs = new VirtualDirectory[] {
-				new VirtualDirectory("home", new VirtualFile[]{}, new VirtualDirectory[] {}),
+			new VirtualDirectory("home", new VirtualFile[]{}, new VirtualDirectory[] {}),
 				new VirtualDirectory("etc", new VirtualFile[] {}, new VirtualDirectory[] {
 						new VirtualDirectory("apt", new VirtualFile[] {new VirtualFile("sources.list", "pkg.debian.org")}, new VirtualDirectory[] {}),
 						}),
 				new VirtualDirectory("var", new VirtualFile[]{}, new VirtualDirectory[]{}),
 		};
+
 	}
 }
