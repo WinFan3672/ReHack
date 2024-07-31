@@ -40,7 +40,7 @@ namespace ReHack.Node.WebServer
 			return true;
 		}
 
-		public string Render(BaseNode Client, string Resource)
+		public virtual string Render(BaseNode Client, string Resource)
 		{
 			if (!this.CheckAccessControl(Client))
 			{

@@ -3,6 +3,7 @@
 		<Title>ReHack</Title>
 	</Head>
 	<Body>
+		<Command cmd="Clear" />
 		<Title />
 		<Text>reHack is a professional organisation specialising in penetration testing. We employ 'agents', or individual contractors, and facilitate payment between agents and organisations looking to find and fix security vulnerabilities before threat actors find and exploit them, potentially leading to millions or billions of dollars of damage. Whether you're a small business or a billion dollar corporation, we can help you.</Text>
 		<Heading>Testimonials</Heading>
@@ -28,7 +29,6 @@
 		<Box>
 			<Text>ERROR: Failed to load contact form. Contact the webmaster to resolve this.</Text>
 		</Box>
-
 		<Footer>(c) 2010 ReHack, all rights reserved.</Footer>
 	</Body>
 </Website>

@@ -1,7 +1,6 @@
 ﻿namespace ReHack;
 
 using ReHack.Welcome;
-using ReHack.Menus;
 using ReHack.BaseMethods;
 using Spectre.Console;
 
