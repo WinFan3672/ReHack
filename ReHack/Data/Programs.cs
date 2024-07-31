@@ -5,7 +5,6 @@ using ReHack.Programs.Man;
 using ReHack.Programs.Ping;
 using ReHack.Programs.Apt;
 using ReHack.Programs.Debug;
-using ReHack.Programs.Curl;
 using ReHack.Programs.Nmap;
 using ReHack.Programs.LS;
 using ReHack.Programs.Sudo;
@@ -25,7 +24,6 @@ namespace ReHack.Data.Programs
 			new ProgramDefinition("ping", "Checks if hosts are up", new ProgramDelegate(PingClient.Program), new string[] { "ping" } ),
 			new ProgramDefinition("apt", "Package Manager", new ProgramDelegate(Apt.Program), new string[] { "apt" } ),
 			new ProgramDefinition("debug", "Debugging tools", new ProgramDelegate(DebugClient.Program), new string[] {} ),
-			new ProgramDefinition("curl", "Perform W3 requests", new ProgramDelegate(Curl.Program), new string[] {} ),
 			new ProgramDefinition("nmap", "Enumerate ports on a device", new ProgramDelegate(Nmap.Program), new string[] {}),
 			new ProgramDefinition("ls", "Lists contents of directories", new ProgramDelegate(LS.Program), new string[] {}),
 			new ProgramDefinition("sudo", "Run commands as root", new ProgramDelegate(Sudo.Program), new string[] { "sudo" }),

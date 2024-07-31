@@ -1,6 +1,7 @@
 using ReHack.Node;
 using ReHack.BaseMethods;
 using ReHack.Data;
+using ReHack.WebRendering;
 
 namespace ReHack.Node.WebServer
 {
@@ -40,11 +41,12 @@ namespace ReHack.Node.WebServer
 			return true;
 		}
 
-		public virtual string Render(BaseNode Client, string Resource)
+		public virtual void Render(BaseNode Client, string Resource="/")
 		{
 			if (!this.CheckAccessControl(Client))
 			{
-				return "<Webpage><Head><Title>Error 403</Head><Body><Text>Access to this website is denied.</Text></Body></Webpage>";
+				WebRender.Render("<Webpage><Head><Title>Error 403</Head><Body><Text>Access to this website is denied.</Text></Body></Webpage>");
+				return;
 			}
 			
 			string Path;
@@ -58,7 +60,7 @@ namespace ReHack.Node.WebServer
 				Path = $"Web.{this.IndexFolder}.{Resource.TrimStart('/')}.xml";
 			}
 
-			return FileUtils.GetFileContents(Path);
+			WebRender.Render(FileUtils.GetFileContents(Path));
 		}
 	}
 }

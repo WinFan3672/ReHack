@@ -60,6 +60,11 @@ namespace ReHack.Node {
 			throw new ArgumentException("Invalid port");
 		}
 
+		public void AddPort(string PortID)
+		{
+			this.Ports.Add(GameData.GetPort(PortID));
+		}
+
 		public void DebugPorts()
 		{
 			foreach (Port Service in this.Ports)
