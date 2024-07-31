@@ -1,4 +1,5 @@
 using ReHack.Node;
+using ReHack.Node.Webserver;
 using ReHack.BaseMethods;
 using ReHack.Filesystem;
 
@@ -14,6 +15,7 @@ namespace ReHack.Node.FTP
 				throw new ArgumentException("Directory must be called 'ftp'");
 			}
 			this.Root.GetDirectory("var").AddDirectory(Root);
-		}			
+		}
+
 	}
 }

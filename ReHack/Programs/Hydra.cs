@@ -2,6 +2,7 @@ using ReHack.Node;
 using ReHack.BaseMethods;
 using Spectre.Console;
 using ReHack.Data;
+using ReHack.Programs.SSH;
 
 namespace ReHack.Programs.Hydra
 {
@@ -76,7 +77,18 @@ namespace ReHack.Programs.Hydra
 				Console.WriteLine("error: No password found.");
 				return false;
 			}
-			return true;
+			else
+			{
+				string YesNo = AnsiConsole.Prompt(new SelectionPrompt<string>().Title("Connect now?").AddChoices(new[] {"Yes", "No"}));
+				
+				if (YesNo == "Yes")
+				{
+					SSHClient.ServiceRunner(NodeToHack, UserToHack, false, false);
+				}
+
+				return true;
+			}
+
 		}
 	}
 }

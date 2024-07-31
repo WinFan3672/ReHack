@@ -4,7 +4,7 @@ using ReHack.BaseMethods;
 using ReHack.Node;
 using Spectre.Console;
 
-namespace ReHack.Programs.SSHClient
+namespace ReHack.Programs.SSH
 {
     public static class SSHClient
     {
@@ -58,6 +58,13 @@ namespace ReHack.Programs.SSHClient
 						return;
 					}
                 }
+				else if (Input == "clear" || Input == "cls")
+				{
+					Console.Clear();
+				}
+				else if (Input == "")
+				{
+				}
                 else {
 					try
 					{

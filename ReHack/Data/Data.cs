@@ -78,6 +78,7 @@ namespace ReHack.Data
 				"sudo",
 				"cat",
 				"w3",
+				"telnet",
 		};
 
 		public static List<string> DefaultManpages = new List<string> {

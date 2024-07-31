@@ -3,7 +3,7 @@ using ReHack.Node.MailServer;
 using ReHack.Node.Player;
 using ReHack.BaseMethods;
 using ReHack.Data;
-using ReHack.Programs.SSHClient;
+using ReHack.Programs.SSH;
 using ReHack.Data.Nodes;
 using ReHack.Filesystem;
 

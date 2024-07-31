@@ -3,7 +3,7 @@ using ReHack.BaseMethods;
 using ReHack.Data;
 using ReHack.WebRendering;
 
-namespace ReHack.Node.WebServer
+namespace ReHack.Node.Webserver
 {
 	public class WebServer : BaseNode
 	{
@@ -45,7 +45,7 @@ namespace ReHack.Node.WebServer
 		{
 			if (!this.CheckAccessControl(Client))
 			{
-				WebRender.Render("<Webpage><Head><Title>Error 403</Head><Body><Text>Access to this website is denied.</Text></Body></Webpage>");
+				WebRender.Render("<Webpage><Head><Title>Error 403</Title></Head><Body><Text>Access to this website is denied.</Text></Body></Webpage>");
 				return;
 			}
 			

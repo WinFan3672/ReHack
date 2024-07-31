@@ -1,9 +1,15 @@
+using ReHack.Node;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace ReHack.Filesystem
 {
+
+	public interface IVirtualFile
+	{
+		void View(BaseNode Client);
+	}
 
 	public class VirtualFile
 	{

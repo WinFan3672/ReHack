@@ -1,6 +1,6 @@
 using ReHack.Node;
 using ReHack.BaseMethods;
-using ReHack.Programs.SSHClient;
+using ReHack.Programs.SSH;
 
 namespace ReHack.Programs.Sudo
 {
@@ -22,7 +22,7 @@ namespace ReHack.Programs.Sudo
 
 			string Command = string.Join(" ", Args);
 			User SudoUser = new User("root", null, true);
-			/*SSHClient.RunCommand(Client, Command, SudoUser);*/
+			SSHClient.RunCommand(Client, Command, SudoUser);
 			return true;
 		}
 	}

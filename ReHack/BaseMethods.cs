@@ -271,7 +271,7 @@ namespace ReHack.BaseMethods
 			Console.WriteLine("--------------------");
 		}
 
-		public static string ReadPassword()
+		public static string ReadPassword(bool ShowAsterisks=true)
 		{
 			/// <summary>
 			/// Basic password entry function. Reads passwords from stdin, showing asterisks 
@@ -293,8 +293,10 @@ namespace ReHack.BaseMethods
 				else if (!char.IsControl(key.KeyChar))
 				{
 					password.Append(key.KeyChar);
-					/*Console.Write('\u2022');*/
-					Console.Write("*");
+					if (ShowAsterisks)
+					{
+						Console.Write("*");
+					}
 				}
 			}
 			Console.WriteLine();

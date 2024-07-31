@@ -1,30 +1,45 @@
 using ReHack.Data;
 using ReHack.BaseMethods;
 using ReHack.Node;
-using ReHack.Programs.SSHClient;
+using ReHack.Programs.SSH;
+using Spectre.Console;
 
-namespace ReHack.Programs.TelnetClient
+namespace ReHack.Programs.Telnet
 {
     public static class TelnetClient
     {
 		private static void ServiceRunner(BaseNode Client, User Person)
 		{
+			SSHClient.ServiceRunner(Client, Person, false, false);
 		}
-        public static bool Program(BaseNode Client)
+        public static bool Program(string[] Args, BaseNode Client, User RunningUser)
         {
-            if (NodeUtils.CheckPort(Client, "telnet"))
+			if (Args.Length == 1)
             {
-				(string, string) Details = UserUtils.GetCredentials();
-				User Person = Client.GetUser(Details.Item1);
-				if (Person.Password != Details.Item2)
+				BaseNode Target = NodeUtils.GetNodeByAddress(Args[0]);
+				if (!NodeUtils.CheckPort(Target, "telnet"))
 				{
-					Console.WriteLine("ERROR: Incorrect password.");
+					AnsiConsole.MarkupLine("[bold red]error[/]: Connection refused");
 					return false;
 				}
-				ServiceRunner(Client, Person);
+				Console.Write("Username $");
+				string Username = Console.ReadLine();
+				Console.Write("Password $");
+				string Password = PrintUtils.ReadPassword(false);
+				User Person = Target.GetUser(Username);
+				if (Person.Password != Password)
+				{
+					AnsiConsole.MarkupLine("[bold red]error[/]: Incorrect password");
+					return false;
+				}
+				ServiceRunner(Target, Person);
                 return true;
             }
-            return false;
+			else
+			{
+				AnsiConsole.MarkupLine("[bold blue]usage[/]: telnet [[hostname]]");
+				return false;
+			}
         }
     }
 }
