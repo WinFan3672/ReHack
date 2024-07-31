@@ -27,6 +27,7 @@ namespace ReHack.Data.Nodes
 
 			WebServer TestWeb = GameData.AddNode(new WebServer("Test Page", "test-web", "www.test.com", "Test")) as WebServer ?? throw new ArgumentNullException();
 			WebServer ReHackWeb = GameData.AddNode(new WebServer("ReHack", "rehack-web", "rehack.org", "ReHack")) as WebServer ?? throw new ArgumentNullException();
+			WebServer Example = GameData.AddNode(new WebServer("Example Domain", "example", "example.com", "Example")) as WebServer ?? throw new ArgumentNullException();
 		}
 	}
 }

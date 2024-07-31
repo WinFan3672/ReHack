@@ -39,6 +39,40 @@ namespace ReHack.BaseMethods
 			return Address;
 		}
 
+		public static bool IsURL(string URL)
+		{
+			/// <summary>
+			/// Returns a bool determining if a string is a valid URL.
+			/// </summary>
+			return URL.StartsWith("w3://");
+		}
+		
+		public static (string, string) DeconstructURL(string URL)
+		{
+			/// <summary>
+			/// Converts a URL (starting with 'w3://') 
+			/// </summary>
+			if (!IsURL(URL))
+			{
+				throw new ArgumentException("Invalid URL");
+			}
+			URL = URL.Replace("w3://", "");
+			string[] Parts = URL.Split('/');
+
+			if (Parts.Length == 1 || Parts.Length == 2 && Parts[1] == "")
+			{
+				return (Parts[0], "/");
+			}
+			else if (Parts.Length == 2)
+			{
+				return (Parts[0], Parts[1]);
+			}
+			else
+			{
+				throw new ArgumentException("URL has too many parts");
+			}
+		}
+
 		public static bool CheckNode(string UID)
 		{
 			foreach(var Node in GameData.Nodes)

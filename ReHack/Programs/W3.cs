@@ -23,8 +23,17 @@ namespace ReHack.Programs.W3
 					{
 						MenuTexts.Add("[" + PrintUtils.FormatUnderlined(Child.InnerText) + "]");
 					}
+					else
+					{
+						AnsiConsole.MarkupLine("[bold red]error[/]: [yellow]Menu[/] only accepts [blue]Link[/] tags");
+					}
 				}
-				PrintUtils.PrintCentered(string.Join(" ", MenuTexts), Console.WindowWidth);
+				List<Text> columns = new List<Text>() {};
+				foreach(string MenuText in MenuTexts)
+				{
+					columns.Add(new Text(MenuText));
+				}
+				AnsiConsole.Write(new Columns(columns));
 			}
 			else if (Node.Name == "Text")
 			{
@@ -64,12 +73,17 @@ namespace ReHack.Programs.W3
 				{
 					Console.WriteLine(new string('─', Console.WindowWidth));
 				}
+				else
+				{
+					AnsiConsole.MarkupLine("[bold red]error[/]: [yellow]Break[/] tag has invalid [blue]style[/] attribute");
+				}
 			}
 			else if (Node.Name == "Link")
 			{
 				XmlAttribute? LinkKind = Node.Attributes["kind"];
 				XmlAttribute? LinkRef = Node.Attributes["ref"];
 				XmlAttribute? LinkStyle = Node.Attributes["style"];
+				AnsiConsole.MarkupLine("[bold red]error[/]: [yellow]Link[/] tags not implemented in [blue]W3[/]");
 			}
 			else if (Node.Name == "Box")
 			{
@@ -80,6 +94,10 @@ namespace ReHack.Programs.W3
 					if (Child.Name == "Text")
 					{
 						Console.WriteLine("│" + PrintUtils.FormatCentered(Child.InnerText, Console.WindowWidth - 8).TrimEnd('\r', '\n') + "│");
+					}
+					else
+					{
+						AnsiConsole.MarkupLine("[bold red]error[/]: [yellow]Box[/] only accepts [blue]Text[/] objects");
 					}
 				}
 				Console.WriteLine("└" + new string('─', Console.WindowWidth - 2) + "┘");
@@ -106,7 +124,7 @@ namespace ReHack.Programs.W3
 			}
 			else
 			{
-				Console.WriteLine(Node.OuterXml);
+				AnsiConsole.MarkupLine($"[bold red]error[/]: Invalid tag [yellow]{Node.Name}[/]");
 			}
 		}
 		public static bool Program(string[] Args, BaseNode Client, User RunningUser)

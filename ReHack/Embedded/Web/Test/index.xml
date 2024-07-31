@@ -5,7 +5,7 @@
 	<Body>
 		<Command cmd="Clear" />
 		<Title />
-		<Text>This is a [red]test[/] website.</Text>
+		<Text>This is a [red]t[/][yellow]e[/][green]s[/][blue]t[/] website.</Text>
 		<Break style="Divider"/>
 		<Text>Here is a bulleted list:</Text>
 		<List kind="Bulleted">

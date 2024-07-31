@@ -22,6 +22,14 @@ namespace ReHack.Programs.Debug
 				Console.WriteLine(UserUtils.PickPassword());
 				return true;
 			}
+			else if (Args.Length == 1 && Args.Contains("url"))
+			{
+				Console.Write("URL: ");
+				string URL = Console.ReadLine();
+				(string, string) Parts = NodeUtils.DeconstructURL(URL);
+				Console.WriteLine($"Server={Parts.Item1}; Resource={Parts.Item2}");
+				return true;
+			}
 			else
 			{
 				Console.WriteLine("debug [subcommand] [args...]");
