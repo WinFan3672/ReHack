@@ -30,6 +30,9 @@ namespace ReHack.Data
 
 		public static BaseNode AddNode(BaseNode Node)
 		{
+			/// <summary>
+			/// Adds a node to the in-game WAN. Returns the node as well, for convenience.
+			/// </summary>
 			Nodes.Add(Node);
 			return Node;
 		}

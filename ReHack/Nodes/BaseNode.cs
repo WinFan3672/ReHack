@@ -3,6 +3,7 @@ using ReHack.Data;
 using ReHack.Data.Programs;
 using ReHack.Filesystem;
 using ReHack.Networks;
+using Spectre.Console;
 
 namespace ReHack.Node {
 	public class BaseNode {
@@ -48,7 +49,7 @@ namespace ReHack.Node {
 		public Port GetPort(string PortID)
 		{
 			/// <summary>
-			/// Returns a port in the port list
+			/// Returns a port in the port list.
 			/// </summary>
 			foreach (Port Service in this.Ports)
 			{
@@ -151,6 +152,16 @@ namespace ReHack.Node {
 			}
 
 			Dir.AddDirectory(Directory);
+		}
+
+		public virtual void Welcome()
+		{
+			AnsiConsole.MarkupLine("Welcome to [red]Debian Linux[/] [green]5.0.5[/]!");
+			AnsiConsole.MarkupLine("The programs included with the Debian GNU/Linux system are free software");
+			AnsiConsole.MarkupLine("the exact distribution terms for each program are described in the");
+			AnsiConsole.MarkupLine("individual files in [blue]/usr/share/doc/*/copyright[/].");
+			AnsiConsole.MarkupLine("Debian GNU/Linux comes with [bold]ABSOLUTELY NO WARRANTY[/], to the extent");
+			AnsiConsole.MarkupLine("permitted by applicable law.");
 		}
 	}
 }

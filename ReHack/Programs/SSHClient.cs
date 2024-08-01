@@ -26,7 +26,7 @@ namespace ReHack.Programs.SSH
 				Program.Method(Args, Client, RunningUser);
 			}
 			else {
-				Console.WriteLine("ERROR: Bad command or file name.");
+				Console.WriteLine("error: Bad command");
 			}
 		}
 		private static bool Authenticate(BaseNode Client, string Username)
@@ -38,6 +38,7 @@ namespace ReHack.Programs.SSH
 		}
         public static void ServiceRunner(BaseNode Client, User Person, bool ConfirmExit=false, bool DoAuthenticate = true)
         {
+			Client.Welcome();
 			if (DoAuthenticate)
 			{
 				if (!Authenticate(Client, Person.Username))

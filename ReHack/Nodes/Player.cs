@@ -2,6 +2,7 @@ using ReHack.BaseMethods;
 using ReHack.Node;
 using ReHack.Data;
 using ReHack.Filesystem;
+using Spectre.Console;
 
 namespace ReHack.Node.Player
 {
@@ -21,5 +22,22 @@ namespace ReHack.Node.Player
 			VirtualFile AptConfig = this.Root.GetFile("/etc/apt/sources.list");
 			AptConfig.Content = AptConfig.Content + "\npkg.rehack.org";
         }
+
+		public override void Welcome()
+		{
+			if (!DebugUtils.IsDebug())
+			{
+				Console.Clear();
+				AnsiConsole.MarkupLine("Welcome to [yellow]ReHackOS[/] [green]1.0[/]!");
+				AnsiConsole.MarkupLine("For a command list, the [blue]help[/] command comes in handy.");
+				AnsiConsole.MarkupLine("We use [blue]apt[/] as a package manager (program that installs other programs).");
+				AnsiConsole.MarkupLine("To get per-program help, you can use [blue]man[/] and [blue]lsman[/].");
+				Console.WriteLine();
+				AnsiConsole.MarkupLine("For agent-specific help, the [blue]welcome[/] and [blue]tutorial[/] commands are your friend.");
+				AnsiConsole.MarkupLine("We hope you enjoy working as a ReHack Agent.");
+			}
+
+
+		}
     }
 }

@@ -1,6 +1,7 @@
 using ReHack.Node;
 using ReHack.BaseMethods;
 using ReHack.Filesystem;
+using Spectre.Console;
 
 namespace ReHack.Programs.LS
 {
@@ -19,20 +20,20 @@ namespace ReHack.Programs.LS
 			}
 			else
 			{
-				Console.WriteLine("usage: ls [directory]");
+				AnsiConsole.MarkupLine("[blue]usage[/]: ls [[directory]]");
 				return false;
 			}
 			VirtualDirectory Directory = Client.Root.GetDirectory(DirectoryName);
 			PrintUtils.Divider();
-			Console.WriteLine($"Contents of '{DirectoryName}'");
+			AnsiConsole.MarkupLine($"Contents of '{DirectoryName}'");
 			PrintUtils.Divider();
 			foreach (VirtualDirectory Dir in Directory.SubDirectories)
 			{
-				Console.WriteLine(Dir.Name);
+				AnsiConsole.MarkupLine($"[blue]{Dir.Name}[/]");
 			}
 			foreach (VirtualFile File in Directory.Files)
 			{
-				Console.WriteLine(File.Name);
+				AnsiConsole.MarkupLine(File.Name);
 			}
 			PrintUtils.Divider();
 			return true;
