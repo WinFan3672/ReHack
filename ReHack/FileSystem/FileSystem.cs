@@ -47,6 +47,11 @@ namespace ReHack.Filesystem
 				}
 			}
 		}
+
+		public VirtualFile Clone()
+		{
+			return new VirtualFile(string.Copy(Name), string.Copy(Content));
+		}
 	}
 
 	public class VirtualDirectory : IVirtualFile
@@ -122,6 +127,21 @@ namespace ReHack.Filesystem
 				Files[File.Name] = File;
 			}
 			return Files;
+		}
+
+		public VirtualDirectory Clone()
+		{
+			List<VirtualFile> NewFiles = new List<VirtualFile>();
+			foreach(VirtualFile File in this.Files)
+			{
+				NewFiles.Add(File.Clone());
+			}
+			List<VirtualDirectory> NewDirs = new List<VirtualDirectory>();
+			foreach(VirtualDirectory Dir in this.SubDirectories)
+			{
+				NewDirs.Add(Dir.Clone());
+			}
+			return new VirtualDirectory(string.Copy(Name), NewFiles.ToArray(), NewDirs.ToArray());
 		}
 	}
 
@@ -206,6 +226,12 @@ namespace ReHack.Filesystem
 			string DirPath = string.Join("/", Parts);
 			VirtualDirectory? Directory = GetDirectory(DirPath);
 			Directory.Files.Remove(File);
+		}
+
+		public FileSystem Clone()
+		{
+			VirtualDirectory NewRoot = Root.Clone();
+			return new FileSystem(NewRoot.Files.ToArray(), NewRoot.SubDirectories.ToArray());
 		}
 	}
 
