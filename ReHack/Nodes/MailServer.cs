@@ -1,7 +1,8 @@
 using ReHack.BaseMethods;
 using ReHack.Data;
+using ReHack.Node.Webserver;
 
-namespace ReHack.Node.MailServer
+namespace ReHack.Node.Mail
 {
     public class MailAccount {
         public string Username {get; set; }
@@ -33,9 +34,10 @@ namespace ReHack.Node.MailServer
 
     }
 
-    public class MailServer : BaseNode {
+    public class MailServer : WebServer {
         public List<MailAccount> Accounts {get; } = new List<MailAccount>();
-        public MailServer(string Name, string UID, string Address, string? AdminPassword=null) : base(Name, UID, Address, new User[] { new User("root", null, true) }) {
+		public bool AllowLookup {get; } = true;
+        public MailServer(string Name, string UID, string Address, string? AdminPassword=null, string IndexFolder="MailServer") : base(Name, UID, Address, IndexFolder, AdminPassword) {
             this.Ports.Add(GameData.GetPort("smtp"));
             CreateMailAccount("admin", AdminPassword);
         }
@@ -58,5 +60,27 @@ namespace ReHack.Node.MailServer
             }
             PrintUtils.Divider();
         }
+
+		public List<string> ListAccounts()
+		{
+			List<string> Accounts = new List<string>();
+			foreach(MailAccount Account in this.Accounts)
+			{
+				Accounts.Add(Account.Username);
+			}
+			return Accounts;
+		}
+
+		public virtual (List<string>, bool) Lookup(BaseNode Client)
+		{
+			if (!CheckAccessControl(Client) || !AllowLookup)
+			{
+				return (new List<string>(), false);
+			}
+			else
+			{
+				return (ListAccounts(), true);
+			}
+		}
     }
 }

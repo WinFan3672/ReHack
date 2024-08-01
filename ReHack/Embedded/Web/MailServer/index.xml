@@ -1,0 +1,10 @@
+<Website>
+	<Head>
+		<Title>It works!</Title>
+	</Head>
+	<Body>
+		<Title />
+		<Text>This is the default webpage of the Apache Mail Server.</Text>
+		<Footer>(c) 2010 Apache Software Foundation</Footer>
+	</Body>
+</Website>

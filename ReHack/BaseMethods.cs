@@ -221,6 +221,18 @@ namespace ReHack.BaseMethods
 			}
 			return (Username, Password);
 		}
+
+		public static void OpenPort(BaseNode Client, string ServiceID)
+		{
+			Port Service = Client.GetPort(ServiceID);
+			Service.Open = true;
+		}
+
+		public static void ClosePort(BaseNode Client, string ServiceID)
+		{
+			Port Service = Client.GetPort(ServiceID);
+			Service.Open = false;
+		}
 	}
 
 	public class Email {
@@ -255,12 +267,17 @@ namespace ReHack.BaseMethods
 		public int PortNumber {get; set; }
 		public bool Open {get; set;}
 
-		public Port(string ServiceName, string ServiceID, int PortNumber, bool Open=false)
+		public Port(string ServiceName, string ServiceID, int PortNumber, bool Open=true)
 		{
 			this.ServiceName = ServiceName;
 			this.ServiceID = ServiceID;
 			this.PortNumber = PortNumber;
 			this.Open = Open;
+		}
+
+		public Port Copy()
+		{
+			return new Port(ServiceName, ServiceID, PortNumber, Open);
 		}
 	}
 

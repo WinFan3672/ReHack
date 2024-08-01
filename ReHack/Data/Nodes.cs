@@ -1,13 +1,16 @@
 using ReHack.Node;
+using ReHack.Node.Player;
+using ReHack.Node.Mail;
 using ReHack.Node.Webserver;
 using ReHack.Node.PackageRepo;
 using ReHack.BaseMethods;
+using ReHack.Node.MailSignup;
 
 namespace ReHack.Data.Nodes
 {
 	public static class NodeData
 	{
-		public static void Init()
+		public static void Init(PlayerNode Player)
 		{
 			BaseNode TestNode = GameData.AddNode(new BaseNode("Test", "test", "test.com", new User[] { new User("root", UserUtils.PickPassword(), true) }));
 			TestNode.Ports.Add(GameData.GetPort("ssh"));
@@ -31,6 +34,10 @@ namespace ReHack.Data.Nodes
 			WebServer ReHackWeb = GameData.AddNode(new WebServer("ReHack", "rehack-web", "rehack.org", "ReHack")) as WebServer ?? throw new ArgumentNullException();
 			WebServer Example = GameData.AddNode(new WebServer("Example Domain", "example", "example.com", "Example")) as WebServer ?? throw new ArgumentNullException();
 			Example.Blacklist.Add(TestNode.UID);
+
+			MailServer JMail = GameData.AddNode(new MailServer("JMail", "jmail", "jmail.com", null, "JMail")) as MailServer;
+
+			MailSignupService JMailSignup = GameData.AddNode(new MailSignupService("JMail Signup", "jmail-su", "signup.jmail.com", "jmail")) as MailSignupService;
 		}
 	}
 }

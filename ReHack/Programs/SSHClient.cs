@@ -38,7 +38,6 @@ namespace ReHack.Programs.SSH
 		}
         public static void ServiceRunner(BaseNode Client, User Person, bool ConfirmExit=false, bool DoAuthenticate = true)
         {
-			Client.Welcome();
 			if (DoAuthenticate)
 			{
 				if (!Authenticate(Client, Person.Username))
@@ -47,6 +46,7 @@ namespace ReHack.Programs.SSH
 					return;
 				}
 			}
+			Client.Welcome();
             string Input;
             while (true)
             {

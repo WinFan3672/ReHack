@@ -1,6 +1,7 @@
 using ReHack.Data;
 using ReHack.Node;
 using ReHack.BaseMethods;
+using Spectre.Console;
 
 namespace ReHack.Programs.Nmap
 {
@@ -10,15 +11,23 @@ namespace ReHack.Programs.Nmap
 		{
 			if (Client.Ports.Count == 0)
 			{
-				Console.WriteLine("No open ports found.");
+				AnsiConsole.MarkupLine("[bold red]error[/]: No open ports found");
 				return;
 			}
 			PrintUtils.Divider();
-			Console.WriteLine("Num\tService");
+			AnsiConsole.MarkupLine("Num\tState\tService");
 			PrintUtils.Divider();
 			foreach(Port Item in Client.Ports)
 			{
-				Console.WriteLine($"{Item.PortNumber}\t{Item.ServiceName}");
+				if (Item.Open)
+				{
+					AnsiConsole.MarkupLine($"[green]{Item.PortNumber}\tOpen\t{Item.ServiceName}[/]");
+				}
+				else
+				{
+					AnsiConsole.MarkupLine($"[red]{Item.PortNumber}\tClosed\t{Item.ServiceName}[/]");
+
+				}
 			}
 			PrintUtils.Divider();
 		}
@@ -30,18 +39,18 @@ namespace ReHack.Programs.Nmap
 				try
 				{
 					Host = NodeUtils.GetNodeByAddress(Args[0]);
-					ShowPorts(Client);
+					ShowPorts(Host);
 					return true;
 				}
 				catch
 				{
-					Console.WriteLine("error: Invalid hostname.");
+					AnsiConsole.MarkupLine("[bold red]error[/]: Invalid hostname");
 					return false;
 				}
 			}
 			else
 			{
-				Console.WriteLine("usage: nmap [hostname]");
+				AnsiConsole.MarkupLine("[blue]usage[/]: nmap [[hostname]]");
 				return false;
 			}
 		}

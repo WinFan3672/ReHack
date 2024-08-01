@@ -127,6 +127,20 @@ namespace ReHack.Filesystem
 
 			return current.GetFile(parts.Last());
 		}
+
+		public void DeleteFile(string Path)
+		{
+			VirtualFile? File = GetFile(Path);
+			if (File == null)
+			{
+				throw new ArgumentException("Invalid file");
+			}
+			List<string> Parts = new List<string>(Path.Split("/"));
+			Parts.Remove(File.Name);
+			string DirPath = string.Join("/", Parts);
+			VirtualDirectory? Directory = GetDirectory(DirPath);
+			Directory.Files.Remove(File);
+		}
 	}
 
 }

@@ -1,0 +1,10 @@
+<Website>
+	<Head>
+		<Title>Error 500</Title>
+	</Head>
+	<Body>
+		<Title />
+		<Text>Search.com is down. Sorry about that.</Text>
+		<Footer>© 2004-2010 SearchDotCom Corporate. All rights reserved. </Footer>
+	</Body>
+</Website>

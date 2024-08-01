@@ -1,5 +1,5 @@
 using ReHack.Node;
-using ReHack.Node.MailServer;
+using ReHack.Node.Mail;
 using ReHack.Node.Player;
 using ReHack.BaseMethods;
 using ReHack.Data;
@@ -35,7 +35,7 @@ namespace ReHack.Welcome {
 			}
 			PlayerNode Player = new PlayerNode(Details.Item1, Details.Item2);
 			GameData.AddNode(Player);
-			NodeData.Init();
+			NodeData.Init(Player);
 			User PlayerUser = Player.GetUser(Details.Item1);
 			SSHClient.ServiceRunner(Player, PlayerUser, !DebugUtils.IsDebug(), false);
 

@@ -30,6 +30,10 @@ namespace ReHack.Programs.Debug
 				Console.WriteLine($"Server={Parts.Item1}; Resource={Parts.Item2}");
 				return true;
 			}
+			else if (Args.Length == 1 && Args.Contains("test"))
+			{
+				return true;
+			}
 			else
 			{
 				Console.WriteLine("debug [subcommand] [args...]");

@@ -13,6 +13,8 @@ using ReHack.Programs.W3;
 using ReHack.Programs.Hydra;
 using ReHack.Programs.Telnet;
 using ReHack.Programs.TelnetHack;
+using ReHack.Programs.Welcome;
+using ReHack.Programs.Tutorial;
 
 namespace ReHack.Data.Programs
 {
@@ -34,6 +36,8 @@ namespace ReHack.Data.Programs
 			new ProgramDefinition("hydra", "SSH brute-force", new ProgramDelegate(Hydra.Program), new string[] {"hydra"}),
 			new ProgramDefinition("telnet", "Telnet client", new ProgramDelegate(TelnetClient.Program), new string[] {}),
 			new ProgramDefinition("telnetpwn", "Telnet password stealer", new ProgramDelegate(TelnetPwn.Program), new string[] {}),
+			new ProgramDefinition("welcome", "A basic run-down of how to ReHack", new ProgramDelegate(WelcomeApp.Program), new string[] {}),
+			new ProgramDefinition("tutorial", "First hacking tutorial", new ProgramDelegate(TutorialApp.Program), new string[] {}),
 		};
 
 		public static ProgramDefinition GetProgram(string Name)

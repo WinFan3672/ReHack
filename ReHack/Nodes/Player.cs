@@ -17,10 +17,11 @@ namespace ReHack.Node.Player
 			{
 				this.AddProgram("debug");
 			}
+			
+			this.AddProgram("welcome");
+			this.AddProgram("tutorial");
 
-			// Add ReHack repo
-			VirtualFile AptConfig = this.Root.GetFile("/etc/apt/sources.list");
-			AptConfig.Content = AptConfig.Content + "\npkg.rehack.org";
+			this.Root.DeleteFile("/etc/apt/sources.list");
         }
 
 		public override void Welcome()

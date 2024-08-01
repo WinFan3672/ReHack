@@ -163,5 +163,15 @@ namespace ReHack.Node {
 			AnsiConsole.MarkupLine("Debian GNU/Linux comes with [bold]ABSOLUTELY NO WARRANTY[/], to the extent");
 			AnsiConsole.MarkupLine("permitted by applicable law.");
 		}
+
+		public List<string> ListUsers()
+		{
+			List<string> Users = new List<string>();
+			foreach(User Item in this.Users)
+			{
+				Users.Add(Item.Username);
+			}
+			return Users;
+		}
 	}
 }
