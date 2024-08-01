@@ -41,14 +41,19 @@ namespace ReHack.Node.Webserver
 			return true;
 		}
 
+		public virtual void RenderAccessDenied()
+		{
+			WebRender.Render("<Webpage><Head><Title>Error 403</Title></Head><Body><Text>Access to this website is denied.</Text></Body></Webpage>");
+		}
+
 		public virtual void Render(BaseNode Client, string Resource="/")
 		{
 			if (!this.CheckAccessControl(Client))
 			{
-				WebRender.Render("<Webpage><Head><Title>Error 403</Title></Head><Body><Text>Access to this website is denied.</Text></Body></Webpage>");
+				RenderAccessDenied();
 				return;
 			}
-			
+
 			string Path;
 
 			if (Resource == "/")

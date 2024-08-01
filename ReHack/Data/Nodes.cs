@@ -5,6 +5,8 @@ using ReHack.Node.Webserver;
 using ReHack.Node.PackageRepo;
 using ReHack.BaseMethods;
 using ReHack.Node.MailSignup;
+using ReHack.Node.FTP;
+using ReHack.Filesystem;
 
 namespace ReHack.Data.Nodes
 {
@@ -38,6 +40,13 @@ namespace ReHack.Data.Nodes
 			MailServer JMail = GameData.AddNode(new MailServer("JMail", "jmail", "jmail.com", null, "JMail")) as MailServer;
 
 			MailSignupService JMailSignup = GameData.AddNode(new MailSignupService("JMail Signup", "jmail-su", "signup.jmail.com", "jmail")) as MailSignupService;
+
+			VirtualDirectory DebianFiles = new VirtualDirectory("ftp", new VirtualFile[]{
+					new VirtualFile("Debian-5.0.5.iso", ""),
+					}, new VirtualDirectory[]{
+					new VirtualDirectory("Test", new VirtualFile[]{}, new VirtualDirectory[]{}),
+					});
+			FTPServer DebianFTP = GameData.AddNode(new FTPServer("Debian FTP", "debianftp", "ftp.debian.org", DebianFiles)) as FTPServer;
 		}
 	}
 }
