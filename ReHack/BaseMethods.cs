@@ -375,6 +375,12 @@ namespace ReHack.BaseMethods
 			
 			return $"{underlineOn}{text}{underlineOff}";
 		}
+
+		public static void WaitForContinue()
+		{
+			Console.Write("Press any key to continue.");
+			Console.ReadKey();
+		}
 	}
 
 	public static class FileUtils

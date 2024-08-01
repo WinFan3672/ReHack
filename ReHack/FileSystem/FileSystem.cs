@@ -59,7 +59,7 @@ namespace ReHack.Filesystem
 			return this.Files.FirstOrDefault(f => f.Name == name);
 		}
 
-		public VirtualDirectory FindDirectory(string name)
+		public VirtualDirectory GetDirectory(string name)
 		{
 			return this.SubDirectories.FirstOrDefault(d => d.Name == name);
 		}
@@ -83,7 +83,7 @@ namespace ReHack.Filesystem
 			{
 				if (part == "") continue;
 
-				current = current.FindDirectory(part);
+				current = current.GetDirectory(part);
 			}
 
 			return current;
@@ -99,7 +99,7 @@ namespace ReHack.Filesystem
 				string part = parts[i];
 				if (part == "") continue;
 
-				VirtualDirectory nextDir = current.FindDirectory(part);
+				VirtualDirectory nextDir = current.GetDirectory(part);
 				if (nextDir == null)
 				{
 					nextDir = new VirtualDirectory(part, new VirtualFile[]{}, new VirtualDirectory[]{});
@@ -121,7 +121,7 @@ namespace ReHack.Filesystem
 				string part = parts[i];
 				if (part == "") continue;
 
-				current = current.FindDirectory(part);
+				current = current.GetDirectory(part);
 				if (current == null) return null;
 			}
 

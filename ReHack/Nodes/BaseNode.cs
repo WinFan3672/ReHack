@@ -130,5 +130,27 @@ namespace ReHack.Node {
 			}
 			return Manpages;
 		}
+
+		public void AddFile(string Path, VirtualFile File)
+		{
+			VirtualDirectory? Directory = this.Root.GetDirectory(Path);
+			if (Directory == null)
+			{
+				throw new ArgumentException("Invalid path");
+			}
+
+			Directory.AddFile(File);
+		}
+
+		public void AddDirectory(string Path, VirtualDirectory Directory)
+		{
+			VirtualDirectory? Dir = this.Root.GetDirectory(Path);
+			if (Dir == null)
+			{
+				throw new ArgumentException("Invalid path");
+			}
+
+			Dir.AddDirectory(Directory);
+		}
 	}
 }

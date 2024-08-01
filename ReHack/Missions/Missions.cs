@@ -24,24 +24,5 @@ namespace ReHack.Missions
 		{
 			this.Checks.Add(Check);
 		}
-	}
-
-	public class PortOpenCheck : IMissionCheck
-	{
-		public string NodeUID {get; set;}
-		public string PortID {get; set; }
-
-		public PortOpenCheck(string NodeUID, string PortID)
-		{
-			this.NodeUID = NodeUID;
-			this.PortID = PortID;
-		}
-
-		public bool Check()
-		{
-			BaseNode Node = NodeUtils.GetNode(NodeUID);
-			Port Service = Node.GetPort(PortID);
-			return Service.Open;
-		}
-	}								 
+	}						 
 }
