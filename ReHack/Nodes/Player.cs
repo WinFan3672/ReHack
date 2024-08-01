@@ -21,7 +21,9 @@ namespace ReHack.Node.Player
 			this.AddProgram("welcome");
 			this.AddProgram("tutorial");
 
-			this.Root.DeleteFile("/etc/apt/sources.list");
+			/*this.Root.DeleteFile("/etc/apt/sources.list");*/
+			VirtualFile AptSources = Root.GetFile("/etc/apt/sources.list");
+			AptSources.Content = AptSources.Content + "\npkg.rehack.org";
         }
 
 		public override void Welcome()

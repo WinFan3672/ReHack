@@ -27,6 +27,7 @@ namespace ReHack.Data.Nodes
 				new Package("nmap", new string[] {}),
 				new Package("hydra", new string[] {}),
 				new Package("telnetpwn", new string[] {}),
+				new Package("mxlookup", new string[] {}),
 			};
 
 			var AptRepo = GameData.AddNode(new PackageRepo("Debian Official Packages", "debian-pkg", "pkg.debian.org", AptRepoPackages, null));

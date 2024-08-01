@@ -82,6 +82,7 @@ namespace ReHack.Data
 				"cat",
 				"w3",
 				"telnet",
+				"ftp",
 		};
 
 		public static List<string> DefaultManpages = new List<string> {

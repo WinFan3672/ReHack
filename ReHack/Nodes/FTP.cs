@@ -4,6 +4,7 @@ using ReHack.BaseMethods;
 using ReHack.Filesystem;
 using ReHack.WebRendering;
 using System.Xml;
+using ReHack.Data;
 
 namespace ReHack.Node.FTP
 {
@@ -18,6 +19,8 @@ namespace ReHack.Node.FTP
 			}
 			this.Folder = Folder;
 			this.Root.GetDirectory("/var");
+
+			Ports.Add(GameData.GetPort("ftp"));
 		}
 
 		public override void Render(BaseNode Client, string Resource="/")
