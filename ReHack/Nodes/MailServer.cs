@@ -71,15 +71,15 @@ namespace ReHack.Node.Mail
 			return Accounts;
 		}
 
-		public virtual (List<string>, bool) Lookup(BaseNode Client)
+		public virtual List<string> Lookup(BaseNode Client)
 		{
 			if (!CheckAccessControl(Client) || !AllowLookup)
 			{
-				return (new List<string>(), false);
+				return new List<string>();
 			}
 			else
 			{
-				return (ListAccounts(), true);
+				return ListAccounts();
 			}
 		}
     }

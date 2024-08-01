@@ -2,16 +2,19 @@ using ReHack.Node;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Spectre.Console;
+using ReHack.BaseMethods;
 
 namespace ReHack.Filesystem
 {
 
 	public interface IVirtualFile
 	{
+		string Name {get; set; }
 		void View(BaseNode Client);
 	}
 
-	public class VirtualFile
+	public class VirtualFile : IVirtualFile
 	{
 		public string Name { get; set; }
 		public string Content { get; set; }
@@ -21,9 +24,32 @@ namespace ReHack.Filesystem
 			this.Name = name;
 			this.Content = content;
 		}
+
+		public void View(BaseNode Client)
+		{
+			bool Running = true;
+			while (Running)
+			{
+				Console.Clear();
+				string Option = AnsiConsole.Prompt(new SelectionPrompt<string>().Title(Name).AddChoices(new[] {"View Contents", "Back" }));
+				switch (Option)
+				{
+					case "View Contents":
+						Console.Clear();
+						PrintUtils.Divider();
+						Console.WriteLine(Content);
+						PrintUtils.Divider();
+						PrintUtils.WaitForContinue();
+						break;
+					case "Back":
+						Running = false;
+						break;
+				}
+			}
+		}
 	}
 
-	public class VirtualDirectory
+	public class VirtualDirectory : IVirtualFile
 	{
 		public string Name { get; set; }
 		public List<VirtualFile> Files { get; set; }
@@ -63,10 +89,45 @@ namespace ReHack.Filesystem
 		{
 			return this.SubDirectories.FirstOrDefault(d => d.Name == name);
 		}
+
+		public void View(BaseNode Client)
+		{
+			bool Running = true;
+			while (Running)
+			{
+				Console.Clear();
+				Dictionary<string, IVirtualFile> SubFiles = EnumFiles();
+				string Selection = AnsiConsole.Prompt(new SelectionPrompt<string>().Title(this.Name).AddChoices(SubFiles.Keys).AddChoices(new[] {"Back"}));
+				if (Selection == "Back")
+				{
+					Running = false;
+				}
+				else
+				{
+					SubFiles[Selection].View(Client);
+				}
+
+			}
+		}		
+
+		public Dictionary<string, IVirtualFile> EnumFiles()
+		{
+			Dictionary<string, IVirtualFile> Files = new Dictionary<string, IVirtualFile>();
+			foreach(IVirtualFile File in this.Files)
+			{
+				Files[File.Name] = File;
+			}
+			foreach(IVirtualFile File in this.SubDirectories)
+			{
+				Files[File.Name] = File;
+			}
+			return Files;
+		}
 	}
 
-	public class FileSystem
+	public class FileSystem : IVirtualFile
 	{
+		public string Name {get; set; } = "Root"; // Compliance with IVirtualFile
 		public VirtualDirectory Root { get; private set; }
 
 		public FileSystem(VirtualFile[] Files, VirtualDirectory[] Directories)
@@ -87,6 +148,11 @@ namespace ReHack.Filesystem
 			}
 
 			return current;
+		}
+
+		public void View(BaseNode Client)
+		{
+			Root.View(Client);
 		}
 
 		public void AddFile(string path, VirtualFile file)
