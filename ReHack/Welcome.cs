@@ -1,11 +1,8 @@
-using ReHack.Node;
-using ReHack.Node.Mail;
 using ReHack.Node.Player;
 using ReHack.BaseMethods;
 using ReHack.Data;
 using ReHack.Programs.SSH;
 using ReHack.Data.Nodes;
-using ReHack.Filesystem;
 
 namespace ReHack.Welcome {
 	public static class WelcomeSequence

@@ -1,5 +1,4 @@
 using System.Text;
-using System.IO;
 using System.Reflection;
 using ReHack.Data;
 using ReHack.Node;
@@ -194,12 +193,13 @@ namespace ReHack.BaseMethods
 			/// </summary>
 			bool Banned;
 			string Username;
-			string Password = "";
+			string? Password = "";
 			while (true)
 			{
 				Banned = false;
 				Console.Write("Enter A Username $");
-				Username = Console.ReadLine().ToLower();
+				Username = Console.ReadLine() ?? throw new EndOfStreamException();
+				Username = Username.ToLower();
 				if (BanCheck)
 				{
 					if (IsUsernameBanned(Username))
@@ -340,22 +340,18 @@ namespace ReHack.BaseMethods
 			while (true)
 			{
 				Console.Write($"{Message} {GetAgreeString(DefaultAgree)} $");
-				Confirmation = Console.ReadLine().ToLower();
-				if (Confirmation == null)
+				Confirmation = Console.ReadLine();
+				if (Confirmation == null || Confirmation == "")
 				{
 					return DefaultAgree;
 				}
-				else if (Confirmation == "y")
+				else if (Confirmation.ToLower() == "y")
 				{
 					return true;
 				}
-				else if (Confirmation == "n")
+				else if (Confirmation.ToLower() == "n")
 				{
 					return false;
-				}
-				else if (Confirmation == "")
-				{
-					return DefaultAgree;
 				}
 				else {
 					Console.WriteLine("ERROR: Invalid choice.");
@@ -417,7 +413,7 @@ namespace ReHack.BaseMethods
 				throw new ArgumentException("Invalid file");
 			}
 
-			using (System.IO.Stream? Stream = assembly.GetManifestResourceStream(Name))
+			using (System.IO.Stream? Stream = assembly.GetManifestResourceStream(Name) ?? throw new ArgumentException("Stream is null"))
 			{
 				return new StreamReader(Stream).ReadToEnd() ?? null;
 			}

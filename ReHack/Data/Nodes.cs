@@ -21,7 +21,6 @@ namespace ReHack.Data.Nodes
 
 			Package[] AptRepoPackages = {
 				new Package("ping", new string[] {}),
-				new Package("curl", new string[] {}),
 			};
 
 			Package[] ReHackPackages = {
@@ -31,17 +30,17 @@ namespace ReHack.Data.Nodes
 				new Package("mxlookup", new string[] {}),
 			};
 
-			PackageRepo AptRepo = GameData.AddNode(new PackageRepo("Debian Official Packages", "debian-pkg", "pkg.debian.org", AptRepoPackages, null, null)) as PackageRepo;
-			PackageRepo ReHackRepo = GameData.AddNode(new PackageRepo("ReHack Official Packages", "rehack-pkg", "pkg.rehack.org", ReHackPackages, null, null)) as PackageRepo;
+			PackageRepo? AptRepo = GameData.AddNode(new PackageRepo("Debian Official Packages", "debian-pkg", "pkg.debian.org", AptRepoPackages, null, null)) as PackageRepo;
+			PackageRepo? ReHackRepo = GameData.AddNode(new PackageRepo("ReHack Official Packages", "rehack-pkg", "pkg.rehack.org", ReHackPackages, null, null)) as PackageRepo;
 
 			WebServer TestWeb = GameData.AddNode(new WebServer("Test Page", "test-web", "www.test.com", null, "Test")) as WebServer ?? throw new ArgumentNullException();
 			WebServer ReHackWeb = GameData.AddNode(new WebServer("ReHack", "rehack-web", "rehack.org", null, "ReHack")) as WebServer ?? throw new ArgumentNullException();
 			WebServer Example = GameData.AddNode(new WebServer("Example Domain", "example", "example.com", null, "Example")) as WebServer ?? throw new ArgumentNullException();
 			Example.Blacklist.Add(TestNode.UID);
 
-			MailServer JMail = GameData.AddNode(new MailServer("JMail", "jmail", "jmail.com", null, "JMail")) as MailServer;
+			MailServer? JMail = GameData.AddNode(new MailServer("JMail", "jmail", "jmail.com", null, "JMail")) as MailServer;
 
-			MailSignupService JMailSignup = GameData.AddNode(new MailSignupService("JMail Signup", "jmail-su", "signup.jmail.com", null, "jmail")) as MailSignupService;
+			MailSignupService? JMailSignup = GameData.AddNode(new MailSignupService("JMail Signup", "jmail-su", "signup.jmail.com", null, "jmail")) as MailSignupService;
 
 			VirtualDirectory DebianFiles = new VirtualDirectory("ftp", new VirtualFile[]{
 					new VirtualFile("Debian-5.0.5.iso", ""),
@@ -49,7 +48,7 @@ namespace ReHack.Data.Nodes
 					new VirtualDirectory("Test", new VirtualFile[]{}, new VirtualDirectory[]{}),
 					});
 
-			FTPServer DebianFTP = GameData.AddNode(new FTPServer("Debian FTP", "debianftp", "ftp.debian.org", DebianFiles, null)) as FTPServer;
+			FTPServer? DebianFTP = GameData.AddNode(new FTPServer("Debian FTP", "debianftp", "ftp.debian.org", DebianFiles, null)) as FTPServer;
 		}
 	}
 }
