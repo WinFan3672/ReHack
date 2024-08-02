@@ -1,5 +1,5 @@
-using ReHack.Data;
 using ReHack.BaseMethods;
+using ReHack.Exceptions;
 using ReHack.Node;
 using ReHack.Programs.SSH;
 using Spectre.Console;
@@ -26,11 +26,18 @@ namespace ReHack.Programs.Telnet
 				string Username = Console.ReadLine() ?? throw new EndOfStreamException();
 				Console.Write("Password $");
 				string Password = PrintUtils.ReadPassword(false);
-				User Person = Target.GetUser(Username);
+				User Person;
+				try
+				{
+					Person = Target.GetUser(Username);
+				}
+				catch (ArgumentException ex)
+				{
+					throw new ErrorMessageException(ex.Message);
+				}
 				if (Person.Password != Password)
 				{
-					AnsiConsole.MarkupLine("[bold red]error[/]: Incorrect password");
-					return false;
+					throw new ErrorMessageException("Incorrect password");
 				}
 				ServiceRunner(Target, Person);
                 return true;

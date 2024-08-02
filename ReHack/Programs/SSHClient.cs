@@ -26,7 +26,7 @@ namespace ReHack.Programs.SSH
 				Program.Method(Args, Client, RunningUser);
 			}
 			else {
-				Console.WriteLine("error: Bad command");
+				Console.WriteLine($"bash: command not found: {Command.Split(" ")[0]}");
 			}
 		}
 		private static bool Authenticate(BaseNode Client, string Username)

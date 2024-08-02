@@ -19,6 +19,7 @@ using ReHack.Programs.FTP;
 using ReHack.Programs.MxLookup;
 using ReHack.Programs.MOTD;
 using ReHack.Programs.LocalNetScan;
+using ReHack.Programs.Daemons.Telnet;
 
 namespace ReHack.Data.Programs
 {
@@ -46,6 +47,7 @@ namespace ReHack.Data.Programs
 			new ProgramDefinition("mxlookup", "Finds email addresses associated with a mail server", new ProgramDelegate(MXLookup.Program), new string[] {}),
 			new ProgramDefinition("motd", "Prints the Message of the Day", new ProgramDelegate(MotdClient.Program), new string[] {}),
 			new ProgramDefinition("netscan", "Scans your local network for nodes", new ProgramDelegate(NetScan.Program), new string[] {}),
+			new ProgramDefinition("telnetd", "Telnet server", new ProgramDelegate(TelnetDaemon.Program), new string[] {}),
 		};
 
 		public static ProgramDefinition GetProgram(string Name)

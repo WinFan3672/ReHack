@@ -13,7 +13,7 @@ namespace ReHack.Node.MailSignup
 		{
 		}
 
-		public override void Render(BaseNode Client, string Resource="/")
+		public override void Render(BaseNode Client)
 		{
 			if (!CheckAccessControl(Client))
 			{

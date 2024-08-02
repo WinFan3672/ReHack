@@ -47,7 +47,7 @@ namespace ReHack.Node.Webserver
 			WebRender.Render("<Webpage><Head><Title>Error 403</Title></Head><Body><Text>Access to this website is denied.</Text></Body></Webpage>");
 		}
 
-		public virtual void Render(BaseNode Client, string Resource="/")
+		public virtual void Render(BaseNode Client)
 		{
 			if (!this.CheckAccessControl(Client))
 			{
@@ -55,18 +55,8 @@ namespace ReHack.Node.Webserver
 				return;
 			}
 
-			string Path;
-
-			if (Resource == "/")
-			{
-				Path = $"Web.{this.IndexFolder}.index.xml";
-			}
-			else
-			{
-				Path = $"Web.{this.IndexFolder}.{Resource.TrimStart('/')}.xml";
-			}
-
-			WebRender.Render(FileUtils.GetFileContents(Path) ?? throw new ErrorMessageException("Invalid resource"));
+			string Path = $"Web.{this.IndexFolder}.index.xml";
+			WebRender.Render(FileUtils.GetFileContents(Path) ?? throw new FileNotFoundException());
 		}
 	}
 }

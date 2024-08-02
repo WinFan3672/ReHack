@@ -7,6 +7,8 @@ namespace ReHack.Data
 	public static class GameData {
 		public static List<BaseNode> Nodes { get; } = new List<BaseNode>();
 
+		public static Random Rand = new Random();
+
 		public static List<Port> Ports {get; } = new List<Port> { 
 			new Port("FTP", "ftp", 21),
 				new Port("SSH", "ssh", 22),
@@ -83,6 +85,7 @@ namespace ReHack.Data
 				"sudo",
 				"cat",
 				"w3",
+				"ping",
 				"telnet",
 				"ftp",
 		};

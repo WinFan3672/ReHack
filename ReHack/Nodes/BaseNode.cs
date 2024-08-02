@@ -73,15 +73,15 @@ namespace ReHack.Node {
 			this.Ports.Add(GameData.GetPort(PortID));
 		}
 
-		public void DebugPorts()
+		public void RemovePort(string PortID)
 		{
-			foreach (Port Service in this.Ports)
+			for (int i=0; i < Ports.Count; i++)
 			{
-				PrintUtils.Divider();
-				Console.WriteLine($"Port list for {this.Name}");
-				PrintUtils.Divider();
-				Console.WriteLine($"{Service.ServiceID} = {Service.PortNumber}");
-				PrintUtils.Divider();
+				Port Service = Ports[i];
+				if (Service.ServiceID == PortID)
+				{
+					Ports.Remove(Service);
+				}
 			}
 		}
 

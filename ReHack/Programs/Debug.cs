@@ -32,6 +32,7 @@ namespace ReHack.Programs.Debug
 			}
 			else if (Args.Length == 1 && Args.Contains("test"))
 			{
+				Console.WriteLine(FileUtils.GenerateBytes());
 				return true;
 			}
 			else

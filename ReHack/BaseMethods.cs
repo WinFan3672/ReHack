@@ -418,6 +418,24 @@ namespace ReHack.BaseMethods
 				return new StreamReader(Stream).ReadToEnd() ?? null;
 			}
 		}
+
+		public static string GenerateBytes(int Width=64, int Height=8)
+		{
+			/// <summary>Generates a facsimile of what a binary file looks like</summary>
+			string Bytes = "";
+			Random Rand = new Random();
+			for (int i = 0; i < Height; i++)
+			{
+				for (int x = 0; x < Width; x++)
+				{
+					Bytes = Bytes + Rand.Next(2);
+
+				}
+				Bytes = Bytes + "\n";
+			}
+
+			return Bytes.TrimEnd('\n');
+		}
 	}
 
 	public delegate bool ProgramDelegate(string[] Args, BaseNode Player, User RunningUser);
