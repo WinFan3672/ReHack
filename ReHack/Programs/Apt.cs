@@ -1,6 +1,7 @@
 using ReHack.Node;
 using ReHack.Node.PackageRepo;
 using ReHack.BaseMethods;
+using Spectre.Console;
 
 namespace ReHack.Programs.Apt
 {
@@ -50,7 +51,7 @@ namespace ReHack.Programs.Apt
 				string Program = Args.FirstOrDefault(Item => Item != "install");
 				if (Client.InstalledPrograms.Contains(Program))
 				{
-					Console.WriteLine("error: Package is already installed");
+					AnsiConsole.MarkupLine("[bold red]error[/]: Package is already installed");
 					return false;
 				}
 
@@ -58,7 +59,7 @@ namespace ReHack.Programs.Apt
 				Package? PackageToInstall = GetPackage(GetPackages(Client), Program);
 				if (PackageToInstall == null)
 				{
-					Console.WriteLine("error: Invalid Package");
+					AnsiConsole.MarkupLine("[bold red]error[/]: Invalid Package");
 					return false;
 				}
 
@@ -72,12 +73,12 @@ namespace ReHack.Programs.Apt
 				string Program = Args.FirstOrDefault(Item => Item != "remove");
 				if (GetPackage(GetPackages(Client), Program) == null)
 				{
-					Console.WriteLine("error: Invalid package");
+					AnsiConsole.MarkupLine("[bold red]error[/]: Invalid package");
 					return false;
 				}
 				if (!Client.InstalledPrograms.Contains(Program))
 				{
-					Console.WriteLine("error: Package not installed.");
+					AnsiConsole.MarkupLine("[bold red]error[/]: Package not installed.");
 				}
 				Client.RemoveProgram(Program);
 				Console.WriteLine("Successfully removed program.");

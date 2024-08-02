@@ -21,7 +21,6 @@ namespace ReHack.Node.Player
 			this.AddProgram("welcome");
 			this.AddProgram("tutorial");
 
-			/*this.Root.DeleteFile("/etc/apt/sources.list");*/
 			VirtualFile AptSources = Root.GetFile("/etc/apt/sources.list");
 			AptSources.Content = AptSources.Content + "\npkg.rehack.org";
         }
@@ -30,15 +29,15 @@ namespace ReHack.Node.Player
 		{
 			if (!DebugUtils.IsDebug())
 			{
-				Console.Clear();
-				AnsiConsole.MarkupLine("Welcome to [yellow]ReHackOS[/] [green]1.0[/]!");
-				AnsiConsole.MarkupLine("For a command list, the [blue]help[/] command comes in handy.");
-				AnsiConsole.MarkupLine("We use [blue]apt[/] as a package manager (program that installs other programs).");
-				AnsiConsole.MarkupLine("To get per-program help, you can use [blue]man[/] and [blue]lsman[/].");
-				Console.WriteLine();
-				AnsiConsole.MarkupLine("For agent-specific help, the [blue]welcome[/] and [blue]tutorial[/] commands are your friend.");
-				AnsiConsole.MarkupLine("We hope you enjoy working as a ReHack Agent.");
+				Console.Clear(); // Disabled in debug mode to let me see the warnings
 			}
+			AnsiConsole.MarkupLine("Welcome to [yellow]ReHackOS[/] [green]1.0[/]!");
+			AnsiConsole.MarkupLine("For a command list, the [blue]help[/] command comes in handy.");
+			AnsiConsole.MarkupLine("We use [blue]apt[/] as a package manager (program that installs other programs).");
+			AnsiConsole.MarkupLine("To get per-program help, you can use [blue]man[/] and [blue]lsman[/].");
+			Console.WriteLine();
+			AnsiConsole.MarkupLine("For agent-specific help, the [blue]welcome[/] and [blue]tutorial[/] commands are your friend.");
+			AnsiConsole.MarkupLine("We hope you enjoy working as a ReHack Agent.");
 
 
 		}

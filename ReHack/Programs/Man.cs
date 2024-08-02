@@ -3,6 +3,7 @@ using ReHack.Node;
 using ReHack.Data;
 using ReHack.BaseMethods;
 using System.Xml;
+using Spectre.Console;
 
 namespace ReHack.Programs.Man
 {

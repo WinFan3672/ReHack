@@ -30,8 +30,8 @@ namespace ReHack.Data.Nodes
 				new Package("mxlookup", new string[] {}),
 			};
 
-			var AptRepo = GameData.AddNode(new PackageRepo("Debian Official Packages", "debian-pkg", "pkg.debian.org", AptRepoPackages, null));
-			var ReHackRepo = GameData.AddNode(new PackageRepo("ReHack Official Packages", "rehack-pkg", "pkg.rehack.org", ReHackPackages, null));
+			PackageRepo AptRepo = GameData.AddNode(new PackageRepo("Debian Official Packages", "debian-pkg", "pkg.debian.org", AptRepoPackages, null)) as PackageRepo;
+			PackageRepo ReHackRepo = GameData.AddNode(new PackageRepo("ReHack Official Packages", "rehack-pkg", "pkg.rehack.org", ReHackPackages, null)) as PackageRepo;
 
 			WebServer TestWeb = GameData.AddNode(new WebServer("Test Page", "test-web", "www.test.com", "Test")) as WebServer ?? throw new ArgumentNullException();
 			WebServer ReHackWeb = GameData.AddNode(new WebServer("ReHack", "rehack-web", "rehack.org", "ReHack")) as WebServer ?? throw new ArgumentNullException();
@@ -47,6 +47,7 @@ namespace ReHack.Data.Nodes
 					}, new VirtualDirectory[]{
 					new VirtualDirectory("Test", new VirtualFile[]{}, new VirtualDirectory[]{}),
 					});
+
 			FTPServer DebianFTP = GameData.AddNode(new FTPServer("Debian FTP", "debianftp", "ftp.debian.org", DebianFiles)) as FTPServer;
 		}
 	}

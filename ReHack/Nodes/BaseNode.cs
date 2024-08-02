@@ -187,5 +187,12 @@ namespace ReHack.Node {
 			/// </summary>
 			Root.GetDirectory("/home").AddDirectory(new VirtualDirectory(NewUser.Username, new VirtualFile[]{}, new VirtualDirectory[]{}));
 		}
+
+		public bool Authenticate(User Auth)
+		{
+			Console.Write("Password $");
+			string Password = PrintUtils.ReadPassword();
+			return (Auth.Password == Password);
+		}
 	}
 }

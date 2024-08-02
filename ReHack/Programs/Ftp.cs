@@ -30,6 +30,11 @@ namespace ReHack.Programs.FTP
 				return false;
 			}
 
+			if (!Target.Anonymous && !Target.Authenticate(Target.GetUser("ftpuser")) || !Target.CheckAccessControl(Client))
+			{
+				AnsiConsole.MarkupLine("[bold red]error[/]: Access denied");
+			}
+
 			Target.Folder.View(Client);
 
 			return true;

@@ -17,6 +17,7 @@ using ReHack.Programs.Welcome;
 using ReHack.Programs.Tutorial;
 using ReHack.Programs.FTP;
 using ReHack.Programs.MxLookup;
+using ReHack.Programs.MOTD;
 
 namespace ReHack.Data.Programs
 {
@@ -42,6 +43,7 @@ namespace ReHack.Data.Programs
 			new ProgramDefinition("tutorial", "First hacking tutorial", new ProgramDelegate(TutorialApp.Program), new string[] {}),
 			new ProgramDefinition("ftp", "FTP Client", new ProgramDelegate(FTPClient.Program), new string[] {}),
 			new ProgramDefinition("mxlookup", "Finds email addresses associated with a mail server", new ProgramDelegate(MXLookup.Program), new string[] {}),
+			new ProgramDefinition("motd", "Prints the Message of the Day", new ProgramDelegate(MotdClient.Program), new string[] {}),
 		};
 
 		public static ProgramDefinition GetProgram(string Name)

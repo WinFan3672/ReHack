@@ -9,11 +9,10 @@ namespace ReHack.Node.PackageRepo
 	{
 		public Package[] Packages {get; set; }
 
-		public PackageRepo(string Name, string UID, string Address, Package[] Packages, string? AdminPassword) : base(Name, UID, Address, new User[] { new User("root", null, true), new User("apt",  AdminPassword, false)})
+		public PackageRepo(string Name, string UID, string Address, Package[] Packages, string? AdminPassword) : base(Name, UID, Address, new User[] { new User("root", AdminPassword, true), new User("apt", null, false)})
 		{
 			this.Packages = Packages;
 			this.Ports.Add(GameData.GetPort("ssh"));
-			this.Ports.Add(GameData.GetPort("ftp"));
 		}
 
 		public List<string> ListPackages()

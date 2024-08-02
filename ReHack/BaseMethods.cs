@@ -3,6 +3,7 @@ using System.IO;
 using System.Reflection;
 using ReHack.Data;
 using ReHack.Node;
+using ReHack.Node.Mail;
 
 namespace ReHack.BaseMethods
 {
@@ -335,12 +336,16 @@ namespace ReHack.BaseMethods
 
 		public static bool Confirm(string Message, bool DefaultAgree=true)
 		{
-			string Confirmation;
+			string? Confirmation;
 			while (true)
 			{
 				Console.Write($"{Message} {GetAgreeString(DefaultAgree)} $");
 				Confirmation = Console.ReadLine().ToLower();
-				if (Confirmation == "y")
+				if (Confirmation == null)
+				{
+					return DefaultAgree;
+				}
+				else if (Confirmation == "y")
 				{
 					return true;
 				}
@@ -447,6 +452,90 @@ namespace ReHack.BaseMethods
 				return System.Environment.GetEnvironmentVariables().Contains("REHACK_DEBUG");
 			#endif
 		}
+	}
+
+	public static class EmailUtils
+	{
+		public static bool IsValid(string EmailAddress)
+		{
+			/// <summary>
+			/// Returns a bool depending on if an email address is valid.
+			/// </summary>
+			if (EmailAddress == "") { return false; }
+
+			if (!EmailAddress.Contains("@")) { return false; }
+
+			if (EmailAddress.Split("@").Length != 2) { return false; }
+
+			return true;
+		}
+
+		public static string GetUsername(string EmailAddress)
+		{
+			/// <summary>
+			/// Returns the username of an email address.
+			/// </summary>
+			return EmailAddress.Split("@")[0];
+		}
+
+		public static string GetDomain(string EmailAddress)
+		{
+			/// <summary>
+			/// Returns the domain of an email address.
+			/// </summary>
+			return EmailAddress.Split("@")[1];
+		}
+
+		public static int SendEmail(Email Eml)
+		{
+			/// <summary>
+			/// Sends an email and returns a status code:
+			/// 0: Email sent
+			/// 1: Invalid receiving address
+			/// 2: Invalid mail server
+			/// 3: Invalid user
+			/// </summary>
+			
+			if (!IsValid(Eml.Recipient))
+			{
+				return 1; // Invalid receiving address
+			}
+
+			MailServer? TargetServer = NodeUtils.GetNodeByAddress(GetDomain(Eml.Recipient)) as MailServer;
+
+			if (TargetServer == null)
+			{
+				return 2;
+			}
+
+			MailAccount? Account = TargetServer.GetAccount(GetUsername(Eml.Recipient));
+
+			if (Account == null)
+			{
+				return 3;
+			}
+
+			Account.Inbox.Add(Eml);
+			return 0;
+		}
+	}
+
+	public static class MiscUtils
+	{
+		public static T[] AddItemToArray<T>(T[] originalArray, T newItem)
+		{
+			/// <summary>
+			/// Takes an array and an item and returns a new array with the new item added.
+			/// </summary>
+			T[] newArray = new T[originalArray.Length + 1];
+			for (int i = 0; i < originalArray.Length; i++)
+			{
+				newArray[i] = originalArray[i];
+			}
+			newArray[originalArray.Length] = newItem;
+			return newArray;
+		}
+
 	}
 
 }

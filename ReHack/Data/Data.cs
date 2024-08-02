@@ -21,6 +21,7 @@ namespace ReHack.Data
 				new Port("NTP Time Server", "ntp", 123),
 				new Port("OpenVPN Server", "vpn", 1194),
 				new Port("SQL Database", "sql", 1433),
+				new Port("Command and Control Server", "c2", 4444),
 				new Port("IRC Server", "irc", 6667),
 				new Port("BitTorrent", "torrent", 6881),
 				new Port("ReHackOS Node", "rehack", 7777),
@@ -73,6 +74,7 @@ namespace ReHack.Data
 
 		public static List<string> DefaultPrograms = new List<string> { 
 			"help", 
+				"motd",
 				"ssh",
 				"man",
 				"lsman",

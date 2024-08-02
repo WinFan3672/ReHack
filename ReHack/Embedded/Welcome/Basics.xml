@@ -1,0 +1,26 @@
+<WelcomePage>
+	<Title>The Basics</Title>
+	<Text>Hello and welcome to [yellow]ReHack[/]! Please read through this short introduction to understand how to work as an Agent.</Text>
+	<Heading>Basic Commands</Heading>
+	<Text>To use ReHack, you'll need to be at least somewhat familiar with a UNIX command-line. Thankfully, if you're not, this section is for you!</Text>
+	<Text>The [yellow]ls[/] command lists the contents of [blue]directories[/]. Think of a directory as like a folder. A directory can contain files and subdirectories.</Text>
+	<Text>Running [yellow]ls[/] on its own shows you the contents of the [blue]root directory[/], whereas specifying a path ([yellow]ls [[path]][/]) shows you the contents of that dorectory.</Text>
+	<Text>The [yellow]cat[/] command prints out the contents of [blue]files[/]. The usage is [yellow]cat [[filename]][/].</Text>
+	<Text>The [yellow]apt[/] command is a little more extensive but just as essential. For detailed info on how to use it, run [yellow]man apt[/].</Text>
+	<Text>The [yellow]w3[/] command lets you view websites. Try it out with [yellow]w3 rehack.org[/].</Text>
+
+	<Heading>Missions</Heading>
+	<Text>Our mission server ([yellow]jobs.rehack.org[/]) is the primary place you'll accept jobs. Note that [bold]you cannot cancel a mission or start a new one[/], so choose wisely.</Text>
+
+	<Heading>Email</Heading>
+	<Text>As part of your onboarding, you'll have received a JMail account ([green][[your username]][/][yellow]@jmail.com[/]) where business will be conducted.</Text>
+	<Text>The [yellow]mail[/] program built into ReHack allows you to view your emails.</Text>
+
+	<Heading>Getting Tools</Heading>
+	<Text>When you start out, all tools you need will be installable with [yellow]apt[/]. Over time, you'll find more and more advanced programs that aren't in the repos.</Text>
+	<Text>When that happens, you'll need to find the program and install it some other way.</Text>
+
+	<Heading>What Now?</Heading>
+	<Text>Simple. Connect to the ReHack Mission Server and find a mission. Alternatively, you can follow the tutorial with the [yellow]tutorial[/] command.</Text>
+
+</WelcomePage>

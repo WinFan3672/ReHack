@@ -1,0 +1,10 @@
+<WelcomePage>
+	<Title>Internet Resources</Title>
+	<Text>The Internet is a wonderful place, especially for Agents. This article serves as a list of jumping-off places for where you can find the best Internet sites.</Text>
+	<Heading>News Sources</Heading>
+	<Text>* [yellow]MHT[/] ([blue underline]mht.com[/]) - An excellent place to find the latest computer-related news</Text>
+	<Text>* [yellow]NerdNet[/] ([blue underline]nerd.net[/]) - The forum to replace all forums</Text>
+	<Heading>Hacking Guides</Heading>
+	<Text>* [yellow]Goph's Guide[/] ([blue underline]goph.org[/]) - A more generic resource about all things hacking</Text>
+	<Text>* [yellow]ReHack Wiki[/] ([blue underline]wiki.rehack.org[/]) - The best place for info on ReHack and you</Text>
+</WelcomePage>

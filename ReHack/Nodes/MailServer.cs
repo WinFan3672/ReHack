@@ -8,7 +8,7 @@ namespace ReHack.Node.Mail
         public string Username {get; set; }
         public string Address {get; set; }
         public string? Password {get; set; }
-        public Email[] Inbox {get; }
+        public List<Email> Inbox {get; set; }
         
         private int EmailIndex = 0;
 
@@ -16,22 +16,8 @@ namespace ReHack.Node.Mail
             this.Username = Username; 
             this.Address = Address;
             this.Password = Password;
-            this.Inbox = new Email[1024];
+			this.Inbox = new List<Email>();
         }
-        
-        public bool ReceiveEmail(Email Mail)
-        {
-            if (this.EmailIndex < this.Inbox.Length)
-            {
-                this.EmailIndex++;
-                this.Inbox[this.EmailIndex] = Mail;
-                return true;
-            }
-            else {
-                return false;
-            }
-        }
-
     }
 
     public class MailServer : WebServer {
@@ -81,6 +67,18 @@ namespace ReHack.Node.Mail
 			{
 				return ListAccounts();
 			}
+		}
+
+		public MailAccount? GetAccount(string Username)
+		{
+			foreach(MailAccount Account in Accounts)
+			{
+				if (Account.Username == Username)
+				{
+					return Account;
+				}
+			}
+			return null;
 		}
     }
 }
