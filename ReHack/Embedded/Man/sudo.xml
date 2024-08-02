@@ -1,0 +1,6 @@
+<Manpage>
+	<Title>sudo</Title>
+	<Section title="Name">sudo - Run commands as root</Section>
+	<Section title="Synopsis">sudo [command]</Section>
+	<Section title="Description">sudo is a utility that temporarily elevates privileges. Running 'sudo [command]' runs the command as root, provided your user is permitted to use it.</Section>
+</Manpage>

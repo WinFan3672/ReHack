@@ -9,7 +9,6 @@ namespace ReHack.Welcome {
 	{
 		public static bool Init()
 		{
-			///
 			/// <summary>
 			/// Starts the game by creating a player node and SSH'ing into it without authenticating.
 			/// </summary>
