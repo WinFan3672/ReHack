@@ -21,6 +21,7 @@ namespace ReHack.Data.Nodes
 
 			Package[] AptRepoPackages = {
 				new Package("ping", new string[] {}),
+				new Package("netscan", new string[] {}),
 			};
 
 			Package[] ReHackPackages = {

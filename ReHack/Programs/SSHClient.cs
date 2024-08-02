@@ -73,7 +73,7 @@ namespace ReHack.Programs.SSH
 					}
 					catch (ErrorMessageException ex)
 					{
-						AnsiConsole.MarkupLine(ex.Message);
+						AnsiConsole.MarkupLine($"[bold red]error[/]: {ex.Message}");
 					}
 					catch (Exception ex)
 					{

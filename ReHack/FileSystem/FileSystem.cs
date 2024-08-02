@@ -47,7 +47,7 @@ namespace ReHack.Filesystem
 
 		public VirtualFile Clone()
 		{
-			return new VirtualFile(new String(Name), new String(Name));
+			return new VirtualFile(new String(Name), new String(Content));
 		}
 	}
 
