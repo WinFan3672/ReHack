@@ -2,6 +2,7 @@ using ReHack.Node;
 using ReHack.BaseMethods;
 using ReHack.Data;
 using ReHack.Data.Programs;
+using ReHack.Networks;
 
 namespace ReHack.Node.PackageRepo
 {
@@ -9,7 +10,7 @@ namespace ReHack.Node.PackageRepo
 	{
 		public Package[] Packages {get; set; }
 
-		public PackageRepo(string Name, string UID, string Address, Package[] Packages, string? AdminPassword) : base(Name, UID, Address, new User[] { new User("root", AdminPassword, true), new User("apt", null, false)})
+		public PackageRepo(string Name, string UID, string Address, Package[] Packages, AreaNetwork? Network, string? AdminPassword) : base(Name, UID, Address, new User[] { new User("root", AdminPassword, true), new User("apt", null, false)}, Network)
 		{
 			this.Packages = Packages;
 			this.Ports.Add(GameData.GetPort("ssh"));

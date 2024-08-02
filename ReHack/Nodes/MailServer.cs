@@ -1,6 +1,7 @@
 using ReHack.BaseMethods;
 using ReHack.Data;
 using ReHack.Node.Webserver;
+using ReHack.Networks;
 
 namespace ReHack.Node.Mail
 {
@@ -10,8 +11,6 @@ namespace ReHack.Node.Mail
         public string? Password {get; set; }
         public List<Email> Inbox {get; set; }
         
-        private int EmailIndex = 0;
-
         public MailAccount(string Username, string Address, string? Password) {
             this.Username = Username; 
             this.Address = Address;
@@ -23,7 +22,7 @@ namespace ReHack.Node.Mail
     public class MailServer : WebServer {
         public List<MailAccount> Accounts {get; } = new List<MailAccount>();
 		public bool AllowLookup {get; } = true;
-        public MailServer(string Name, string UID, string Address, string? AdminPassword=null, string IndexFolder="MailServer") : base(Name, UID, Address, IndexFolder, AdminPassword) {
+        public MailServer(string Name, string UID, string Address, AreaNetwork? Network, string? AdminPassword=null, string IndexFolder="MailServer") : base(Name, UID, Address, Network, IndexFolder, AdminPassword) {
             this.Ports.Add(GameData.GetPort("smtp"));
             CreateMailAccount("admin", AdminPassword);
         }

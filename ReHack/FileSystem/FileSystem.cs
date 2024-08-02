@@ -50,7 +50,7 @@ namespace ReHack.Filesystem
 
 		public VirtualFile Clone()
 		{
-			return new VirtualFile(string.Copy(Name), string.Copy(Content));
+			return new VirtualFile(String.Copy(Name), String.Copy(Content));
 		}
 	}
 
@@ -141,7 +141,7 @@ namespace ReHack.Filesystem
 			{
 				NewDirs.Add(Dir.Clone());
 			}
-			return new VirtualDirectory(string.Copy(Name), NewFiles.ToArray(), NewDirs.ToArray());
+			return new VirtualDirectory(String.Copy(Name), NewFiles.ToArray(), NewDirs.ToArray());
 		}
 	}
 

@@ -2,6 +2,7 @@ using ReHack.Node;
 using ReHack.BaseMethods;
 using ReHack.Data;
 using ReHack.WebRendering;
+using ReHack.Networks;
 
 namespace ReHack.Node.Webserver
 {
@@ -12,9 +13,9 @@ namespace ReHack.Node.Webserver
 		public List<string> Whitelist {get; } = new List<string>();
 		public List<string> Blacklist {get; } = new List<string>();
 
-		public WebServer(string Name, string UID, string Address, string IndexFolder, string? AdminPassword=null) : base (Name, UID, Address, new User[] {
+		public WebServer(string Name, string UID, string Address, AreaNetwork? Network, string IndexFolder, string? AdminPassword=null) : base (Name, UID, Address, new User[] {
 				new User("root", AdminPassword, true), new User("w3", null, false),
-				})
+				}, Network)
 		{
 			this.IndexFolder = IndexFolder;
 			this.Ports.Add(GameData.GetPort("ssh"));

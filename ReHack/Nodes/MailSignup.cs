@@ -4,13 +4,14 @@ using ReHack.Node.Webserver;
 using ReHack.BaseMethods;
 using ReHack.WebRendering;
 using ReHack.Data;
+using ReHack.Networks;
 
 namespace ReHack.Node.MailSignup
 {
 	public class MailSignupService : WebServer
 	{
 		public string WelcomeMessage {get;} = "Thank you for creating an account with us.";
-		public MailSignupService(string Name, string UID, string Address, string Target, string? AdminPassword=null) : base (Name, UID, Address, Target, AdminPassword)
+		public MailSignupService(string Name, string UID, string Address, AreaNetwork? Network, string Target, string? AdminPassword=null) : base (Name, UID, Address, Network, Target, AdminPassword)
 		{
 		}
 

@@ -18,7 +18,7 @@ namespace ReHack.Node {
 		public FileSystem Root {get; set; }
 		public AreaNetwork? Network {get; set; }
 
-		public BaseNode(string Name, string UID, string Address, User[] Users)
+		public BaseNode(string Name, string UID, string Address, User[] Users, AreaNetwork? Network)
 		{
 			this.Name = Name;
 			this.UID = UID;
@@ -26,6 +26,7 @@ namespace ReHack.Node {
 			this.Users = Users;
 			this.Ports = new List<Port>();
 			this.Root = new FileSystem(new VirtualFile[]{}, GameData.DefaultDirs).Clone();
+			this.Network = Network;
 
 			this.Init();
 		}
