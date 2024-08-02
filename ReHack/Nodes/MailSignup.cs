@@ -1,9 +1,7 @@
-using ReHack.Node;
 using ReHack.Node.Mail;
 using ReHack.Node.Webserver;
 using ReHack.BaseMethods;
 using ReHack.WebRendering;
-using ReHack.Data;
 using ReHack.Networks;
 
 namespace ReHack.Node.MailSignup
@@ -23,10 +21,10 @@ namespace ReHack.Node.MailSignup
 				return;
 			}
 
-			MailServer? Target = NodeUtils.GetNode(this.IndexFolder) as MailServer;
+			MailServer? Target = NodeUtils.GetNode(this.IndexFolder) as MailServer ?? throw new ArgumentException("Invalid mail server");
 
 			Console.Write("Username $");
-			string Username = Console.ReadLine();
+			string Username = Console.ReadLine() ?? throw new EndOfStreamException();
 			if (Target.ListAccounts().Contains(Username))
 			{
 				WebRender.Render("<Webpage><Head><Title>Error</Title></Head><Body><Text>[bold red]error[/]: This username is already taken.</Text></Body></Webpage>");

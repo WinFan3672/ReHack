@@ -25,7 +25,7 @@ namespace ReHack.Programs.Debug
 			else if (Args.Length == 1 && Args.Contains("url"))
 			{
 				Console.Write("URL: ");
-				string URL = Console.ReadLine();
+				string URL = Console.ReadLine() ?? throw new EndOfStreamException();
 				(string, string) Parts = NodeUtils.DeconstructURL(URL);
 				Console.WriteLine($"Server={Parts.Item1}; Resource={Parts.Item2}");
 				return true;

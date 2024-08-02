@@ -1,5 +1,4 @@
 using ReHack.BaseMethods;
-using ReHack.Node;
 using ReHack.Data;
 using ReHack.Filesystem;
 using Spectre.Console;
@@ -22,7 +21,7 @@ namespace ReHack.Node.Player
 			this.AddProgram("welcome");
 			this.AddProgram("tutorial");
 
-			VirtualFile AptSources = Root.GetFile("/etc/apt/sources.list");
+			VirtualFile AptSources = Root.GetFile("/etc/apt/sources.list") ?? throw new FileNotFoundException();
 			AptSources.Content = AptSources.Content + "\npkg.rehack.org";
         }
 

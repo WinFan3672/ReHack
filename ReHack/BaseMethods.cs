@@ -155,7 +155,7 @@ namespace ReHack.BaseMethods
 		public string? Password {get; set; }
 		public bool Privileged {get; set; } // If this is enabled, the user can perform privileged operations
 
-		public User(string Username, string Password, bool Privileged)
+		public User(string Username, string? Password, bool Privileged)
 		{
 			this.Username = Username;
 			this.Password = Password;

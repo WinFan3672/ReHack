@@ -68,7 +68,9 @@ namespace ReHack.Data
 
 		public static List<string> BannedUsernames = new List<string> { "admin", "root", "" };
 
-		public static string[] Passwords = FileUtils.GetFileContents("Passwords.txt").Split(new[] {"\r\n", "\n"}, StringSplitOptions.None);
+		private static string PasswordsRaw = FileUtils.GetFileContents("Passwords.txt") ?? throw new ArgumentException("Passwords file not found");
+
+		public static string[] Passwords = PasswordsRaw.Split(new[] {"\r\n", "\n"}, StringSplitOptions.None);
 
 		public static List<string> DefaultPrograms = new List<string> { 
 			"help", 

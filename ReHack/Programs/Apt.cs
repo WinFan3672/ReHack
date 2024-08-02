@@ -2,6 +2,7 @@ using ReHack.Node;
 using ReHack.Node.PackageRepo;
 using ReHack.BaseMethods;
 using Spectre.Console;
+using ReHack.Filesystem;
 
 namespace ReHack.Programs.Apt
 {
@@ -9,13 +10,14 @@ namespace ReHack.Programs.Apt
 	{
 		public static Package[] GetRepoPackages(string Address)
 		{
-			PackageRepo Repo = NodeUtils.GetNodeByAddress(Address) as PackageRepo;
+			PackageRepo Repo = NodeUtils.GetNodeByAddress(Address) as PackageRepo ?? throw new ArgumentException("Invalid address");
 			return Repo.Packages;
 		}
 		public static List<Package> GetPackages(BaseNode Client)
 		{
 			List<Package> Packages = new List<Package>();
-			foreach(string Repo in Client.Root.GetFile("/etc/apt/sources.list").Content.Split("\n"))
+			VirtualFile RepoFile = Client.Root.GetFile("/etc/apt/sources.list") ?? throw new ArgumentException("Invalid repo address");
+			foreach(string Repo in RepoFile.Content.Split("\n"))
 			{
 				foreach(Package Item in GetRepoPackages(Repo))
 				{
@@ -48,7 +50,7 @@ namespace ReHack.Programs.Apt
 		{
 			if (Args.Contains("install") && Args.Length == 2)
 			{
-				string Program = Args.FirstOrDefault(Item => Item != "install");
+				string Program = Args.FirstOrDefault(Item => Item != "install") ?? throw new ArgumentException();
 				if (Client.InstalledPrograms.Contains(Program))
 				{
 					AnsiConsole.MarkupLine("[bold red]error[/]: Package is already installed");
@@ -70,7 +72,7 @@ namespace ReHack.Programs.Apt
 			}
 			else if (Args.Contains("remove") && Args.Length == 2)
 			{
-				string Program = Args.FirstOrDefault(Item => Item != "remove");
+				string Program = Args.FirstOrDefault(Item => Item != "remove") ?? throw new ArgumentException();
 				if (GetPackage(GetPackages(Client), Program) == null)
 				{
 					AnsiConsole.MarkupLine("[bold red]error[/]: Invalid package");

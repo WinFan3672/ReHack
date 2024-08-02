@@ -1,4 +1,3 @@
-using ReHack.Node;
 using System.Xml;
 using ReHack.BaseMethods;
 using Spectre.Console;
@@ -11,8 +10,10 @@ namespace ReHack.WebRendering
 		{
 			XmlDocument Doc = new XmlDocument();
 			Doc.LoadXml(XmlData);
-			string? Title = Doc.SelectSingleNode("//Head/Title").InnerText ?? "Untitled";
-			foreach(XmlNode Node in Doc.SelectSingleNode("//Body").ChildNodes)
+			XmlNode TitleRaw = Doc.SelectSingleNode("//Head/Title") ?? throw new XmlException("No title");
+			string? Title = TitleRaw.InnerText ?? "Untitled";
+			XmlNode Body = Doc.SelectSingleNode("//Body") ?? throw new XmlException("No body");
+			foreach(XmlNode Node in Body.ChildNodes)
 			{
 				RenderNode(Node, Title);
 			}
@@ -46,7 +47,9 @@ namespace ReHack.WebRendering
 			}
 			else if (Node.Name == "Text")
 			{
+				#pragma warning disable CS8602 // Null check below
 				XmlAttribute? Style = Node.Attributes["style"];
+				#pragma warning restore CS8602
 				if (Style == null)
 				{
 					AnsiConsole.MarkupLine(Node.InnerText);
@@ -73,7 +76,8 @@ namespace ReHack.WebRendering
 			}
 			else if (Node.Name == "Break")
 			{
-				XmlAttribute? Style = Node.Attributes["style"];
+				XmlAttributeCollection Attributes = Node.Attributes ?? throw new XmlException("No attributes in Break tag");
+				XmlAttribute Style = Attributes["style"] ?? throw new XmlException("Break tag has no style attribute");
 				if (Style == null)
 				{
 					Console.WriteLine();
@@ -86,13 +90,6 @@ namespace ReHack.WebRendering
 				{
 					AnsiConsole.MarkupLine("[bold red]error[/]: [yellow]Break[/] tag has invalid [blue]style[/] attribute");
 				}
-			}
-			else if (Node.Name == "Link")
-			{
-				XmlAttribute? LinkKind = Node.Attributes["kind"];
-				XmlAttribute? LinkRef = Node.Attributes["ref"];
-				XmlAttribute? LinkStyle = Node.Attributes["style"];
-				AnsiConsole.MarkupLine("[bold red]error[/]: [yellow]Link[/] tags not implemented in [blue]W3[/]");
 			}
 			else if (Node.Name == "Box")
 			{
@@ -117,7 +114,8 @@ namespace ReHack.WebRendering
 			}
 			else if (Node.Name == "Command")
 			{
-				XmlAttribute? Command = Node.Attributes["cmd"];
+				XmlAttributeCollection Attributes = Node.Attributes ?? throw new XmlException("Command tag has no attributes");
+				XmlAttribute Command = Node.Attributes["cmd"] ?? throw new XmlException("Command tag has no cmd attribute");
 				if (Command == null)
 				{
 					AnsiConsole.MarkupLine("[bold red]error[/]: [yellow]Command[/] tag requires a [blue]cmd[/] attribute");

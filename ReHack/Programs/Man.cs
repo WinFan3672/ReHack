@@ -1,9 +1,6 @@
-using System.Reflection;
 using ReHack.Node;
-using ReHack.Data;
 using ReHack.BaseMethods;
 using System.Xml;
-using Spectre.Console;
 
 namespace ReHack.Programs.Man
 {
@@ -13,20 +10,23 @@ namespace ReHack.Programs.Man
 		{
 			Console.Clear();
 			XmlDocument Doc = new XmlDocument();
-			string Raw = FileUtils.GetFileContents($"Man.{Manpage}.xml");
+			string Raw = FileUtils.GetFileContents($"Man.{Manpage}.xml") ?? throw new FileNotFoundException();
 
 			Doc.LoadXml(Raw);
-			XmlElement Root = Doc.DocumentElement;
-
-			string Title = Doc.SelectSingleNode("//Title").InnerText;
+			XmlElement Root = Doc.DocumentElement ?? throw new XmlException("No root element found");
+			
+			XmlNode TitleNode = Doc.SelectSingleNode("//Title") ?? throw new XmlException("No title element");
+			string Title = TitleNode.InnerText;
 			PrintUtils.PrintCentered(Title, Console.WindowWidth, '─', '│');
 
-			XmlNodeList Sections = Doc.SelectNodes("//Section");
+			XmlNodeList Sections = Doc.SelectNodes("//Section") ?? throw new XmlException("No sections found");
 			
 			int Lines = 2;
+			XmlAttributeCollection Attributes;
 			foreach (XmlNode Section in Sections)
 			{
-				Console.WriteLine(Section.Attributes["title"]?.Value.ToUpper() ?? "NONE");
+				Attributes = Section.Attributes ?? throw new XmlException("No section title found");
+				Console.WriteLine(Attributes["title"]?.Value.ToUpper() ?? "NONE");
 				Lines++;
 				foreach(var Line in Section.InnerText.Split("\n"))
 				{
@@ -40,11 +40,13 @@ namespace ReHack.Programs.Man
 			}
 			
 			string Epilog;
+			XmlNode EpilogRaw;
 			try
 			{
-				Epilog = Doc.SelectSingleNode("//Epilog").InnerText;
+				EpilogRaw = Doc.SelectSingleNode("//Epilog") ?? throw new XmlException();
+				Epilog = EpilogRaw.InnerText;
 			}
-			catch (NullReferenceException)
+			catch (XmlException)
 			{
 				Epilog = "(c) 2010 Debian, ReHack";
 			}

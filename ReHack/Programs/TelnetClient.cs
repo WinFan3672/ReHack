@@ -23,7 +23,7 @@ namespace ReHack.Programs.Telnet
 					return false;
 				}
 				Console.Write("Username $");
-				string Username = Console.ReadLine();
+				string Username = Console.ReadLine() ?? throw new EndOfStreamException();
 				Console.Write("Password $");
 				string Password = PrintUtils.ReadPassword(false);
 				User Person = Target.GetUser(Username);

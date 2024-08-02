@@ -1,8 +1,8 @@
-using ReHack.Node;
 using ReHack.BaseMethods;
 using ReHack.Data;
 using ReHack.WebRendering;
 using ReHack.Networks;
+using ReHack.Exceptions;
 
 namespace ReHack.Node.Webserver
 {
@@ -66,7 +66,7 @@ namespace ReHack.Node.Webserver
 				Path = $"Web.{this.IndexFolder}.{Resource.TrimStart('/')}.xml";
 			}
 
-			WebRender.Render(FileUtils.GetFileContents(Path));
+			WebRender.Render(FileUtils.GetFileContents(Path) ?? throw new ErrorMessageException("Invalid resource"));
 		}
 	}
 }

@@ -1,6 +1,7 @@
 using ReHack.Node;
 using ReHack.BaseMethods;
 using ReHack.Filesystem;
+using ReHack.Exceptions;
 
 namespace ReHack.Programs.Cat
 {
@@ -15,7 +16,7 @@ namespace ReHack.Programs.Cat
 			}
 			try
 			{
-				VirtualFile File = Client.Root.GetFile(Args[0]);
+				VirtualFile File = Client.Root.GetFile(Args[0]) ?? throw new ErrorMessageException("File not found");
 				Console.WriteLine(File.Content);
 				return true;
 			}

@@ -10,9 +10,10 @@ namespace ReHack.Programs.Welcome
 		public static void ReadXml(string Page)
 		{
 			XmlDocument Doc = new XmlDocument();
-			Doc.LoadXml(FileUtils.GetFileContents($"Welcome.{Page}.xml"));
-			XmlElement Root = Doc.DocumentElement;
-			string Title = Doc.SelectSingleNode("//Title").InnerText;
+			Doc.LoadXml(FileUtils.GetFileContents($"Welcome.{Page}.xml") ?? throw new FileNotFoundException());
+			XmlElement Root = Doc.DocumentElement ?? throw new XmlException("Document has no root tag");
+			XmlNode TitleRaw = Doc.SelectSingleNode("//Title") ?? throw new XmlException("No title");
+			string Title = TitleRaw.InnerText;
 			Console.Clear();
 			AnsiConsole.MarkupLine($"[bold]{Title}[/]");
 			foreach(XmlNode Node in Root.ChildNodes)

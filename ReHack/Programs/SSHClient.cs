@@ -1,8 +1,8 @@
-using ReHack.Data;
 using ReHack.Data.Programs;
 using ReHack.BaseMethods;
 using ReHack.Node;
 using Spectre.Console;
+using ReHack.Exceptions;
 
 namespace ReHack.Programs.SSH
 {
@@ -70,6 +70,10 @@ namespace ReHack.Programs.SSH
 					try
 					{
 						RunCommand(Client, Input, Person);
+					}
+					catch (ErrorMessageException ex)
+					{
+						AnsiConsole.MarkupLine(ex.Message);
 					}
 					catch (Exception ex)
 					{

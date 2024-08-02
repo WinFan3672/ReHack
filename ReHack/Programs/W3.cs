@@ -1,7 +1,6 @@
 using ReHack.Node;
 using ReHack.Node.Webserver;
 using ReHack.BaseMethods;
-using Spectre.Console;
 
 namespace ReHack.Programs.W3
 {
@@ -25,7 +24,7 @@ namespace ReHack.Programs.W3
 				return false;
 			}
 
-			WebServer Server = NodeUtils.GetNodeByAddress(Args[0]) as WebServer;
+			WebServer Server = NodeUtils.GetNodeByAddress(Args[0]) as WebServer ?? throw new ArgumentException("Invalid hostname");
 			Server.Render(Client);
 			return true;
 		}

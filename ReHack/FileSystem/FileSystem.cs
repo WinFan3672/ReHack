@@ -1,7 +1,4 @@
 using ReHack.Node;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using Spectre.Console;
 using ReHack.BaseMethods;
 
@@ -50,7 +47,7 @@ namespace ReHack.Filesystem
 
 		public VirtualFile Clone()
 		{
-			return new VirtualFile(String.Copy(Name), String.Copy(Content));
+			return new VirtualFile(new String(Name), new String(Name));
 		}
 	}
 
@@ -87,12 +84,12 @@ namespace ReHack.Filesystem
 
 		public VirtualFile GetFile(string name)
 		{
-			return this.Files.FirstOrDefault(f => f.Name == name);
+			return this.Files.FirstOrDefault(f => f.Name == name) ?? throw new FileNotFoundException();
 		}
 
 		public VirtualDirectory GetDirectory(string name)
 		{
-			return this.SubDirectories.FirstOrDefault(d => d.Name == name);
+			return this.SubDirectories.FirstOrDefault(d => d.Name == name) ?? throw new FileNotFoundException();
 		}
 
 		public void View(BaseNode Client)
@@ -141,7 +138,7 @@ namespace ReHack.Filesystem
 			{
 				NewDirs.Add(Dir.Clone());
 			}
-			return new VirtualDirectory(String.Copy(Name), NewFiles.ToArray(), NewDirs.ToArray());
+			return new VirtualDirectory(new String(Name), NewFiles.ToArray(), NewDirs.ToArray());
 		}
 	}
 

@@ -2,6 +2,7 @@ using ReHack.Node;
 using ReHack.Node.Mail;
 using ReHack.BaseMethods;
 using Spectre.Console;
+using ReHack.Exceptions;
 
 namespace ReHack.Programs.MxLookup
 {
@@ -20,9 +21,9 @@ namespace ReHack.Programs.MxLookup
 				AnsiConsole.MarkupLine("[bold red]error[/]: Invalid hostname");
 			}
 			
-			MailServer? Node = NodeUtils.GetNodeByAddress(Args[0]) as MailServer;
+			MailServer Node = NodeUtils.GetNodeByAddress(Args[0]) as MailServer ?? throw new ErrorMessageException("Connection refused");
 
-			if (Node == null || !NodeUtils.CheckPort(Node, "smtp"))
+			if (!NodeUtils.CheckPort(Node, "smtp"))
 			{
 				AnsiConsole.MarkupLine("[bold red]error[/]: Connection refused");
 			}
