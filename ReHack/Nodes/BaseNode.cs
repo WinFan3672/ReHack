@@ -18,6 +18,7 @@ namespace ReHack.Node {
 		public List<string> InstalledPrograms {get;} = new List<string>();
 		public FileSystem Root {get; set; }
 		public AreaNetwork? Network {get; set; }
+		public bool Healthy {get; set; }
 		public List<string> ShellExtensions {get; set; } /// <summary>A shell extension is a pseudo-program that real programs can check against to see if it is unlocked.</summary>
 
 		public BaseNode(string Name, string UID, string Address, User[] Users, AreaNetwork? Network)
@@ -30,6 +31,7 @@ namespace ReHack.Node {
 			this.Root = new FileSystem(new VirtualFile[]{}, GameData.DefaultDirs).Clone();
 			this.Network = Network;
 			this.ShellExtensions = new List<string>();
+			this.Healthy = true;
 
 			this.Init();
 		}
@@ -205,6 +207,11 @@ namespace ReHack.Node {
 			{
 				throw new ErrorMessageException("Permission denied");
 			}
+		}
+
+		public virtual bool CheckHealth()
+		{
+			return Healthy;
 		}
 	}
 }

@@ -46,7 +46,7 @@ namespace ReHack.Node.News
 
 		public string RenderArticle(NewsArticle Article)
 		{
-			return GenerateBasicWebpage(Article.Title, Article.Content, $"(c) {Name}, all rights reserved");
+			return WebRender.GenerateBasicWebpage(Article.Title, Article.Content, $"(c) {Name}, all rights reserved");
 		}
 
 		public override void Render(BaseNode Client)
@@ -60,7 +60,7 @@ namespace ReHack.Node.News
 			Dictionary<string, NewsArticle> Articles = GetArticlesAsDic();
 			if (Articles.Keys.Count == 0)
 			{
-				WebRender.Render(GenerateBasicWebpage("Error 500", "This news server has no content to serve.", $"(c) {Name}, all rights reserved"));
+				WebRender.Render(WebRender.GenerateBasicWebpage("Error 500", "This news server has no content to serve.", $"(c) {Name}, all rights reserved", true));
 				return;
 			}
 			string ArticleChoice = AnsiConsole.Prompt(new SelectionPrompt<string>().Title(Name).AddChoices(Articles.Keys));

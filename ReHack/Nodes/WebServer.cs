@@ -43,7 +43,7 @@ namespace ReHack.Node.Webserver
 
 		public virtual void RenderAccessDenied()
 		{
-			WebRender.Render(GenerateBasicWebpage("Error 403", "Access to this website is denied.", $"Apache Web Server"));
+			WebRender.Render(WebRender.GenerateBasicWebpage("Error 403", "Access to this website is denied.", $"Apache Web Server"));
 		}
 
 		public virtual void Render(BaseNode Client)
@@ -56,11 +56,6 @@ namespace ReHack.Node.Webserver
 
 			string Path = $"Web.{this.IndexFolder}.index.xml";
 			WebRender.Render(FileUtils.GetFileContents(Path) ?? throw new FileNotFoundException());
-		}
-
-		public string GenerateBasicWebpage(string Title, string Text, string Footer)
-		{
-			return $"<Webpage><Head><Title>{Title}</Title></Head><Body><Title /><Text>{Text}</Text><Footer>{Footer}</Footer></Body></Webpage>";
 		}
 	}
 }

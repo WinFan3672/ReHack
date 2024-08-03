@@ -99,11 +99,11 @@ namespace ReHack.BaseMethods
 			return false;
 		}
 
-		public static BaseNode GetNode(string UID)
+		public static BaseNode GetNode(string UID, bool Force=false)
 		{
 			foreach(var Node in GameData.Nodes)
 			{
-				if (Node.UID == UID)
+				if (Node.UID == UID && Node.CheckHealth() || Force)
 				{
 					return Node;
 				}
@@ -112,16 +112,16 @@ namespace ReHack.BaseMethods
 
 		}
 
-		public static BaseNode GetNodeByAddress(string Address)
+		public static BaseNode GetNodeByAddress(string Address, bool Force=false)
 		{
 			foreach(BaseNode Node in GameData.Nodes)
 			{
-				if (Node.Address == Address)
+				if (Node.Address == Address && Node.CheckHealth() || Force)
 				{
 					return Node;
 				}
 			}
-			throw new ErrorMessageException("Invalid address");
+			throw new ErrorMessageException("Invalid hostname");
 		}
 
 		public static bool CheckPort(BaseNode Client, string ServiceID)

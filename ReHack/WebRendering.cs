@@ -47,9 +47,9 @@ namespace ReHack.WebRendering
 			}
 			else if (Node.Name == "Text")
 			{
-				#pragma warning disable CS8602 // Null check below
+#pragma warning disable CS8602 // Null check below
 				XmlAttribute? Style = Node.Attributes["style"];
-				#pragma warning restore CS8602
+#pragma warning restore CS8602
 				if (Style == null)
 				{
 					AnsiConsole.MarkupLine(Node.InnerText);
@@ -132,6 +132,18 @@ namespace ReHack.WebRendering
 			else
 			{
 				AnsiConsole.MarkupLine($"[bold red]error[/]: Invalid tag [yellow]{Node.Name}[/]");
+			}
+		}
+
+		public static string GenerateBasicWebpage(string Title, string Text, string Footer, bool Clear=false)
+		{
+			if (Clear)
+			{
+				return $"<Webpage><Head><Title>{Title}</Title></Head><Body><Command cmd='Clear'/><Title /><Text>{Text}</Text><Footer>{Footer}</Footer></Body></Webpage>";
+			}
+			else
+				return $"<Webpage><Head><Title>{Title}</Title></Head><Body><Title /><Text>{Text}</Text><Footer>{Footer}</Footer></Body></Webpage>";
+			{
 			}
 		}
 	}

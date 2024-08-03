@@ -9,6 +9,7 @@ using ReHack.Node.FTP;
 using ReHack.Filesystem;
 using ReHack.Networks;
 using ReHack.Node.News;
+using ReHack.Node.Wiki;
 
 namespace ReHack.Data.Nodes
 {
@@ -130,6 +131,9 @@ namespace ReHack.Data.Nodes
 			MailServer EnWired = GameData.AddNode(new MailServer("EnWired", "enwired", "enwired.com", null, null, "EnWired")) as MailServer ?? throw new ArgumentException();
 			EnWired.CreateMailAccount("sales", null);
 			EnWired.CreateMailAccount("elliot.marksman", null);
+
+			WikiServer RHWiki = GameData.AddNode(new WikiServer("ReHack Wiki", "rhwiki", "wiki.rehack.org", null, null)) as WikiServer ?? throw new ArgumentException();
+			WikiCategory RHWiki_Hacking = RHWiki.RootPage.AddCategory("Hacking");
 		}
 	}
 }
