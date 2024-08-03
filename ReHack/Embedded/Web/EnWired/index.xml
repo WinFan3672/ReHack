@@ -1,0 +1,23 @@
+<Website>
+	<Head>
+		<Title>EnWired (1978-2008)</Title>
+	</Head>
+	<Body>
+		<Command cmd="Clear" />
+		<Title />
+		<Text>EnWired was a quarterly computer magazine that published from 1978 to 2008. Founded by [yellow]Jacob Marksman[/] (1917-2002), the publication was massively influential in the early computer magazine space, and was a cultural icon.</Text>
+		<Break style="None"/>
+		<Text>Unfortunately, all good things must come to an end. Starting in the early 2000s, EnWired suffered from financial trouble due to the fading popularity of printed publications and 'zines in general, which culminated in 2008 with EnWired Publications LLC going bankrupt.</Text>
+		<Break style="None"/>
+		<Text>In 2005, the rights to the EnWired name, logo mark, and articles were transfered to a new parent company, EnWired Holding Plc., who agreed to buy EnWired Publications for just $1. This was done to protect EnWired's articles in the event that the publication went down.</Text>
+		<Break style="None"/>
+		<Heading>Article Licensing</Heading>
+		<Text>You can contact the sales team ([blue]sales@enwired.com[/]) if you want to license an article(s) for personal or commercial use.</Text>
+		<List>
+			<Item>Invididuals can 'purchase' individual articles for free, and all archived articles for $50, as per a [bold]personal license[/].</Item>
+			<Item>Companies seeking to use articles (or parts thereof) for commercial purposes can contact our sales team for a quote.</Item>
+			<Item>An itemised article list can be purchased for $5 by anyone. The article list cannot be used commercially, but can be distributed in part (less than 5% of contents) non-commercially.</Item>
+		</List>
+		<Footer>(c) 2008 EnWired Holdings Plc., all rights reserved</Footer>
+	</Body>
+</Website>

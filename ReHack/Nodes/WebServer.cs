@@ -13,7 +13,7 @@ namespace ReHack.Node.Webserver
 		public List<string> Blacklist {get; } = new List<string>();
 
 		public WebServer(string Name, string UID, string Address, AreaNetwork? Network, string IndexFolder, string? AdminPassword=null) : base (Name, UID, Address, new User[] {
-				new User("root", AdminPassword, true), new User("w3", null, false),
+				new User("root", AdminPassword, true, false), new User("w3", null, false, false),
 				}, Network)
 		{
 			this.IndexFolder = IndexFolder;

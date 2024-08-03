@@ -3,6 +3,7 @@ using System.Reflection;
 using ReHack.Data;
 using ReHack.Node;
 using ReHack.Node.Mail;
+using ReHack.Exceptions;
 
 namespace ReHack.BaseMethods
 {
@@ -120,7 +121,7 @@ namespace ReHack.BaseMethods
 					return Node;
 				}
 			}
-			throw new ArgumentException("Invalid node");
+			throw new ErrorMessageException("Invalid address");
 		}
 
 		public static bool CheckPort(BaseNode Client, string ServiceID)
@@ -154,12 +155,14 @@ namespace ReHack.BaseMethods
 		public string Username {get; set; }
 		public string? Password {get; set; }
 		public bool Privileged {get; set; } // If this is enabled, the user can perform privileged operations
+		public bool CanSudo {get; set; }
 
-		public User(string Username, string? Password, bool Privileged)
+		public User(string Username, string? Password, bool Privileged, bool CanSudo)
 		{
 			this.Username = Username;
 			this.Password = Password;
 			this.Privileged = Privileged;
+			this.CanSudo = CanSudo;
 		}
 
 	}

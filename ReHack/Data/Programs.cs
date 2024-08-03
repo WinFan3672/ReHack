@@ -20,6 +20,8 @@ using ReHack.Programs.MxLookup;
 using ReHack.Programs.MOTD;
 using ReHack.Programs.LocalNetScan;
 using ReHack.Programs.Daemons.Telnet;
+using ReHack.Programs.Deamons.C2;
+using ReHack.Programs.Metasploit;
 
 namespace ReHack.Data.Programs
 {
@@ -48,6 +50,8 @@ namespace ReHack.Data.Programs
 			new ProgramDefinition("motd", "Prints the Message of the Day", new ProgramDelegate(MotdClient.Program), new string[] {}),
 			new ProgramDefinition("netscan", "Scans your local network for nodes", new ProgramDelegate(NetScan.Program), new string[] {}),
 			new ProgramDefinition("telnetd", "Telnet server", new ProgramDelegate(TelnetDaemon.Program), new string[] {}),
+			new ProgramDefinition("c2d", "Command-and-control server", new ProgramDelegate(C2D.Program), new string[] {}),
+			new ProgramDefinition("metahack", "Exploit generator and C2D client", new ProgramDelegate(MetaHack.Program), new string[] {}),
 		};
 
 		public static ProgramDefinition GetProgram(string Name)

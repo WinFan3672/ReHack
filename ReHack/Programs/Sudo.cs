@@ -1,6 +1,7 @@
 using ReHack.Node;
 using ReHack.BaseMethods;
 using ReHack.Programs.SSH;
+using ReHack.Exceptions;
 
 namespace ReHack.Programs.Sudo
 {
@@ -14,14 +15,25 @@ namespace ReHack.Programs.Sudo
 				return false;
 			}
 
+			if (!RunningUser.CanSudo)
+			{
+				throw new ErrorMessageException("This user is disallowed from running sudo");
+			}
+
 			if (RunningUser.Privileged)
 			{
-				Console.WriteLine("error: User is already privileged.");
-				return false;
+				throw new ErrorMessageException("User is already privileged");
+			}
+
+			Console.WriteLine($"[sudo] password for {RunningUser.Username}: ");
+			string Password = Console.ReadLine() ?? throw new EndOfStreamException();
+			if (Password != RunningUser.Password)
+			{ 
+				throw new ErrorMessageException("Invalid password");
 			}
 
 			string Command = string.Join(" ", Args);
-			User SudoUser = new User("root", null, true);
+			User SudoUser = new User("root", null, true, false);
 			SSHClient.RunCommand(Client, Command, SudoUser);
 			return true;
 		}

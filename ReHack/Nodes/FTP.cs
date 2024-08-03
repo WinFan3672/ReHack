@@ -24,7 +24,7 @@ namespace ReHack.Node.FTP
 			Ports.Add(GameData.GetPort("ftp"));
 			Ports.Add(GameData.GetPort("telnet"));
 
-			User FtpUser = new User("ftpuser", UserPassword, false);
+			User FtpUser = new User("ftpuser", UserPassword, false, false);
 			this.Users = MiscUtils.AddItemToArray(this.Users, FtpUser);
 			InitUser(FtpUser);
 		}

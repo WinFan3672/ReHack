@@ -78,7 +78,7 @@ namespace ReHack.WebRendering
 			{
 				XmlAttributeCollection Attributes = Node.Attributes ?? throw new XmlException("No attributes in Break tag");
 				XmlAttribute Style = Attributes["style"] ?? throw new XmlException("Break tag has no style attribute");
-				if (Style == null)
+				if (Style.Value == "None")
 				{
 					Console.WriteLine();
 				}

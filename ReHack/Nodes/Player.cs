@@ -2,12 +2,11 @@ using ReHack.BaseMethods;
 using ReHack.Data;
 using ReHack.Filesystem;
 using Spectre.Console;
-using ReHack.Networks;
 
 namespace ReHack.Node.Player
 {
     public class PlayerNode : BaseNode {
-        public PlayerNode(string Username, string Password) : base("Localhost", "localhost", "127.0.0.1", new[] {new User(Username, Password, true)}, null) {
+        public PlayerNode(string Username, string Password) : base("Localhost", "localhost", "127.0.0.1", new[] {new User(Username, Password, true, false)}, null) {
 			// Add ports
 			this.Ports.Add(GameData.GetPort("ssh"));
 			this.Ports.Add(GameData.GetPort("rehack"));
@@ -20,6 +19,8 @@ namespace ReHack.Node.Player
 			
 			this.AddProgram("welcome");
 			this.AddProgram("tutorial");
+
+			ShellExtensions.Add("metahack-telnet");
 
 			VirtualFile AptSources = Root.GetFile("/etc/apt/sources.list") ?? throw new FileNotFoundException();
 			AptSources.Content = AptSources.Content + "\npkg.rehack.org";

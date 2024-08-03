@@ -64,6 +64,7 @@ namespace ReHack.Node.News
 				return;
 			}
 			string ArticleChoice = AnsiConsole.Prompt(new SelectionPrompt<string>().Title(Name).AddChoices(Articles.Keys));
+			Console.Clear();
 			WebRender.Render(RenderArticle(Articles[ArticleChoice]));
 		}
 	}
@@ -96,7 +97,7 @@ namespace ReHack.Node.News
 			XmlDocument Doc = new XmlDocument();
 			Doc.LoadXml(FileUtils.GetFileContents($"News.{FileName}.xml") ?? throw new ArgumentException());
 			Dictionary<string, NewsArticle> Articles = new Dictionary<string, NewsArticle>();
-			foreach(XmlNode Node in Doc.SelectNodes("//Article") ?? throw new XmlException("No articles in file"))
+			foreach(XmlNode Node in Doc.SelectNodes("//Articles") ?? throw new XmlException("No articles in file"))
 			{
 				Articles[GetID(Node.OuterXml)] = GenerateArticle(Node.OuterXml);
 			}

@@ -3,6 +3,7 @@ using ReHack.Data;
 using ReHack.Data.Programs;
 using ReHack.Filesystem;
 using ReHack.Networks;
+using ReHack.Exceptions;
 using Spectre.Console;
 
 namespace ReHack.Node {
@@ -17,6 +18,7 @@ namespace ReHack.Node {
 		public List<string> InstalledPrograms {get;} = new List<string>();
 		public FileSystem Root {get; set; }
 		public AreaNetwork? Network {get; set; }
+		public List<string> ShellExtensions {get; set; } /// <summary>A shell extension is a pseudo-program that real programs can check against to see if it is unlocked.</summary>
 
 		public BaseNode(string Name, string UID, string Address, User[] Users, AreaNetwork? Network)
 		{
@@ -27,6 +29,7 @@ namespace ReHack.Node {
 			this.Ports = new List<Port>();
 			this.Root = new FileSystem(new VirtualFile[]{}, GameData.DefaultDirs).Clone();
 			this.Network = Network;
+			this.ShellExtensions = new List<string>();
 
 			this.Init();
 		}
@@ -194,6 +197,14 @@ namespace ReHack.Node {
 			Console.Write("Password $");
 			string Password = PrintUtils.ReadPassword();
 			return (Auth.Password == Password);
+		}
+
+		public void CheckPerms(User RunningUser)
+		{
+			if (!RunningUser.Privileged)
+			{
+				throw new ErrorMessageException("Permission denied");
+			}
 		}
 	}
 }

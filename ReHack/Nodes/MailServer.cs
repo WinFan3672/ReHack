@@ -21,7 +21,7 @@ namespace ReHack.Node.Mail
 
     public class MailServer : WebServer {
         public List<MailAccount> Accounts {get; } = new List<MailAccount>();
-		public bool AllowLookup {get; } = true;
+		public bool AllowLookup {get; set; } = true;
         public MailServer(string Name, string UID, string Address, AreaNetwork? Network, string? AdminPassword=null, string IndexFolder="MailServer") : base(Name, UID, Address, Network, IndexFolder, AdminPassword) {
             this.Ports.Add(GameData.GetPort("smtp"));
             CreateMailAccount("admin", AdminPassword);

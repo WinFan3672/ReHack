@@ -3,6 +3,7 @@ using ReHack.Node.PackageRepo;
 using ReHack.BaseMethods;
 using Spectre.Console;
 using ReHack.Filesystem;
+using ReHack.Exceptions;
 
 namespace ReHack.Programs.Apt
 {
@@ -50,6 +51,7 @@ namespace ReHack.Programs.Apt
 		{
 			if (Args.Contains("install") && Args.Length == 2)
 			{
+				Client.CheckPerms(RunningUser);
 				string Program = Args.FirstOrDefault(Item => Item != "install") ?? throw new ArgumentException();
 				if (Client.InstalledPrograms.Contains(Program))
 				{
@@ -57,16 +59,18 @@ namespace ReHack.Programs.Apt
 					return false;
 				}
 
-
-				Package? PackageToInstall = GetPackage(GetPackages(Client), Program);
-				if (PackageToInstall == null)
-				{
-					AnsiConsole.MarkupLine("[bold red]error[/]: Invalid Package");
-					return false;
-				}
+				Package PackageToInstall = GetPackage(GetPackages(Client), Program) ?? throw new ErrorMessageException("Invalid package");
 
 				PackageToInstall.Install(Client);
 				Console.WriteLine($"Package '{PackageToInstall.Name}' successfully installed.");
+
+				foreach(string Dep in PackageToInstall.Dependencies)
+				{
+					if (!Client.ListPrograms().Contains(Dep))
+					{
+						Apt.Program(new [] {"install", Dep}, Client, RunningUser);
+					}
+				}
 
 				return true;
 			}
