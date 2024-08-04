@@ -43,7 +43,7 @@ namespace ReHack.Data.Programs
 			new ProgramDefinition("hydra", "SSH brute-force", new ProgramDelegate(Hydra.Program), new string[] {"hydra"}),
 			new ProgramDefinition("telnet", "Telnet client", new ProgramDelegate(TelnetClient.Program), new string[] {}),
 			new ProgramDefinition("telnetpwn", "Telnet password stealer", new ProgramDelegate(TelnetPwn.Program), new string[] {}),
-			new ProgramDefinition("welcome", "A basic run-down of how to ReHack", new ProgramDelegate(WelcomeApp.Program), new string[] {}),
+			new ProgramDefinition("welcome", "A basic run-down on how to ReHack", new ProgramDelegate(WelcomeApp.Program), new string[] {}),
 			new ProgramDefinition("tutorial", "First hacking tutorial", new ProgramDelegate(TutorialApp.Program), new string[] {}),
 			new ProgramDefinition("ftp", "FTP Client", new ProgramDelegate(FTPClient.Program), new string[] {}),
 			new ProgramDefinition("mxlookup", "Finds email addresses associated with a mail server", new ProgramDelegate(MXLookup.Program), new string[] {}),

@@ -1,0 +1,16 @@
+<Website>
+	<Head>
+		<Title>Goph's Guide To Hackery</Title>
+	</Head>
+	<Body>
+		<Command cmd="Clear" />
+		<Title />
+		<Text>So, you want to get into hacking. That's great. Hacking can be both a fun and rewarding hobby as well as a well-paying job.</Text>
+		<Box>
+			<Text>&quot;If you do what you love, you'll never work a day in your life.&quot;</Text>
+			<Text>- Marc Anthony</Text>
+		</Box>
+		<Break />
+		<Footer>(c) 2006-2010 Goph</Footer>
+	</Body>
+</Website>

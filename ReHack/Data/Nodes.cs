@@ -134,6 +134,8 @@ namespace ReHack.Data.Nodes
 
 			WikiServer RHWiki = GameData.AddNode(new WikiServer("ReHack Wiki", "rhwiki", "wiki.rehack.org", null, null)) as WikiServer ?? throw new ArgumentException();
 			WikiCategory RHWiki_Hacking = RHWiki.RootPage.AddCategory("Hacking");
+
+			WebServer Goph = GameData.AddNode(new WebServer("Gop's Guide To Hackery :: Homepage", "gophweb", "goph.org", null, "Goph")) as WebServer ?? throw new ArgumentException();
 		}
 	}
 }

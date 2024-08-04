@@ -11,6 +11,7 @@ namespace ReHack.Node.FTP
 	{
 		public VirtualDirectory Folder {get; set; }
 		public bool Anonymous {get; set; }
+
 		public FTPServer(string Name, string UID, string Address, VirtualDirectory Folder, AreaNetwork? Network, bool Anonymous=true, string? UserPassword=null, string? AdminPassword=null) : base(Name, UID, Address, Network, "This variable isn't used", AdminPassword)
 		{
 			this.Anonymous = Anonymous;
