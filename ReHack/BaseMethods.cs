@@ -555,4 +555,68 @@ namespace ReHack.BaseMethods
 
 	}
 
+	public class BankTransaction
+	{
+		public string ToAddress {get; set; }
+		public string FromAddress {get; set; }
+		public int Amount {get; set; }
+		public string Reason {get; set; }
+
+		public BankTransaction(string FromAddress, string ToAddress, int Amount, string Reason)
+		{
+			this.ToAddress = ToAddress;
+			this.FromAddress = FromAddress;
+			if (Amount < 0)
+			{
+				throw new ArgumentException("Negative balances disallowed");
+			}
+			this.Amount = Amount;
+			this.Reason = Reason;
+		}
+
+		public override string ToString()
+		{
+			return $"{FromAddress} --> {ToAddress}\t{Amount}\t{Reason}";
+		}
+	}
+
+	public static class BankUtils
+	{
+		public static bool PerformTransaction(BankTransaction Order)
+		{
+			BaseNode FromNode = NodeUtils.GetNodeByAddress(Order.FromAddress);
+			BaseNode ToNode = NodeUtils.GetNodeByAddress(Order.ToAddress);
+
+			if (FromNode.Balance < Order.Amount)
+			{
+				return false;
+			}
+
+			FromNode.Balance -= Order.Amount;
+			ToNode.Balance += Order.Amount;
+			FromNode.MoneySent.Add(Order);
+			ToNode.MoneyReceived.Add(Order);
+			FromNode.MoneyHandled.Add(Order);
+			ToNode.MoneyHandled.Add(Order);
+
+			return true;
+		}
+
+		public static bool ValidateTransactions(BaseNode Node)
+		{
+			/// <summary>Validates that a node's balance is legitimate.</summary>
+			int Balance = 0;
+			foreach (BankTransaction Transaction in Node.MoneyReceived)
+			{
+				Balance += Transaction.Amount;
+			}
+			foreach (BankTransaction Transaction in Node.MoneySent)
+			{
+				Balance -= Transaction.Amount;
+			}
+
+			return (Balance == Node.Balance);
+		}
+	}
+
 }

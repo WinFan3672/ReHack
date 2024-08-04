@@ -20,6 +20,10 @@ namespace ReHack.Node {
 		public AreaNetwork? Network {get; set; }
 		public bool Healthy {get; set; }
 		public List<string> ShellExtensions {get; set; } /// <summary>A shell extension is a pseudo-program that real programs can check against to see if it is unlocked.</summary>
+		public Int64 Balance {get; set; }
+		public List<BankTransaction> MoneySent {get; set; }
+		public List<BankTransaction> MoneyReceived {get; set; }
+		public List<BankTransaction> MoneyHandled {get; set; }
 
 		public BaseNode(string Name, string UID, string Address, User[] Users, AreaNetwork? Network)
 		{
@@ -32,6 +36,10 @@ namespace ReHack.Node {
 			this.Network = Network;
 			this.ShellExtensions = new List<string>();
 			this.Healthy = true;
+			this.Balance = 0;
+			this.MoneySent = new List<BankTransaction>();
+			this.MoneyReceived = new List<BankTransaction>();
+			this.MoneyHandled = new List<BankTransaction>();
 
 			this.Init();
 		}

@@ -88,6 +88,7 @@ namespace ReHack.Data
 				"ping",
 				"telnet",
 				"ftp",
+				"bankutil",
 		};
 
 		public static List<string> DefaultManpages = new List<string> {

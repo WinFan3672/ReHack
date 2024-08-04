@@ -8,9 +8,9 @@ namespace ReHack.Node.Webserver
 	public class WebServer : BaseNode
 	{
 		public string IndexFolder {get; set; }
-		public bool UseWhitelist {get; } = false;
-		public List<string> Whitelist {get; } = new List<string>();
-		public List<string> Blacklist {get; } = new List<string>();
+		public bool UseWhitelist {get; set; } = false;
+		public List<string> Whitelist {get; set; } = new List<string>();
+		public List<string> Blacklist {get; set; } = new List<string>();
 
 		public WebServer(string Name, string UID, string Address, AreaNetwork? Network, string IndexFolder, string? AdminPassword=null) : base (Name, UID, Address, new User[] {
 				new User("root", AdminPassword, true, false), new User("w3", null, false, false),

@@ -1,6 +1,3 @@
-using ReHack.BaseMethods;
-using ReHack.Node;
-
 namespace ReHack.Missions
 {
 	public interface IMissionCheck
@@ -12,12 +9,14 @@ namespace ReHack.Missions
 	{
 		public string Name {get; set; }
 		public string ID {get; set; }
+		public int Payment {get; set; }
 		public List<IMissionCheck> Checks {get; } = new List<IMissionCheck>();
 		
-		public Mission(string Name, string ID)
+		public Mission(string Name, string ID, int Payment)
 		{
 			this.Name = Name;
 			this.ID = ID;
+			this.Payment = Payment;
 		}
 
 		public void AddCheck(IMissionCheck Check)

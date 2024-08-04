@@ -34,6 +34,8 @@ namespace ReHack.Welcome {
 			NodeData.Init(Player);
 			User PlayerUser = Player.GetUser(Details.Item1);
 			SSHClient.ServiceRunner(Player, PlayerUser, !DebugUtils.IsDebug(), false);
+
+
 			return false;
 		}
 	}

@@ -43,6 +43,8 @@ namespace ReHack.Data.Nodes
 
 			WebServer TestWeb = GameData.AddNode(new WebServer("Test Page", "test-web", "www.test.com", null, "Test")) as WebServer ?? throw new ArgumentNullException();
 			WebServer ReHackWeb = GameData.AddNode(new WebServer("ReHack", "rehack-web", "rehack.org", null, "ReHack")) as WebServer ?? throw new ArgumentNullException();
+			ReHackWeb.Balance = int.MaxValue;
+			BankUtils.PerformTransaction(new BankTransaction("rehack.org", "127.0.0.1", 500, "Initial agent balance"));
 			WebServer Example = GameData.AddNode(new WebServer("Example Domain", "example", "example.com", null, "Example")) as WebServer ?? throw new ArgumentNullException();
 			Example.Blacklist.Add(TestNode.UID);
 
@@ -136,6 +138,9 @@ namespace ReHack.Data.Nodes
 			WikiCategory RHWiki_Hacking = RHWiki.RootPage.AddCategory("Hacking");
 
 			WebServer Goph = GameData.AddNode(new WebServer("Gop's Guide To Hackery :: Homepage", "gophweb", "goph.org", null, "Goph")) as WebServer ?? throw new ArgumentException();
+
+			WebServer ReHackDL = GameData.AddNode(new WebServer("ReHack Client", "rehackdl", "dl.rehack.org", null, "ReHackDL")) as WebServer ?? throw new ArgumentException();
+			ReHackDL.UseWhitelist = true;
 		}
 	}
 }

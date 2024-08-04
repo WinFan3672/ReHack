@@ -22,6 +22,7 @@ using ReHack.Programs.LocalNetScan;
 using ReHack.Programs.Daemons.Telnet;
 using ReHack.Programs.Deamons.C2;
 using ReHack.Programs.Metasploit;
+using ReHack.Programs.Bank;
 
 namespace ReHack.Data.Programs
 {
@@ -52,6 +53,7 @@ namespace ReHack.Data.Programs
 			new ProgramDefinition("telnetd", "Telnet server", new ProgramDelegate(TelnetDaemon.Program), new string[] {}),
 			new ProgramDefinition("c2d", "Command-and-control server", new ProgramDelegate(C2D.Program), new string[] {}),
 			new ProgramDefinition("metahack", "Exploit generator and C2D client", new ProgramDelegate(MetaHack.Program), new string[] {}),
+			new ProgramDefinition("bankutil", "Perform bank transactions", new ProgramDelegate(BankUtil.Program), new string[] {}),
 		};
 
 		public static ProgramDefinition GetProgram(string Name)
