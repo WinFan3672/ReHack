@@ -17,8 +17,9 @@ namespace ReHack.Node.Webserver
 				}, Network)
 		{
 			this.IndexFolder = IndexFolder;
-			this.Ports.Add(GameData.GetPort("ssh"));
-			this.Ports.Add(GameData.GetPort("http"));
+			AddPort("ssh");
+			AddPort("ftp");
+			AddPort("http");
 		}
 
 		public bool CheckAccessControl(BaseNode Client)

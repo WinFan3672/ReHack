@@ -10,6 +10,7 @@ using ReHack.Filesystem;
 using ReHack.Networks;
 using ReHack.Node.News;
 using ReHack.Node.Wiki;
+using ReHack.Node.Bank;
 
 namespace ReHack.Data.Nodes
 {
@@ -43,10 +44,10 @@ namespace ReHack.Data.Nodes
 
 			WebServer TestWeb = GameData.AddNode(new WebServer("Test Page", "test-web", "www.test.com", null, "Test")) as WebServer ?? throw new ArgumentNullException();
 			WebServer ReHackWeb = GameData.AddNode(new WebServer("ReHack", "rehack-web", "rehack.org", null, "ReHack")) as WebServer ?? throw new ArgumentNullException();
-			ReHackWeb.Balance = int.MaxValue;
-			BankUtils.PerformTransaction(new BankTransaction("rehack.org", "127.0.0.1", 500, "Initial agent balance"));
 			WebServer Example = GameData.AddNode(new WebServer("Example Domain", "example", "example.com", null, "Example")) as WebServer ?? throw new ArgumentNullException();
 			Example.Blacklist.Add(TestNode.UID);
+
+			BankNode ReHackBank = GameData.AddNode(new BankNode("ReHack Bank", "rehack-bank", "bank.rehack.org", null, null, int.MaxValue)) as BankNode ?? throw new ArgumentException();
 
 			MailServer JMail = GameData.AddNode(new MailServer("JMail", "jmail", "jmail.com", null, "JMail")) as MailServer ?? throw new ArgumentException();
 			JMail.AllowLookup = false;

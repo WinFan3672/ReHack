@@ -33,10 +33,16 @@ namespace ReHack.Welcome {
 			GameData.AddNode(Player);
 			NodeData.Init(Player);
 			User PlayerUser = Player.GetUser(Details.Item1);
+
+			PerformTransactions();
+
 			SSHClient.ServiceRunner(Player, PlayerUser, !DebugUtils.IsDebug(), false);
-
-
 			return false;
+		}
+
+		private static void PerformTransactions()
+		{
+			BankUtils.PerformTransaction(new BankTransaction("bank.rehack.org", "127.0.0.1", 500, "Signup bonus"));
 		}
 	}
 }
