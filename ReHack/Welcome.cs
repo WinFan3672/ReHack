@@ -5,14 +5,12 @@ using ReHack.Programs.SSH;
 using ReHack.Data.Nodes;
 
 namespace ReHack.Welcome {
+	/// <summary>The welcome sequence referrs to what happens as soon as you hit 'New Game'.</summary>
 	public static class WelcomeSequence
 	{
+		/// <summary>Starts the game.</summary>
 		public static bool Init()
 		{
-			/// <summary>
-			/// Starts the game by creating a player node and SSH'ing into it without authenticating.
-			/// </summary>
-
 			if (Console.IsOutputRedirected)
 			{
 				Console.WriteLine("ERROR: ReHack must be running in a terminal.");

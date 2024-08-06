@@ -11,6 +11,12 @@ class Program
 		{
 			WelcomeSequence.Init();
 		}
+
+		if (System.Environment.GetEnvironmentVariables().Contains("REHACK_EXIT"))
+		{
+			return;
+		}
+
 		else
 		{
 			Console.Clear();

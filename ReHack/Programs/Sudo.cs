@@ -5,8 +5,10 @@ using ReHack.Exceptions;
 
 namespace ReHack.Programs.Sudo
 {
+	/// <summary>Runs commands as root.</summary>
 	public static class Sudo
 	{
+		/// <summary>Program function.</summary>
 		public static bool Program(string[] Args, BaseNode Client, User RunningUser)
 		{
 			if (Args.Length == 0)

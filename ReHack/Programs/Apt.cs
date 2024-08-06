@@ -7,13 +7,16 @@ using ReHack.Exceptions;
 
 namespace ReHack.Programs.Apt
 {
+	/// <summary>Package manager program.</summary>
 	public static class Apt
 	{
+		/// <summary>Returns all the packages of a package repository</summary>
 		public static Package[] GetRepoPackages(string Address)
 		{
 			PackageRepo Repo = NodeUtils.GetNodeByAddress(Address) as PackageRepo ?? throw new ArgumentException("Invalid address");
 			return Repo.Packages;
 		}
+		/// <summary>Returns all packages a node can install.</summary>
 		public static List<Package> GetPackages(BaseNode Client)
 		{
 			List<Package> Packages = new List<Package>();
@@ -27,6 +30,8 @@ namespace ReHack.Programs.Apt
 			}
 			return Packages;
 		}
+
+		/// <summary>Returns a package from a list of packages by name</summary>
 		public static Package? GetPackage(List<Package> Packages, string Name)
 		{
 			foreach(Package Item in Packages)
@@ -38,6 +43,8 @@ namespace ReHack.Programs.Apt
 			}
 			return null;
 		}
+
+		/// <summary>Turns a list of packages into a list of package names.</summary>
 		public static List<string> ListPackages(List<Package> Packages)
 		{
 			List<string> Names = new List<string>();
@@ -47,6 +54,7 @@ namespace ReHack.Programs.Apt
 			}
 			return Names;
 		}
+		/// <summary>Program function.</summary>
 		public static bool Program(string[] Args, BaseNode Client, User RunningUser)
 		{
 			if (Args.Contains("install") && Args.Length == 2)

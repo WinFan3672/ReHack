@@ -6,12 +6,15 @@ using Spectre.Console;
 
 namespace ReHack.Programs.Telnet
 {
+	/// <summary>Telnet client.</summary>
     public static class TelnetClient
     {
+		/// <summary>Launches a shell. Just a wrapper around SSHClient's shell, but that's to avoid duplicated code.</summary>
 		private static void ServiceRunner(BaseNode Client, User Person)
 		{
 			SSHClient.ServiceRunner(Client, Person, false, false);
 		}
+		/// <summary>Program function.</summary>
         public static bool Program(string[] Args, BaseNode Client, User RunningUser)
         {
 			if (Args.Length == 1)

@@ -4,8 +4,10 @@ using ReHack.BaseMethods;
 
 namespace ReHack.Programs.Debug
 {
+	/// <summary>Useful program for debugging the game.</summary>
 	public static class DebugClient
 	{
+		/// <summary>Program function.</summary>
 		public static bool Program(string[] Args, BaseNode Client, User RunningUser)
 		{
 			if (Args.Length == 1 && Args.Contains("files"))

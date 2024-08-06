@@ -5,6 +5,7 @@ using ReHack.Exceptions;
 
 namespace ReHack.Programs.Bank
 {
+	/// <summary>Send and receive money.</summary>
 	public static class BankUtil
 	{
 		static string[] Reasons = new string[] {
@@ -26,6 +27,7 @@ namespace ReHack.Programs.Bank
 
 		}
 
+		/// <summary>Program function.</summary>
 		public static bool Program(string[] Args, BaseNode Client, User RunningUser)
 		{
 			if (!RunningUser.Privileged)

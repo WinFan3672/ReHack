@@ -6,8 +6,10 @@ using ReHack.Exceptions;
 
 namespace ReHack.Programs.SSH
 {
+	/// <summary>SSH client. Arguably the most important program in ReHack.</summary>
     public static class SSHClient
     {
+		/// <summary>Runs a command on a node.</summary>
 		public static void RunCommand(BaseNode Client, string Command, User RunningUser)
 		{
 			string[] CommandPlusArgs = Command.Split(" ");
@@ -36,6 +38,7 @@ namespace ReHack.Programs.SSH
 			string Password = PrintUtils.ReadPassword();
 			return Password == Person.Password;
 		}
+		/// <summary>Runs a shell.</summary>
         public static void ServiceRunner(BaseNode Client, User Person, bool ConfirmExit=false, bool DoAuthenticate = true)
         {
 			if (DoAuthenticate)
@@ -90,6 +93,7 @@ namespace ReHack.Programs.SSH
 		{
 				Console.WriteLine("usage: ssh [user]@[hostname]");
 		}
+		/// <summary>Program function.</summary>
 		public static bool Program(string[] Args, BaseNode Player, User RunningUser)
 		{
 			if (Args.Length == 1)

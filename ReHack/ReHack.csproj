@@ -6,6 +6,7 @@
         <ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
 		<WarningLevel>4</WarningLevel>
+	    <GenerateDocumentationFile>true</GenerateDocumentationFile>
     </PropertyGroup>
     <ItemGroup>
 		<EmbeddedResource Include="Embedded/**/*.*" />

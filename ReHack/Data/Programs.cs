@@ -26,8 +26,10 @@ using ReHack.Programs.Bank;
 
 namespace ReHack.Data.Programs
 {
+	/// <summary>All of the game's prograns are here.</summary>
 	public class ProgramData
 	{
+		/// <summary>Every possible program you can install.</summary>
 		public static List<ProgramDefinition> Programs = new List<ProgramDefinition> {
 			new ProgramDefinition("ssh", "SSH Client", new ProgramDelegate(SSHClient.Program), new string[] { "ssh" } ),
 			new ProgramDefinition("help", "Lists available programs", new ProgramDelegate(HelpClient.Program), new string[] {} ),
@@ -56,6 +58,7 @@ namespace ReHack.Data.Programs
 			new ProgramDefinition("bankutil", "Perform bank transactions", new ProgramDelegate(BankUtil.Program), new string[] {}),
 		};
 
+		/// <summary>Returns a program by name.</summary>
 		public static ProgramDefinition GetProgram(string Name)
 		{
 			foreach (ProgramDefinition Program in Programs)
@@ -68,6 +71,7 @@ namespace ReHack.Data.Programs
 			throw new Exception("Invalid program name");
 		}
 
+		/// <summary>Returns a list of all programs. </summary>
 		public static List<string> ListPrograms()
 		{
 			List<string> Items = new List<string>();

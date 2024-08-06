@@ -3,8 +3,10 @@ using ReHack.BaseMethods;
 
 namespace ReHack.Programs.Ping
 {
+	/// <summary>Ping 'implementation'</summary>
 	public static class PingClient
 	{
+		/// <summary>Pings a host and displays info.</summary>
 		public static void ServiceRunner(BaseNode Client)
 		{
 			Console.WriteLine($"PING {Client.Address} 56 data bytes");
@@ -14,6 +16,7 @@ namespace ReHack.Programs.Ping
 			}
 			Console.WriteLine("4 packets transmitted, 4 received; 0% packet loss");
 		}
+		/// <summary>Program function.</summary>
 		public static bool Program(string[] Args, BaseNode Client, User RunningUser)
 		{
 			if (Args.Length == 1)

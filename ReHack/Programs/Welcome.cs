@@ -5,8 +5,10 @@ using System.Xml;
 
 namespace ReHack.Programs.Welcome
 {
+	/// <summary>Welcome to ReHack!</summary>
 	public static class WelcomeApp
 	{
+		/// <summary>Reads a welcome page's XML</summary>
 		public static void ReadXml(string Page)
 		{
 			XmlDocument Doc = new XmlDocument();
@@ -29,6 +31,7 @@ namespace ReHack.Programs.Welcome
 				}
 			}
 		}
+		/// <summary>Program function.</summary>
 		public static bool Program(string[] Args, BaseNode Client, User RunningUser)
 		{
 			Console.Clear();

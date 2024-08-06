@@ -7,11 +7,15 @@ using ReHack.Networks;
 
 namespace ReHack.Node.FTP
 {
+	/// <summary>FTP server. The web server part is to render a 'You need an FTP client' message.</summary>
 	public class FTPServer : WebServer 
 	{
+		/// <summary>Where the FTP data is held.</summary>
 		public VirtualDirectory Folder {get; set; }
+		/// <summary>Whether anonymous login is allowed</summary>
 		public bool Anonymous {get; set; }
 
+		/// <summary>Constructor</summary>
 		public FTPServer(string Name, string UID, string Address, VirtualDirectory Folder, AreaNetwork? Network, bool Anonymous=true, string? UserPassword=null, string? AdminPassword=null) : base(Name, UID, Address, Network, "This variable isn't used", AdminPassword)
 		{
 			this.Anonymous = Anonymous;
@@ -30,6 +34,7 @@ namespace ReHack.Node.FTP
 			InitUser(FtpUser);
 		}
 
+		/// <summary>Renders a message saying you need to use an FTP client.</summary>
 		public override void Render(BaseNode Client)
 		{
 			if (!this.CheckAccessControl(Client))

@@ -6,12 +6,15 @@ using ReHack.Programs.SSH;
 
 namespace ReHack.Programs.Hydra
 {
+	/// <summary>SSH brute-force.</summary>
 	public static class Hydra
 	{
+		/// <summary>Shows usage info.</summary>
 		public static void ShowUsage()
 		{
 			Console.WriteLine("usage: hydra [user]@[hostname]");
 		}
+		/// <summary>Program function.</summary>
 		public static bool Program(string[] Args, BaseNode Client, User RunningUser)
 		{
 			if (Args.Length != 1)

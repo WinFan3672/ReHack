@@ -4,11 +4,15 @@ using ReHack.Filesystem;
 
 namespace ReHack.Data
 {
+	/// <summary>Static class containing core game data.</summary>
 	public static class GameData {
+		/// <summary>The node list. This is where you need to add a node for it to be accessible to the other nodes.</summary>
 		public static List<BaseNode> Nodes { get; } = new List<BaseNode>();
 
+		/// <summary></summary>
 		public static Random Rand = new Random();
 
+		/// <summary>Every port the game understands.</summary>
 		public static List<Port> Ports {get; } = new List<Port> { 
 			new Port("FTP", "ftp", 21),
 				new Port("SSH", "ssh", 22),
@@ -29,15 +33,14 @@ namespace ReHack.Data
 				new Port("Tor Relay", "tor", 9200),
 		};
 
+		/// <summary>Adds a node to GameData.Nodes </summary>
 		public static BaseNode AddNode(BaseNode Node)
 		{
-			/// <summary>
-			/// Adds a node to the in-game WAN. Returns the node as well, for convenience.
-			/// </summary>
 			Nodes.Add(Node);
 			return Node;
 		}
 
+		/// <summary>Returns a port from GameData.Ports</summary>
 		public static Port GetPort(string PortID)
 		{
 			foreach (Port Service in Ports)
@@ -50,12 +53,14 @@ namespace ReHack.Data
 			throw new Exception("Invalid port");
 		}
 
+		/// <summary>Adds a port to a node.</summary>
 		public static void AddPort(BaseNode Node, string PortID)
 		{
 			Port P = GetPort(PortID);
 			Node.Ports.Add(P);
 		}
 
+		/// <summary>Debugging function - prints all nodes </summary>
 		public static void DebugNodes()
 		{
 			PrintUtils.Divider();
@@ -68,12 +73,15 @@ namespace ReHack.Data
 			PrintUtils.Divider();
 		}
 
+		/// <summary>Usernames that the game does not allow the player to create.</summary>
 		public static List<string> BannedUsernames = new List<string> { "admin", "root", "" };
 
 		private static string PasswordsRaw = FileUtils.GetFileContents("Passwords.txt") ?? throw new ArgumentException("Passwords file not found");
 
+		/// <summary>Brute-force dictionary.</summary>
 		public static string[] Passwords = PasswordsRaw.Split(new[] {"\r\n", "\n"}, StringSplitOptions.None);
 
+		/// <summary>The programs added to every BaseNode.</summary>
 		public static List<string> DefaultPrograms = new List<string> { 
 			"help", 
 				"motd",
@@ -91,9 +99,11 @@ namespace ReHack.Data
 				"bankutil",
 		};
 
+		/// <summary>The manpages added to every BaseNode.</summary>
 		public static List<string> DefaultManpages = new List<string> {
 		};
 
+		/// <summary>The default directories added to every BaseNode's filesystem.</summary>
 		public static VirtualDirectory[] DefaultDirs = new VirtualDirectory[] {
 			new VirtualDirectory("home", new VirtualFile[]{}, new VirtualDirectory[] {}),
 				new VirtualDirectory("etc", new VirtualFile[] {}, new VirtualDirectory[] {

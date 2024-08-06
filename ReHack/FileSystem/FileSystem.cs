@@ -4,24 +4,31 @@ using ReHack.BaseMethods;
 
 namespace ReHack.Filesystem
 {
-
+	/// <summary>Virtual file interface class</summary>
 	public interface IVirtualFile
 	{
+		///
 		string Name {get; set; }
+		/// <summary>Function to view the virtual file</summary>
 		void View(BaseNode Client);
 	}
 
+	/// <summary>A file</summary>
 	public class VirtualFile : IVirtualFile
 	{
+		///
 		public string Name { get; set; }
+		///
 		public string Content { get; set; }
 
+		///
 		public VirtualFile(string name, string content = "")
 		{
 			this.Name = name;
 			this.Content = content;
 		}
 
+		///
 		public void View(BaseNode Client)
 		{
 			bool Running = true;
@@ -45,18 +52,24 @@ namespace ReHack.Filesystem
 			}
 		}
 
+		///
 		public VirtualFile Clone()
 		{
 			return new VirtualFile(new String(Name), new String(Content));
 		}
 	}
 
+	/// <summary>A directory</summary>
 	public class VirtualDirectory : IVirtualFile
 	{
+		///
 		public string Name { get; set; }
+		/// <summary>Files in the directory.</summary>
 		public List<VirtualFile> Files { get; set; }
+		/// <summary>Directories in the directory</summary>
 		public List<VirtualDirectory> SubDirectories { get; set; }
 
+		///
 		public VirtualDirectory(string name, VirtualFile[] Files, VirtualDirectory[] Dirs)
 		{
 			this.Name = name;
@@ -72,26 +85,31 @@ namespace ReHack.Filesystem
 			}
 		}
 
+		/// <summary>Adds a file </summary>
 		public void AddFile(VirtualFile file)
 		{
 			this.Files.Add(file);
 		}
 
+		/// <summary>Adds a directory</summary>
 		public void AddDirectory(VirtualDirectory directory)
 		{
 			this.SubDirectories.Add(directory);
 		}
 
+		///
 		public VirtualFile GetFile(string name)
 		{
 			return this.Files.FirstOrDefault(f => f.Name == name) ?? throw new FileNotFoundException();
 		}
-
+		
+		///
 		public VirtualDirectory GetDirectory(string name)
 		{
 			return this.SubDirectories.FirstOrDefault(d => d.Name == name) ?? throw new FileNotFoundException();
 		}
 
+		///
 		public void View(BaseNode Client)
 		{
 			bool Running = true;
@@ -112,6 +130,8 @@ namespace ReHack.Filesystem
 			}
 		}		
 
+		/// <summary>Returns a dictionary of files</summary>
+		/// <return>A dictionary in the format {file name: file}</return>
 		public Dictionary<string, IVirtualFile> EnumFiles()
 		{
 			Dictionary<string, IVirtualFile> Files = new Dictionary<string, IVirtualFile>();
@@ -126,6 +146,7 @@ namespace ReHack.Filesystem
 			return Files;
 		}
 
+		///
 		public VirtualDirectory Clone()
 		{
 			List<VirtualFile> NewFiles = new List<VirtualFile>();
@@ -142,16 +163,21 @@ namespace ReHack.Filesystem
 		}
 	}
 
+	/// <summary>A filesystem containing a root directory</summary>
 	public class FileSystem : IVirtualFile
 	{
+		///
 		public string Name {get; set; } = "Root"; // Compliance with IVirtualFile
+		///
 		public VirtualDirectory Root { get; private set; }
 
+		///
 		public FileSystem(VirtualFile[] Files, VirtualDirectory[] Directories)
 		{
 			this.Root = new VirtualDirectory("Root", Files, Directories);
 		}
 
+		///
 		public VirtualDirectory GetDirectory(string path)
 		{
 			string[] parts = path.Split('/');
@@ -167,11 +193,13 @@ namespace ReHack.Filesystem
 			return current;
 		}
 
+		///
 		public void View(BaseNode Client)
 		{
 			Root.View(Client);
 		}
 
+		///
 		public void AddFile(string path, VirtualFile file)
 		{
 			string[] parts = path.Split('/');
@@ -194,6 +222,7 @@ namespace ReHack.Filesystem
 			current.AddFile(file);
 		}
 
+		///
 		public VirtualFile? GetFile(string path)
 		{
 			string[] parts = path.Split('/');
@@ -211,6 +240,7 @@ namespace ReHack.Filesystem
 			return current.GetFile(parts.Last());
 		}
 
+		///
 		public void DeleteFile(string Path)
 		{
 			VirtualFile? File = GetFile(Path);
@@ -225,6 +255,7 @@ namespace ReHack.Filesystem
 			Directory.Files.Remove(File);
 		}
 
+		///
 		public FileSystem Clone()
 		{
 			VirtualDirectory NewRoot = Root.Clone();

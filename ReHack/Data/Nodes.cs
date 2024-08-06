@@ -14,8 +14,10 @@ using ReHack.Node.Bank;
 
 namespace ReHack.Data.Nodes
 {
+	/// <summary>Node data.</summary>
 	public static class NodeData
 	{
+		/// <summary>Creates the in-game nodes.</summary>
 		public static void Init(PlayerNode Player)
 		{
 			BaseNode TestNode = GameData.AddNode(new BaseNode("Test", "test", "test.com", new User[] { 

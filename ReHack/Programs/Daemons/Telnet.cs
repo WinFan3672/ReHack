@@ -5,8 +5,10 @@ using ReHack.Exceptions;
 
 namespace ReHack.Programs.Daemons.Telnet
 {
+	/// <summary>Telnet daemon.</summary>
 	public static class TelnetDaemon
 	{
+		/// <summary>Program function.</summary>
 		public static bool Program(string[] Args, BaseNode Client, User RunningUser)
 		{
 			if (Args.Length == 1 && Args.Contains("start"))

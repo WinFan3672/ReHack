@@ -4,8 +4,10 @@ using ReHack.BaseMethods;
 
 namespace ReHack.Programs.W3
 {
+	/// <summary>Primitive web browser (more like a webpage viewer)</summary>
 	public static class W3
 	{
+		/// <summary>Program function.</summary>
 		public static bool Program(string[] Args, BaseNode Client, User RunningUser)
 		{
 			if (Args.Length == 0)

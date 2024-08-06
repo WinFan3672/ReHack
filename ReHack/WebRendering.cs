@@ -4,8 +4,11 @@ using Spectre.Console;
 
 namespace ReHack.WebRendering
 {
+	/// <summary>Class for rendering in-game websites.</summary>
 	public static class WebRender
 	{
+		/// <summary>Renders a webpage.</summary>
+		/// <param name="XmlData">The XML data of the website as a string.</param>
 		public static void Render(string XmlData)
 		{
 			XmlDocument Doc = new XmlDocument();
@@ -18,6 +21,8 @@ namespace ReHack.WebRendering
 				RenderNode(Node, Title);
 			}
 		}
+
+		/// <summary>Renders a node in the &lt;Body&gt; section.</summary>
 		public static void RenderNode(XmlNode Node, string Title)
 		{
 			if (Node.Name == "Title")
@@ -135,6 +140,11 @@ namespace ReHack.WebRendering
 			}
 		}
 
+		/// <summary>Generates a very basic webpage.</summary>
+		/// <param name="Title">The page title.</param>
+		/// <param name="Text">The webpage's content.</param>
+		/// <param name="Footer">The text in the footer, usually a copyright notice.</param>
+		/// <param name="Clear">If enabled, the screen is cleared before loading.</param>
 		public static string GenerateBasicWebpage(string Title, string Text, string Footer, bool Clear=false)
 		{
 			if (Clear)

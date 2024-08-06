@@ -7,12 +7,17 @@ using System.Xml;
 
 namespace ReHack.Node.News
 {
+	/// <summary>An individual news article</summary>
 	public class NewsArticle
 	{
+		/// <summary>Article title</summary>
 		public string Title {get; set; }
+		/// <summary>Article author</summary>
 		public string Author {get; set; }
+		/// <summary>Article content</summary>
 		public string Content {get; set; }
 
+		/// <summary>Constructor.</summary>
 		public NewsArticle(string Title, string Author, string Content)
 		{
 			this.Title = Title;
@@ -21,19 +26,25 @@ namespace ReHack.Node.News
 		}
 
 	}
+	/// <summary>A news server serves news.</summary>
 	public class NewsServer : WebServer
 	{
+		/// <summary>News articles associated with the node.</summary>
 		public List<NewsArticle> Articles {get; set; }
+
+		/// <summary>Constructor.</summary>
 		public NewsServer(string Name, string UID, string Address, AreaNetwork? Network) : base(Name, UID, Address, Network, "") 
 		{
 			Articles = new List<NewsArticle>();
 		}
 
+		/// <summary>Adds an article.</summary>
 		public void AddArticle(NewsArticle Article)
 		{
 			Articles.Add(Article);
 		}
 
+		/// <summary>Gets a list of articles as a dict in the format {title: article}</summary>
 		public Dictionary<string, NewsArticle> GetArticlesAsDic()
 		{
 			Dictionary<string, NewsArticle> Dic = new Dictionary<string, NewsArticle>();
@@ -44,11 +55,13 @@ namespace ReHack.Node.News
 			return Dic;
 		}
 
+		/// <summary>Renders an article</summary>
 		public string RenderArticle(NewsArticle Article)
 		{
 			return WebRender.GenerateBasicWebpage(Article.Title, Article.Content, $"(c) {Name}, all rights reserved");
 		}
 
+		/// <summary>Renders server</summary>
 		public override void Render(BaseNode Client)
 		{
 			if (!CheckAccessControl(Client))
@@ -69,8 +82,10 @@ namespace ReHack.Node.News
 		}
 	}
 
+	/// <summary>Tools for loading news article</summary>
 	public static class NewsUtils
 	{
+		/// <summary>Takes news article XML data and returns a NewsArticle from it.</summary>
 		public static NewsArticle GenerateArticle(string XmlData)
 		{
 			XmlDocument Doc = new XmlDocument();
@@ -82,6 +97,7 @@ namespace ReHack.Node.News
 			return new NewsArticle(TitleNode.InnerText, AuthorNode.InnerText, TextNode.InnerText.Replace("\t", ""));
 		}
 
+		///
 		public static string GetID(string XmlData)
 		{
 			XmlDocument Doc = new XmlDocument();
@@ -92,6 +108,7 @@ namespace ReHack.Node.News
 			return ID.Value;
 		}
 
+		/// <summary>Adds articles from an XML data file</summary>
 		public static void AddArticleFromFile(string FileName)
 		{
 			XmlDocument Doc = new XmlDocument();

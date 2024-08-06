@@ -5,8 +5,10 @@ using Spectre.Console;
 
 namespace ReHack.Programs.Nmap
 {
+	/// <summary>Shows ports open on a node</summary>
 	public static class Nmap
 	{
+		/// <summary>Takes a Client and displays its ports.</summary>
 		public static void ShowPorts(BaseNode Client)
 		{
 			if (Client.Ports.Count == 0)
@@ -31,6 +33,7 @@ namespace ReHack.Programs.Nmap
 			}
 			PrintUtils.Divider();
 		}
+		/// <summary>Program function.</summary>
 		public static bool Program(string[] Args, BaseNode Client, User RunningUser)
 		{
 			if (Args.Length == 1)

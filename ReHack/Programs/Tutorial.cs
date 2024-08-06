@@ -4,8 +4,10 @@ using Spectre.Console;
 
 namespace ReHack.Programs.Tutorial
 {
+	/// <summary>Tutorial program.</summary>
 	public static class TutorialApp
 	{
+		/// <summary>Program function.</summary>
 		public static bool Program(string[] Args, BaseNode Client, User RunningUser)
 		{
 			Console.Clear();

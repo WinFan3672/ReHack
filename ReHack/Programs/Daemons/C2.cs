@@ -5,8 +5,10 @@ using Spectre.Console;
 
 namespace ReHack.Programs.Deamons.C2
 {
+	/// <summary>Command-and-control daemon.</summary>
 	public static class C2D
 	{
+		/// <summary>Program function.</summary>
 		public static bool Program(string[] Args, BaseNode Client, User RunningUser)
 		{
 			if (NodeUtils.CheckPort(Client, "c2"))

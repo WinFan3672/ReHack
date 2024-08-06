@@ -3,18 +3,23 @@ using ReHack.BaseMethods;
 
 namespace ReHack.Networks
 {
+	/// <summary>A network of computers.</summary>
 	public class AreaNetwork
 	{
-		public List<BaseNode> Nodes {get;} = new List<BaseNode>();
+		/// <summary>The nodes in the network.</summary>
+		public List<BaseNode> Nodes {get; set; }
 
+		/// <summary>Constructor.</summary>
 		public AreaNetwork()
-		{}
+		{
+			Nodes = new List<BaseNode>();
+		}
 
+		/// <summary>
+		/// Returns a 10.x.y.z range IP address usable in the network.
+		/// </summary>
 		public string GenerateIPAddress()
 		{
-			/// <summary>
-			/// Returns a 10.x.y.z range IP address usable in the network.
-			/// </summary>
 			string Address = NodeUtils.GenerateIPAddress(true);
 			foreach (BaseNode Node in this.Nodes)
 			{
@@ -26,6 +31,7 @@ namespace ReHack.Networks
 			return Address;
 		}
 
+		/// <summary>Returns a node in the network.</summary>
 		public BaseNode GetNode(string UID)
 		{
 			foreach(BaseNode Node in this.Nodes)
@@ -38,6 +44,7 @@ namespace ReHack.Networks
 			throw new ArgumentException("Invalid node");
 		}
 
+		/// <summary>Returns a node in the network from the IP address.</summary>
 		public BaseNode GetNodeByAddress(string Address)
 		{
 			foreach(BaseNode Node in this.Nodes)

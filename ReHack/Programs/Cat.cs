@@ -5,8 +5,10 @@ using ReHack.Exceptions;
 
 namespace ReHack.Programs.Cat
 {
+	/// <summary>Prints the contents of files.</summary>
 	public static class Cat
 	{
+		/// <summary>Program function.</summary>
 		public static bool Program(string[] Args, BaseNode Client, User RunningUser)
 		{
 			if (Args.Length == 0)

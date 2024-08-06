@@ -6,8 +6,10 @@ using ReHack.Programs.SSH;
 
 namespace ReHack.Programs.Metasploit
 {
+	/// <summary>Metahack is a collection of hacking tools. Definitely not affiliated with Metasploit, but is a spoof of it.</summary>
 	public static class MetaHack
 	{
+		/// <summary>The payload function.</summary>
 		public static void RatShell(BaseNode Target, User TargetUser)
 		{
 			string Prompt;
@@ -44,6 +46,7 @@ namespace ReHack.Programs.Metasploit
 			}
 		}
 
+		/// <summary>Returns a list of Metahack modules installed based on shell extensions installed.</summary>
 		public static string[] GetShellExtensions(BaseNode Client)
 		{
 			List<string> Extensions = new List<string>();
@@ -56,6 +59,7 @@ namespace ReHack.Programs.Metasploit
 			}
 			return Extensions.ToArray();
 		}
+		/// <summary>Returns the human-readable name of a Metahack module.</summary>
 		public static string GetFriendlyName(string ShellExtension)
 		{
 			if (ShellExtension == "metahack-telnet")
@@ -71,6 +75,8 @@ namespace ReHack.Programs.Metasploit
 				throw new ArgumentException("Invalid shell extension");
 			}
 		}
+	
+		/// <summary>Gets the friendly names of all shell extensions.</summary>
 		public static string[] GetFriendlyNames(string[] ShellExtensions, bool AddExit=false)
 		{
 			List<string> Extensions = new List<string>();
@@ -114,6 +120,7 @@ namespace ReHack.Programs.Metasploit
 					break;
 			}
 		}
+		/// <summary>Program function.</summary>
 		public static bool Program(string[] Args, BaseNode Client, User RunningUser)
 		{
 			if (!NodeUtils.CheckPort(Client, "c2"))

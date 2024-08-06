@@ -5,8 +5,10 @@ using Spectre.Console;
 
 namespace ReHack.Programs.LS
 {
+	/// <summary>Lists contents of directories.</summary>
 	public static class LS
 	{
+		/// <summary>Program function.</summary>
 		public static bool Program(string[] Args, BaseNode Client, User RunningUser)
 		{
 			string DirectoryName;

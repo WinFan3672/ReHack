@@ -1,17 +1,22 @@
 using ReHack.BaseMethods;
-using ReHack.Data;
 using ReHack.WebRendering;
 using ReHack.Networks;
 
 namespace ReHack.Node.Webserver
 {
+	/// <summary>Web server.</summary>
 	public class WebServer : BaseNode
 	{
+		/// <summary>The folder containing the index.xml</summary>
 		public string IndexFolder {get; set; }
+		/// <summary>Whether or not to use the whitelist.</summary>
 		public bool UseWhitelist {get; set; } = false;
+		/// <summary>Access whitelist - contains UIDs not addresses</summary>
 		public List<string> Whitelist {get; set; } = new List<string>();
+		/// <summary>Access blacklist - contains UIDs not addresses</summary>
 		public List<string> Blacklist {get; set; } = new List<string>();
 
+		///
 		public WebServer(string Name, string UID, string Address, AreaNetwork? Network, string IndexFolder, string? AdminPassword=null) : base (Name, UID, Address, new User[] {
 				new User("root", AdminPassword, true, false), new User("w3", null, false, false),
 				}, Network)
@@ -22,11 +27,11 @@ namespace ReHack.Node.Webserver
 			AddPort("http");
 		}
 
+		/// <summary>
+		/// Checks if a node is allowed based on the whitelist and blacklist.
+		/// </summary>
 		public bool CheckAccessControl(BaseNode Client)
 		{
-			/// <summary>
-			/// Checks if a node is allowed based on the whitelist and blacklist.
-			/// </summary
 
 			if (this.Blacklist.Contains(Client.UID))
 			{
@@ -42,11 +47,13 @@ namespace ReHack.Node.Webserver
 			return true;
 		}
 
+		/// <summary>Renders an access denied page.</summary>
 		public virtual void RenderAccessDenied()
 		{
 			WebRender.Render(WebRender.GenerateBasicWebpage("Error 403", "Access to this website is denied.", $"Apache Web Server"));
 		}
 
+		/// <summary>Renders content.</summary>
 		public virtual void Render(BaseNode Client)
 		{
 			if (!this.CheckAccessControl(Client))

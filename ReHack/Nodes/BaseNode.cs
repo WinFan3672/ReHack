@@ -7,24 +7,42 @@ using ReHack.Exceptions;
 using Spectre.Console;
 
 namespace ReHack.Node {
+	/// <summary>A node. The base class for all other nodes.</summary>
 	public class BaseNode {
+		/// <summary>A node's hostname.</summary>
 		public string Name {get; set; }
+		/// <summary>A node's Unique ID or UID. Used in code to retrieve the node.</summary>
 		public string UID {get; set; }
+		/// <summary>The node's IP address or domain.</summary>
 		public string Address {get; set; }
+		/// <summary>The node's users.</summary>
 		public User[] Users{get; set; }
+		/// <summary>All ports available on the system.</summary>
 		public List<Port> Ports {get; }
+		/// <summary>All installed programs.</summary>
 		public List<ProgramDefinition> Programs {get; } = new List<ProgramDefinition>();
+		/// <summary>Installed manpages.</summary>
 		public List<string> Manpages {get; } = new List<string>();
+		/// <summary>A list of programs installed by program name. There for conveience mainly.</summary>
 		public List<string> InstalledPrograms {get;} = new List<string>();
+		/// <summary>The root filesystem.</summary>
 		public FileSystem Root {get; set; }
+		/// <summary>The current LAN.</summary>
 		public AreaNetwork? Network {get; set; }
+		/// <summary>A bool determining if the node is up. Used in CheckHealth() by default, but subclasses may replace it with a different check instead.</summary>
 		public bool Healthy {get; set; }
-		public List<string> ShellExtensions {get; set; } /// <summary>A shell extension is a pseudo-program that real programs can check against to see if it is unlocked.</summary>
+		/// <summary>A shell extension is a pseudo-program that real programs can check against to see if it is unlocked.</summary>
+		public List<string> ShellExtensions {get; set; }
+		/// <summary>How much money the node has.</summary>
 		public Int64 Balance {get; set; }
+		/// <summary>Every bank transaction where the node sent money.</summary>
 		public List<BankTransaction> MoneySent {get; set; }
+		/// <summary>Every bank transaction where the node received money.</summary>
 		public List<BankTransaction> MoneyReceived {get; set; }
+		/// <summary>Every bank transaction performed by the node. </summary>
 		public List<BankTransaction> MoneyHandled {get; set; }
 
+		/// <summary>Constructor.</summary>
 		public BaseNode(string Name, string UID, string Address, User[] Users, AreaNetwork? Network)
 		{
 			this.Name = Name;
@@ -44,11 +62,11 @@ namespace ReHack.Node {
 			this.Init();
 		}
 
+		/// <summary>
+		/// Initialisation function.
+		/// </summary>
 		public void Init()
 		{
-			/// <summary>
-			/// Initialisation function.
-			/// </summary>
 			foreach(string Program in GameData.DefaultPrograms)
 			{
 				this.AddProgram(Program);
@@ -66,11 +84,11 @@ namespace ReHack.Node {
 
 		}
 
+		/// <summary>
+		/// Returns a port in the port list.
+		/// </summary>
 		public Port GetPort(string PortID)
 		{
-			/// <summary>
-			/// Returns a port in the port list.
-			/// </summary>
 			foreach (Port Service in this.Ports)
 			{
 				if (Service.ServiceID == PortID)
@@ -81,11 +99,13 @@ namespace ReHack.Node {
 			throw new ArgumentException("Invalid port");
 		}
 
+		/// <summary>Adds a port based on a port ID.</summary>
 		public void AddPort(string PortID)
 		{
 			this.Ports.Add(GameData.GetPort(PortID));
 		}
 
+		/// <summary>Removes a port based on a port ID.</summary>
 		public void RemovePort(string PortID)
 		{
 			for (int i=0; i < Ports.Count; i++)
@@ -98,6 +118,7 @@ namespace ReHack.Node {
 			}
 		}
 
+		/// <summary>Returns a user from a username.</summary>
 		public User GetUser(string Username)
 		{
 			foreach (User Person in this.Users)
@@ -110,6 +131,7 @@ namespace ReHack.Node {
 			throw new ArgumentException("Invalid username");
 		}
 
+		/// <summary>Adds a program based on a program name.</summary>
 		public void AddProgram(string ProgramName)
 		{
 			ProgramDefinition Program = ProgramData.GetProgram(ProgramName);
@@ -121,6 +143,7 @@ namespace ReHack.Node {
 			}
 		}
 
+		/// <summary>Removes a program based on a program name.</summary>
 		public void RemoveProgram(string ProgramName)
 		{
 			ProgramDefinition Program = ProgramData.GetProgram(ProgramName);
@@ -132,6 +155,7 @@ namespace ReHack.Node {
 			}
 		}
 
+		/// <summary>Returns a list of programs</summary>
 		public List<string> ListPrograms()
 		{
 			List<string> Programs = new List<string>();
@@ -142,6 +166,7 @@ namespace ReHack.Node {
 			return Programs;
 		}
 
+		/// <summary>Returns a list of manpages</summary>
 		public List<string> ListManpages()
 		{
 			List<string> Manpages = new List<string>();
@@ -152,6 +177,7 @@ namespace ReHack.Node {
 			return Manpages;
 		}
 
+		/// <summary>Adds a file to a directory.</summary>
 		public void AddFile(string Path, VirtualFile File)
 		{
 			VirtualDirectory? Directory = this.Root.GetDirectory(Path);
@@ -163,6 +189,7 @@ namespace ReHack.Node {
 			Directory.AddFile(File);
 		}
 
+		/// <summary>Adds a directory to a directory.</summary>
 		public void AddDirectory(string Path, VirtualDirectory Directory)
 		{
 			VirtualDirectory? Dir = this.Root.GetDirectory(Path);
@@ -174,6 +201,7 @@ namespace ReHack.Node {
 			Dir.AddDirectory(Directory);
 		}
 
+		/// <summary>Prints the MOTD (Message of the Day)</summary>
 		public virtual void Welcome()
 		{
 			AnsiConsole.MarkupLine("Welcome to [red]Debian Linux[/] [green]5.0.5[/]!");
@@ -184,6 +212,7 @@ namespace ReHack.Node {
 			AnsiConsole.MarkupLine("permitted by applicable law.");
 		}
 
+		/// <summary>Returns a list of users.</summary>
 		public List<string> ListUsers()
 		{
 			List<string> Users = new List<string>();
@@ -194,14 +223,16 @@ namespace ReHack.Node {
 			return Users;
 		}
 
+		/// <summary>
+		/// Initialises a user object by creating its home folder.
+		/// </summary>
 		public void InitUser(User NewUser)
 		{
-			/// <summary>
-			/// Initialises a user object by creating its home folder.
-			/// </summary>
 			Root.GetDirectory("/home").AddDirectory(new VirtualDirectory(NewUser.Username, new VirtualFile[]{}, new VirtualDirectory[]{}));
 		}
 
+		/// <summary>Asks the user to authenticate with a password.</summary>
+		/// <return>If true, the user entered the correct password.</return>
 		public bool Authenticate(User Auth)
 		{
 			Console.Write("Password $");
@@ -209,6 +240,7 @@ namespace ReHack.Node {
 			return (Auth.Password == Password);
 		}
 
+		/// <summary>Throws an ErrorMessageException if the user isn't privileged.</summary>
 		public void CheckPerms(User RunningUser)
 		{
 			if (!RunningUser.Privileged)
@@ -217,6 +249,7 @@ namespace ReHack.Node {
 			}
 		}
 
+		/// <summary>Returns whether the node is up or not.</summary>
 		public virtual bool CheckHealth()
 		{
 			return Healthy;

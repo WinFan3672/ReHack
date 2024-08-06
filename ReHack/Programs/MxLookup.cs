@@ -6,8 +6,10 @@ using ReHack.Exceptions;
 
 namespace ReHack.Programs.MxLookup
 {
+	/// <summary>Looks up email addresses associated with a mail server.</summary>
 	public static class MXLookup
 	{
+		/// <summary>Program function.</summary>
 		public static bool Program(string[] Args, BaseNode Client, User RunningUser)
 		{
 			if (Args.Length != 1)

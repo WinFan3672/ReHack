@@ -6,13 +6,18 @@ using ReHack.Networks;
 
 namespace ReHack.Node.MailSignup
 {
+	/// <summary>A web server that lets users create accounts on a mail server.</summary>
 	public class MailSignupService : WebServer
 	{
+		/// <summary>The message shown to the user when they create an account.</summary>
 		public string WelcomeMessage {get;} = "Thank you for creating an account with us.";
+
+		/// <summary>Constructor.</summary>
 		public MailSignupService(string Name, string UID, string Address, AreaNetwork? Network, string Target, string? AdminPassword=null) : base (Name, UID, Address, Network, Target, AdminPassword)
 		{
 		}
 
+		/// <summary>Renders the signup page.</summary>
 		public override void Render(BaseNode Client)
 		{
 			if (!CheckAccessControl(Client))

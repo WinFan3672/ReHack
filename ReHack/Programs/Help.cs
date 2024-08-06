@@ -3,8 +3,10 @@ using ReHack.BaseMethods;
 using ReHack.Data.Programs;
 
 namespace ReHack.Programs.Help {
+	/// <summary>Lists installed programs.</summary>
 	public static class HelpClient
 	{
+		/// <summary>Program function.</summary>
 		public static bool Program(string[] Args, BaseNode Client, User RunningUser)
 		{
 			PrintUtils.Divider();

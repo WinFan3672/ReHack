@@ -5,7 +5,9 @@ using Spectre.Console;
 
 namespace ReHack.Node.Player
 {
+	/// <summary>The player's node.</summary>
     public class PlayerNode : BaseNode {
+		///
         public PlayerNode(string Username, string Password) : base("Localhost", "localhost", "127.0.0.1", new[] {new User(Username, Password, true, false)}, null) {
 			// Add ports
 			this.Ports.Add(GameData.GetPort("ssh"));
@@ -26,6 +28,7 @@ namespace ReHack.Node.Player
 			AptSources.Content = AptSources.Content + "\npkg.rehack.org";
         }
 
+		///
 		public override void Welcome()
 		{
 			if (!DebugUtils.IsDebug())

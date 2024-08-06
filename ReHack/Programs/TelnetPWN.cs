@@ -5,8 +5,10 @@ using System.Threading;
 
 namespace ReHack.Programs.TelnetHack
 {
+	/// <summary>Program that pwns Telnet by stealing passwords.</summary>
 	public static class TelnetPwn
 	{
+		/// <summary>Program function.</summary>
 		public static bool Program(string[] Args, BaseNode Client, User RunningUser)
 		{
 			if (Args.Length != 1)

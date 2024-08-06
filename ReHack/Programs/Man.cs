@@ -4,8 +4,10 @@ using System.Xml;
 
 namespace ReHack.Programs.Man
 {
+	/// <summary>Reads manpages.</summary>
 	public static class ManClient
 	{
+		/// <summary>Reads a manpage.</summary>
 		public static void ReadManpage(string Manpage)
 		{
 			Console.Clear();
@@ -52,6 +54,7 @@ namespace ReHack.Programs.Man
 			}
 			PrintUtils.PrintCentered(Epilog, Console.WindowWidth, '─', '│');
 		}
+		/// <summary>The lsman program.</summary>
 		public static bool ListProgram(string[] Args, BaseNode Client, User RunningUser)
 		{
 			foreach (string Manpage in Client.ListManpages())
@@ -60,6 +63,7 @@ namespace ReHack.Programs.Man
 			}
 			return true;
 		}
+		/// <summary>Program function.</summary>
 		public static bool Program(string[] Args, BaseNode Client, User RunningUser)
 		{
 			if (Args.Length == 1)

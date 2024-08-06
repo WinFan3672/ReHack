@@ -1,13 +1,14 @@
 using ReHack.Node;
 using ReHack.Node.FTP;
-using ReHack.Filesystem;
 using ReHack.BaseMethods;
 using Spectre.Console;
 
 namespace ReHack.Programs.FTP
 {
+	/// <summary>FTP client.</summary>
 	public static class FTPClient
 	{
+		/// <summary>Program function.</summary>
 		public static bool Program(string[] Args, BaseNode Client, User RunningUser)
 		{
 			if (Args.Length != 1)
