@@ -149,10 +149,10 @@ namespace ReHack.WebRendering
 		{
 			if (Clear)
 			{
-				return $"<Webpage><Head><Title>{Title}</Title></Head><Body><Command cmd='Clear'/><Title /><Text>{Text}</Text><Footer>{Footer}</Footer></Body></Webpage>";
+				return $"<Webpage><Head><Title>{System.Security.SecurityElement.Escape(Title)}</Title></Head><Body><Command cmd='Clear'/><Title /><Text>{System.Security.SecurityElement.Escape(Text)}</Text><Footer>{System.Security.SecurityElement.Escape(Footer)}</Footer></Body></Webpage>";
 			}
 			else
-				return $"<Webpage><Head><Title>{Title}</Title></Head><Body><Title /><Text>{Text}</Text><Footer>{Footer}</Footer></Body></Webpage>";
+				return $"<Webpage><Head><Title>{System.Security.SecurityElement.Escape(Title)}</Title></Head><Body><Title /><Text>{System.Security.SecurityElement.Escape(Text)}</Text><Footer>{System.Security.SecurityElement.Escape(Footer)}</Footer></Body></Webpage>";
 			{
 			}
 		}

@@ -1,0 +1,14 @@
+<Articles>
+	<Article id="enwired">
+		<Title>Goodbye EnWired</Title>
+		<Author>Elliot Marksman</Author>
+		<Text>Enwired.goodbye</Text>
+		<ArticleID>enwired1</ArticleID>
+	</Article>
+	<Article id="enwired">
+		<Title>Goodbye EnWired - Comments</Title>
+		<Author>Elliot Marksman</Author>
+		<Text>EnWired.goodbye2</Text>
+		<ArticleID>enwired2</ArticleID>
+	</Article>
+</Articles>

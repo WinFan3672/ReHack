@@ -133,14 +133,17 @@ namespace ReHack.Data.Nodes
 			NewsServer MHT = GameData.AddNode(new NewsServer("MHT", "mht", "mht.com", null)) as NewsServer ?? throw new ArgumentException();
 			NewsUtils.AddArticleFromFile("office2010");
 
-			MailServer EnWired = GameData.AddNode(new MailServer("EnWired", "enwired", "enwired.com", null, null, "EnWired")) as MailServer ?? throw new ArgumentException();
-			EnWired.CreateMailAccount("sales", null);
-			EnWired.CreateMailAccount("elliot.marksman", null);
+			/*MailServer EnWired = GameData.AddNode(new MailServer("EnWired", "enwired", "enwired.com", null, null, "EnWired")) as MailServer ?? throw new ArgumentException();*/
+			/*EnWired.CreateMailAccount("sales", null);*/
+			/*EnWired.CreateMailAccount("elliot.marksman", null);*/
+
+			NewsServer EnWired = GameData.AddNode(new NewsServer("EnWired", "enwired", "enwired.com", null)) as NewsServer ?? throw new ArgumentException();
 
 			WikiServer RHWiki = GameData.AddNode(new WikiServer("ReHack Wiki", "rhwiki", "wiki.rehack.org", null, null)) as WikiServer ?? throw new ArgumentException();
 			WikiCategory RHWiki_Hacking = RHWiki.RootPage.AddCategory("Hacking");
 
-			WebServer Goph = GameData.AddNode(new WebServer("Gop's Guide To Hackery :: Homepage", "gophweb", "goph.org", null, "Goph")) as WebServer ?? throw new ArgumentException();
+			WebServer Goph = GameData.AddNode(new WebServer("Goph's Guide To Hackery :: Homepage", "gophweb", "goph.org", null, "Goph")) as WebServer ?? throw new ArgumentException();
+			NewsUtils.AddArticleFromFile("enwired");
 
 			WebServer ReHackDL = GameData.AddNode(new WebServer("ReHack Client", "rehackdl", "dl.rehack.org", null, "ReHackDL")) as WebServer ?? throw new ArgumentException();
 			ReHackDL.UseWhitelist = true;

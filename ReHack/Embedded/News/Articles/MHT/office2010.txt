@@ -1,0 +1,13 @@
+I recently got my hands on an early review copy of Workplace 2010, the newest iteration of NanoSoft's office suite releasing in June. While its predecessor, 2007, made much more radical changes to UI, this release focuses solely on small, iterative changes. 
+
+The first thing I noticed was that the general UI has been cleaned up a little. In place of the old Office logo button, there is now a colored File tab, which takes you to a separate menu instead of a dropdown, which I prefer. I also noticed that the integration with Workspaces Aero is much better than the previous release, with it feeling like a truly native app. Of course, it goes for almost all apps, but enabling Aero makes using it a treat.
+
+The review copy included some release notes that pointed out some features I'd missed, including one that particularly jumped out at me - collaborative editing. You can, if you sign into your Workspaces Live account, invite users to edit your document by emailing them a URL, and, once they accept it, they can, in real-time, edit your document. I could definitely see companies embracing this almost immediately, as it'd all but eliminate the need to send files back and forth.
+
+Speaking of sending files to each other, another useful feature is SkyDrive integration. SkyDrive is NanoSoft's implementation of cloud storage, something that's rapidly gaining popularity. I have no idea where the term cloud storage came from, since clouds have nothing to do with it, and the name SkyDrive doesn't allay the confusion in the slightest, but I won't complain. However, I don't think I'll be using tghe service myself, as $10 a month for a few gigabytes of storage makes little sense to me when I can buy a hard drive for $120 (a year's subscription) that could hold many more files and would also not have upkeep costs.
+
+One thing I definitely didn't notice but wish I did was the customisable Ribbon. The Ribbon can now be fully customised, meaning you can add more tabs, more groups, and more options within it. The menu allows you to see common commands, commands in various categories, or everything. A fair warning, there's a LOT of everything.
+
+Some more minor changes include support for international OpenWorkplaceXML Documents, an Accessibility Checker, background removal for images which works surprisingly well, and even Protected View, which disallows editing and macro support for documents sourced externally, such as from the Internet.
+
+Overall, this release, while not making any radical changes, is a welcome upgrade and well worth the wait. As soon as it releases, I'd recommend you pick up a copy and pop it into your PC. It makes for nice mantlepiece material, too.

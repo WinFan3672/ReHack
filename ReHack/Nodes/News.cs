@@ -17,12 +17,16 @@ namespace ReHack.Node.News
 		/// <summary>Article content</summary>
 		public string Content {get; set; }
 
+		/// <summary>Node UID for article</summary>
+		public string UID {get; set; }
+
 		/// <summary>Constructor.</summary>
-		public NewsArticle(string Title, string Author, string Content)
+		public NewsArticle(string Title, string Author, string Content, string UID)
 		{
 			this.Title = Title;
 			this.Author = Author;
 			this.Content = Content;
+			this.UID = UID;
 		}
 
 	}
@@ -48,7 +52,7 @@ namespace ReHack.Node.News
 		public Dictionary<string, NewsArticle> GetArticlesAsDic()
 		{
 			Dictionary<string, NewsArticle> Dic = new Dictionary<string, NewsArticle>();
-			foreach(NewsArticle Article in this.Articles)
+			foreach(NewsArticle Article in Articles)
 			{
 				Dic[Article.Title] = Article;
 			}
@@ -64,6 +68,7 @@ namespace ReHack.Node.News
 		/// <summary>Renders server</summary>
 		public override void Render(BaseNode Client)
 		{
+			Console.Clear();
 			if (!CheckAccessControl(Client))
 			{
 				RenderAccessDenied();
@@ -85,27 +90,34 @@ namespace ReHack.Node.News
 	/// <summary>Tools for loading news article</summary>
 	public static class NewsUtils
 	{
-		/// <summary>Takes news article XML data and returns a NewsArticle from it.</summary>
-		public static NewsArticle GenerateArticle(string XmlData)
+		/// <summary>Gets the content of an article by a filename</summary>
+		public static string GetArticleText(string filename)
 		{
-			XmlDocument Doc = new XmlDocument();
-			Doc.LoadXml(XmlData);
-			XmlNode Root = Doc.SelectSingleNode("//Article") ?? throw new XmlException("No article found");
+			string Content = FileUtils.GetFileContents($"News.Articles.{filename}.txt") ?? throw new ArgumentException();
+			return Content.TrimEnd('\n') ?? throw new ArgumentException(filename);
+		}
+		/// <summary>Takes news article XML data and returns a NewsArticle from it.</summary>
+		public static NewsArticle GenerateArticle(XmlNode Root, string UID)
+		{
 			XmlNode TitleNode = Root.SelectSingleNode("//Title") ?? throw new XmlException("No title");
 			XmlNode AuthorNode = Root.SelectSingleNode("//Author") ?? throw new XmlException("No author");
 			XmlNode TextNode = Root.SelectSingleNode("//Text") ?? throw new XmlException("No text");
-			return new NewsArticle(TitleNode.InnerText, AuthorNode.InnerText, TextNode.InnerText.Replace("\t", ""));
+			return new NewsArticle(TitleNode.InnerText, AuthorNode.InnerText, GetArticleText(TextNode.InnerText), UID);
 		}
 
-		///
-		public static string GetID(string XmlData)
+		/// <summary>Returns the UID associated with an article</summary>
+		public static string GetID(XmlNode Root)
 		{
-			XmlDocument Doc = new XmlDocument();
-			Doc.LoadXml(XmlData);
-			XmlNode Root = Doc.SelectSingleNode("//Article") ?? throw new XmlException("No article found");
 			XmlAttributeCollection Attributes = Root.Attributes ?? throw new XmlException("No attributes in root tag");
 			XmlAttribute ID = Attributes["id"] ?? throw new XmlException("No id attribute in root tag");
 			return ID.Value;
+		}
+
+		/// <summary>Returns the article's Unique ID</summary>
+		public static string GetArticleID(XmlNode Root)
+		{
+			XmlNode Tag = Root.SelectSingleNode("//ArticleID") ?? throw new XmlException("Missing ID tag for article");
+			return Tag.InnerText ?? throw new XmlException($"Missing ID value for article");
 		}
 
 		/// <summary>Adds articles from an XML data file</summary>
@@ -114,14 +126,14 @@ namespace ReHack.Node.News
 			XmlDocument Doc = new XmlDocument();
 			Doc.LoadXml(FileUtils.GetFileContents($"News.{FileName}.xml") ?? throw new ArgumentException());
 			Dictionary<string, NewsArticle> Articles = new Dictionary<string, NewsArticle>();
-			foreach(XmlNode Node in Doc.SelectNodes("//Articles") ?? throw new XmlException("No articles in file"))
+			foreach(XmlNode Node in Doc.SelectNodes("//Articles/Article") ?? throw new XmlException("No articles in file"))
 			{
-				Articles[GetID(Node.OuterXml)] = GenerateArticle(Node.OuterXml);
+				Articles[GetArticleID(Node)] = GenerateArticle(Node, GetID(Node));
 			}
 
 			foreach (KeyValuePair<string, NewsArticle> Article in Articles)
 			{
-				NewsServer Target = NodeUtils.GetNode(Article.Key) as NewsServer ?? throw new ArgumentException($"Invalid ID '{Article.Key}' for news article '{FileName}.xml'");
+				NewsServer Target = NodeUtils.GetNode(Article.Value.UID) as NewsServer ?? throw new ArgumentException($"Invalid ID '{Article.Key}' for news article '{FileName}.xml'");
 				Target.AddArticle(Article.Value);
 			}
 		}
