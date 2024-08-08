@@ -110,6 +110,9 @@ namespace ReHack.Data
 						new VirtualDirectory("apt", new VirtualFile[] {new VirtualFile("sources.list", "pkg.debian.org")}, new VirtualDirectory[] {}),
 						}),
 				new VirtualDirectory("var", new VirtualFile[]{}, new VirtualDirectory[]{}),
+				new VirtualDirectory("srv", new VirtualFile[]{}, new VirtualDirectory[] {
+						new VirtualDirectory("ftp", new VirtualFile[]{}, new VirtualDirectory[]{}),
+						}),
 		};
 
 	}
