@@ -128,9 +128,7 @@ namespace ReHack.Data.Nodes
 							}),
 					});
 
-			FTPServer DebianFTP = GameData.AddNode(new FTPServer("Debian FTP", "debianftp", "ftp.debian.org", null)) as FTPServer ?? throw new ArgumentException();
-			DebianFTP.Folder.Files = DebianFiles.Files;
-			DebianFTP.Folder.SubDirectories = DebianFiles.SubDirectories;
+			FTPServer? DebianFTP = GameData.AddNode(new FTPServer("Debian FTP", "debianftp", "ftp.debian.org", DebianFiles, null)) as FTPServer;
 
 			NewsServer MHT = GameData.AddNode(new NewsServer("MHT", "mht", "mht.com", null)) as NewsServer ?? throw new ArgumentException();
 			NewsUtils.AddArticleFromFile("office2010");

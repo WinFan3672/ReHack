@@ -16,10 +16,15 @@ namespace ReHack.Node.FTP
 		public bool Anonymous {get; set; }
 
 		/// <summary>Constructor</summary>
-		public FTPServer(string Name, string UID, string Address, AreaNetwork? Network, bool Anonymous=true, string? UserPassword=null, string? AdminPassword=null) : base(Name, UID, Address, Network, "This variable isn't used", AdminPassword)
+		public FTPServer(string Name, string UID, string Address, VirtualDirectory Folder, AreaNetwork? Network, bool Anonymous=true, string? UserPassword=null, string? AdminPassword=null) : base(Name, UID, Address, Network, "This variable isn't used", AdminPassword)
 		{
 			this.Anonymous = Anonymous;
-			Folder = Root.GetDirectory("/srv/ftp");
+			if (Folder.Name != "ftp")
+			{
+				throw new ArgumentException("Invalid folder name");
+			}
+			this.Folder = Folder;
+			this.Root.GetDirectory("/var");
 
 			Ports.Add(GameData.GetPort("ftp"));
 			Ports.Add(GameData.GetPort("telnet"));
@@ -44,7 +49,7 @@ namespace ReHack.Node.FTP
 				return;
 			}
 
-			WebRender.Render(WebRender.GenerateBasicWebpage("Apache FTP Server", "To connect to this server, use an FTP Client.", "(c) 2010 Apache Software Foundation"));
+			WebRender.Render("<Website><Head><Title>Apache FTP Server</Title></Head><Body><Title /><Text>To connect to this server, use an FTP client.</Text><Footer>(c) 2010 Apache Software Foundation</Footer></Body></Website>");
 		}
 	}
 }
